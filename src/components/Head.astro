@@ -1,0 +1,103 @@
+---
+import { SITE } from '../config';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  publishedTime?: Date;
+  updatedTime?: Date;
+  tags?: string[];
+  canonical?: URL | string;
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title,
+  description = SITE.description,
+  image = SITE.defaultOgImage,
+  type = 'website',
+  publishedTime,
+  updatedTime,
+  tags = [],
+  canonical,
+  noindex = false,
+  jsonLd,
+} = Astro.props;
+
+const canonicalURL = new URL(
+  canonical?.toString() ?? Astro.url.pathname,
+  Astro.site
+).toString();
+
+const ogImage = new URL(image, Astro.site).toString();
+const fullTitle = title === SITE.title ? title : `${title} — ${SITE.title}`;
+
+const ldArray = jsonLd
+  ? Array.isArray(jsonLd)
+    ? jsonLd
+    : [jsonLd]
+  : [];
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<meta name="author" content={SITE.author} />
+<link rel="canonical" href={canonicalURL} />
+
+{noindex ? (
+  <meta name="robots" content="noindex, nofollow" />
+) : (
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+)}
+
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={fullTitle} />
+<meta property="og:locale" content={SITE.locale} />
+<meta property="og:site_name" content={SITE.title} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image:alt" content={fullTitle} />
+
+{type === 'article' && publishedTime && (
+  <meta property="article:published_time" content={publishedTime.toISOString()} />
+)}
+{type === 'article' && updatedTime && (
+  <meta property="article:modified_time" content={updatedTime.toISOString()} />
+)}
+{type === 'article' && (
+  <meta property="article:author" content={SITE.author} />
+)}
+{type === 'article' &&
+  tags.map((tag) => <meta property="article:tag" content={tag} />)}
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="alternate icon" href="/favicon.ico" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title={`${SITE.title} — RSS`}
+  href={new URL('/rss.xml', Astro.site).toString()}
+/>
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<meta name="theme-color" content="#0d0c10" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#fcfbf7" media="(prefers-color-scheme: light)" />
+
+{ldArray.map((ld) => (
+  <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+))}

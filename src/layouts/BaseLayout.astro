@@ -1,0 +1,70 @@
+---
+import { SITE } from '../config';
+import Head from '../components/Head.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  publishedTime?: Date;
+  updatedTime?: Date;
+  tags?: string[];
+  canonical?: URL | string;
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const props = Astro.props;
+
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: SITE.author,
+  url: SITE.url,
+  email: SITE.email,
+};
+
+const websiteLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE.title,
+  url: SITE.url,
+  inLanguage: SITE.locale,
+  description: SITE.description,
+};
+
+const baseLd = [personLd, websiteLd];
+const allLd = props.jsonLd
+  ? [...baseLd, ...(Array.isArray(props.jsonLd) ? props.jsonLd : [props.jsonLd])]
+  : baseLd;
+---
+
+<!doctype html>
+<html lang={SITE.locale.split('-')[0]}>
+  <head>
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = stored || (prefersDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+          document.documentElement.style.colorScheme = theme;
+        } catch (e) {}
+      })();
+    </script>
+    <Head {...props} jsonLd={allLd} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">İçeriğe atla</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

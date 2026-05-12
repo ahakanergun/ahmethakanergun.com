@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    .bg { fill: #fcfbf7; }
+    .ink { fill: #18171a; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d0c10; }
+      .ink { fill: #ecebe7; }
+    }
+  </style>
+  <rect class="bg" width="64" height="64"/>
+  <text class="ink" x="50%" y="60%" font-family="Georgia, 'Iowan Old Style', serif" font-weight="500" font-size="42" font-style="italic" text-anchor="middle" dominant-baseline="middle">a</text>
+</svg>

@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Sayfa bulunamadı" description="Bu yol bir yere çıkmıyor." noindex>
+  <section class="nf wrap">
+    <p class="eyebrow"><em>404</em></p>
+    <h1 class="nf__title">Sayfa bulunamadı</h1>
+    <p class="nf__msg">
+      Bu yol bir yere çıkmıyor. Aradığın yazı için
+      <a href="/blog">blog dizinini</a> tarayabilir veya
+      <a href="/">anasayfaya</a> dönebilirsin.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    padding-block: clamp(3rem, 8vw, 6rem) clamp(3rem, 6vw, 5rem);
+    min-height: 50vh;
+  }
+  .nf__title {
+    font-size: var(--t-5);
+    margin: var(--s-3) 0 var(--s-4);
+    letter-spacing: -0.028em;
+  }
+  .nf__msg {
+    font-size: var(--t-1);
+    color: var(--ink-soft);
+    max-width: 32em;
+  }
+</style>

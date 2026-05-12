@@ -1,0 +1,294 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../config';
+import { getPublishedPosts, formatDate } from '../utils/content';
+
+const allPosts = await getPublishedPosts();
+const recent = allPosts.slice(0, 5);
+
+const firstName = SITE.author.split(' ').slice(0, -1).join(' ');
+const lastName = SITE.author.split(' ').slice(-1)[0];
+---
+
+<BaseLayout
+  title={SITE.title}
+  description={SITE.description}
+  type="website"
+>
+  <section class="hero wrap--wide">
+    <p class="eyebrow fade-up fade-up-1"><em>Merhaba.</em></p>
+
+    <h1 class="hero__name fade-up fade-up-2">
+      <span class="hero__given">{firstName}</span>{' '}
+      <span class="hero__family">{lastName}</span>
+    </h1>
+
+    <p class="hero__tagline fade-up fade-up-3">
+      <em>{SITE.tagline}</em>
+    </p>
+
+    <p class="hero__intro fade-up fade-up-4">
+      {/* TODO: kendi 1-2 cümlelik tanıtımını buraya yaz */}
+      Yazılım, tasarım ve üretim üzerine düşünür, yazar, yaparım.
+      Burası uzun düşünmeyi gerektiren işlerin biriktiği yer.
+    </p>
+  </section>
+
+  <hr class="divider divider--centered fade-up fade-up-5" />
+
+  <section class="about wrap--wide">
+    <p class="section-label">Hakkımda</p>
+    <div class="about__body">
+      <p>
+        {/* TODO: birinci paragraf — nerede çalıştığın, ne işle uğraştığın */}
+        Burada birkaç paragrafla kendinden bahset — şu sıralar ne ile
+        ilgileniyorsun, hangi araçlarla çalışıyorsun, hangi konularda
+        düşünüyorsun. <code>src/pages/index.astro</code> dosyasından düzenle.
+      </p>
+      <p>
+        {/* TODO: ikinci paragraf — ilgi alanları, tutkular */}
+        İkinci paragrafa daha kişisel bir not bırakabilirsin — okumayı
+        sevdiğin konular, etkilendiğin kişiler, üzerinde çalıştığın yan
+        projeler.
+      </p>
+    </div>
+  </section>
+
+  {recent.length > 0 && (
+    <>
+      <hr class="divider divider--centered" />
+
+      <section class="recent wrap--wide">
+        <header class="recent__head">
+          <p class="section-label">Son Yazılar</p>
+          <a class="recent__all" href="/blog">Tümü →</a>
+        </header>
+
+        <ul class="post-list" role="list">
+          {recent.map((post) => {
+            const date = formatDate(post.data.pubDate, 'tr-TR');
+            const shortDate = new Intl.DateTimeFormat('tr-TR', {
+              day: '2-digit',
+              month: 'short',
+              year: 'numeric',
+            }).format(post.data.pubDate);
+            return (
+              <li class="post-list__item">
+                <a class="post-list__link" href={`/blog/${post.id}`}>
+                  <time class="post-list__date" datetime={date.iso}>
+                    {shortDate}
+                  </time>
+                  <span class="post-list__title">{post.data.title}</span>
+                  <span class="post-list__arrow" aria-hidden="true">→</span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    </>
+  )}
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: clamp(3rem, 8vw, 7rem) clamp(2rem, 5vw, 4rem);
+  }
+
+  .hero__name {
+    font-family: var(--font);
+    font-size: var(--t-7);
+    font-weight: 500;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    margin: var(--s-4) 0 var(--s-5);
+    color: var(--ink);
+    font-optical-sizing: auto;
+    text-wrap: balance;
+  }
+
+  .hero__given {
+    display: inline-block;
+  }
+
+  .hero__family {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    display: inline-block;
+  }
+
+  .hero__tagline {
+    font-family: var(--font);
+    font-size: var(--t-3);
+    font-weight: 400;
+    color: var(--ink-soft);
+    margin: 0 0 var(--s-5);
+    max-width: 28em;
+    line-height: 1.35;
+  }
+
+  .hero__tagline em {
+    font-style: italic;
+  }
+
+  .hero__intro {
+    font-family: var(--font);
+    font-size: var(--t-1);
+    color: var(--ink-mute);
+    max-width: 36em;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Section labels */
+  .section-label {
+    font-family: var(--font);
+    font-style: italic;
+    font-size: var(--t--1);
+    color: var(--muted);
+    margin: 0 0 var(--s-5);
+    letter-spacing: 0.01em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7em;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 1.4rem;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  /* About */
+  .about {
+    padding-block: var(--s-6) var(--s-6);
+  }
+
+  .about__body {
+    font-family: var(--font);
+    font-size: var(--t-1);
+    line-height: 1.7;
+    color: var(--ink-soft);
+    max-width: 38em;
+  }
+
+  .about__body p + p { margin-top: 1em; }
+
+  .about__body code {
+    font-family: var(--font-mono);
+    font-size: 0.86em;
+    background: var(--bg-elev);
+    padding: 0.12em 0.4em;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--rule);
+    color: var(--ink);
+  }
+
+  /* Recent posts */
+  .recent {
+    padding-block: var(--s-6) var(--s-7);
+  }
+
+  .recent__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: var(--s-4);
+  }
+
+  .recent__head .section-label {
+    margin: 0;
+  }
+
+  .recent__all {
+    font-style: italic;
+    font-size: var(--t--1);
+    color: var(--muted);
+    background-image: linear-gradient(var(--rule), var(--rule));
+    background-size: 100% 1px;
+  }
+
+  .recent__all:hover {
+    color: var(--accent);
+    background-image: linear-gradient(var(--accent), var(--accent));
+  }
+
+  .post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .post-list__item + .post-list__item {
+    border-top: 1px solid var(--rule);
+  }
+
+  .post-list__link {
+    display: grid;
+    grid-template-columns: 8rem 1fr 1.5rem;
+    gap: 1.4rem;
+    align-items: baseline;
+    padding: 0.95rem 0.9rem;
+    margin-inline: -0.9rem;
+    border-radius: var(--radius-sm);
+    background-image: none;
+    color: var(--ink);
+    padding-bottom: 0.95rem;
+    transition:
+      background var(--t-fast),
+      transform var(--t-base);
+  }
+
+  .post-list__link:hover {
+    background: var(--surface-hover);
+    transform: translateX(3px);
+  }
+
+  .post-list__date {
+    font-family: var(--font);
+    font-size: var(--t--1);
+    font-style: italic;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .post-list__title {
+    font-family: var(--font);
+    font-weight: 500;
+    font-size: var(--t-1);
+    line-height: 1.32;
+    color: var(--ink);
+    letter-spacing: -0.012em;
+  }
+
+  .post-list__arrow {
+    color: var(--muted-soft);
+    font-size: var(--t-0);
+    transition: color var(--t-fast), transform var(--t-base);
+    justify-self: end;
+  }
+
+  .post-list__link:hover .post-list__arrow {
+    color: var(--accent);
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 36rem) {
+    .post-list__link {
+      grid-template-columns: 1fr auto;
+      gap: 0.25rem;
+    }
+    .post-list__date {
+      grid-column: 1 / -1;
+      order: -1;
+      font-size: var(--t--2);
+    }
+    .post-list__arrow {
+      display: none;
+    }
+  }
+</style>

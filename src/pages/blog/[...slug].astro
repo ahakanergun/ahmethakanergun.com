@@ -1,0 +1,192 @@
+---
+import { type CollectionEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../config';
+import { getPublishedPosts, formatDate, readingTime } from '../../utils/content';
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+type Props = { post: CollectionEntry<'blog'> };
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const pubDate = formatDate(post.data.pubDate, 'tr-TR');
+const updatedDate = post.data.updatedDate
+  ? formatDate(post.data.updatedDate, 'tr-TR')
+  : null;
+
+const minutes = readingTime(post.body ?? '').replace(' min', '');
+const readingLabel = `${minutes} dk okuma`;
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
+  author: { '@type': 'Person', name: SITE.author, url: SITE.url },
+  publisher: { '@type': 'Person', name: SITE.author, url: SITE.url },
+  inLanguage: SITE.locale,
+  url: new URL(`/blog/${post.id}`, SITE.url).toString(),
+  mainEntityOfPage: new URL(`/blog/${post.id}`, SITE.url).toString(),
+  keywords: post.data.tags.join(', '),
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Anasayfa', item: SITE.url },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Blog',
+      item: new URL('/blog', SITE.url).toString(),
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: post.data.title,
+      item: new URL(`/blog/${post.id}`, SITE.url).toString(),
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  type="article"
+  publishedTime={post.data.pubDate}
+  updatedTime={post.data.updatedDate}
+  tags={post.data.tags}
+  canonical={post.data.canonicalURL}
+  jsonLd={[articleLd, breadcrumbLd]}
+>
+  <article class="post">
+    <header class="post__head wrap">
+      <p class="eyebrow"><em>Yazı</em></p>
+
+      <h1 class="post__title">{post.data.title}</h1>
+
+      {post.data.description && (
+        <p class="post__deck"><em>{post.data.description}</em></p>
+      )}
+
+      <div class="post__meta">
+        <time datetime={pubDate.iso}>{pubDate.display}</time>
+        <span class="post__sep" aria-hidden="true">·</span>
+        <span>{readingLabel}</span>
+        {updatedDate && (
+          <>
+            <span class="post__sep" aria-hidden="true">·</span>
+            <span class="muted">Güncellendi {updatedDate.display}</span>
+          </>
+        )}
+      </div>
+
+      {post.data.tags.length > 0 && (
+        <ul class="post__tags" role="list" aria-label="Etiketler">
+          {post.data.tags.map((t) => (
+            <li><span class="pill">{t}</span></li>
+          ))}
+        </ul>
+      )}
+    </header>
+
+    <hr class="divider wrap" />
+
+    <div class="wrap prose post__body">
+      <Content />
+    </div>
+
+    <footer class="wrap post__foot">
+      <hr class="divider--centered" />
+      <p class="post__back">
+        <a href="/blog">← Tüm yazılar</a>
+      </p>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  .post {
+    padding-block: clamp(1.5rem, 4vw, 3rem) 1.5rem;
+  }
+
+  .post__head {
+    padding-bottom: var(--s-5);
+  }
+
+  .post__title {
+    font-size: var(--t-5);
+    line-height: 1.08;
+    margin: var(--s-3) 0 var(--s-3);
+    letter-spacing: -0.028em;
+  }
+
+  .post__deck {
+    font-family: var(--font);
+    font-size: var(--t-2);
+    line-height: 1.45;
+    color: var(--ink-mute);
+    margin: 0 0 var(--s-4);
+    max-width: 32em;
+  }
+
+  .post__deck em { font-style: italic; }
+
+  .post__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45em;
+    align-items: baseline;
+    font-family: var(--font);
+    font-style: italic;
+    font-size: var(--t--1);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .post__sep { color: var(--muted-soft); }
+
+  .post__tags {
+    list-style: none;
+    padding: 0;
+    margin: var(--s-4) 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .post__foot {
+    margin-top: var(--s-7);
+    text-align: center;
+  }
+
+  .post__back {
+    font-family: var(--font);
+    font-style: italic;
+    font-size: var(--t--1);
+    margin: var(--s-5) 0 0;
+    color: var(--muted);
+  }
+
+  .post__back a {
+    color: var(--muted);
+    background-image: linear-gradient(var(--rule), var(--rule));
+    background-size: 100% 1px;
+  }
+
+  .post__back a:hover {
+    color: var(--accent);
+    background-image: linear-gradient(var(--accent), var(--accent));
+  }
+</style>

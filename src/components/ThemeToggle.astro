@@ -1,0 +1,104 @@
+---
+// Tema değiştirici. Tıklayınca light <-> dark arasında geçer.
+// localStorage'a kaydeder. İlk yüklemede BaseLayout'taki inline
+// script çoktan doğru temayı uygulamış olur (FOUC yok).
+---
+
+<button
+  type="button"
+  class="theme-toggle"
+  aria-label="Temayı değiştir"
+  data-theme-toggle
+>
+  <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4"></circle>
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+    </svg>
+  </span>
+  <span class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+  </span>
+</button>
+
+<script>
+  const root = document.documentElement;
+  const btn = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+
+  function current(): 'light' | 'dark' {
+    return root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  }
+
+  function apply(theme: 'light' | 'dark') {
+    root.setAttribute('data-theme', theme);
+    root.style.colorScheme = theme;
+    localStorage.setItem('theme', theme);
+    btn?.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+  }
+
+  btn?.addEventListener('click', () => {
+    apply(current() === 'dark' ? 'light' : 'dark');
+  });
+
+  btn?.setAttribute('aria-pressed', current() === 'dark' ? 'true' : 'false');
+</script>
+
+<style>
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    padding: 0;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    background: var(--bg);
+    color: var(--ink-mute);
+    cursor: pointer;
+    position: relative;
+    transition:
+      background var(--t-fast),
+      color var(--t-fast),
+      border-color var(--t-fast),
+      transform var(--t-base);
+  }
+
+  .theme-toggle:hover {
+    color: var(--ink);
+    border-color: var(--rule-strong);
+    background: var(--bg-elev);
+  }
+
+  .theme-toggle:active {
+    transform: scale(0.94);
+  }
+
+  .theme-toggle:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .theme-toggle__icon {
+    position: absolute;
+    inset: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity var(--t-fast), transform var(--t-base);
+  }
+
+  .theme-toggle__icon--sun { opacity: 0; transform: rotate(-90deg) scale(0.6); }
+  .theme-toggle__icon--moon { opacity: 1; transform: rotate(0) scale(1); }
+
+  :root[data-theme='dark'] .theme-toggle__icon--sun {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+  :root[data-theme='dark'] .theme-toggle__icon--moon {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.6);
+  }
+</style>
