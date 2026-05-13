@@ -33,7 +33,10 @@ const canonicalURL = new URL(
 ).toString();
 
 const ogImage = new URL(image, Astro.site).toString();
-const fullTitle = title === SITE.title ? title : `${title} — ${SITE.title}`;
+const fullTitle =
+  title === SITE.title
+    ? `${SITE.title} — ${SITE.jobTitle} ve Software Engineer`
+    : `${title} — ${SITE.title}`;
 
 const ldArray = jsonLd
   ? Array.isArray(jsonLd)
@@ -45,8 +48,17 @@ const ldArray = jsonLd
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+<!-- Privacy: don't leak full URL to other domains when users click outbound links -->
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+
+<!-- Security: prevent MIME sniffing; block iframe embedding; lock down APIs the site doesn't use -->
+<meta http-equiv="X-Content-Type-Options" content="nosniff" />
+<meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self'" />
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), accelerometer=(), gyroscope=()" />
+
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
+<meta name="keywords" content={SITE.keywords} />
 <meta name="author" content={SITE.author} />
 <link rel="canonical" href={canonicalURL} />
 
