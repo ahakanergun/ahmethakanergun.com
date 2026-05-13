@@ -35,15 +35,7 @@ const blogLd = {
   jsonLd={blogLd}
 >
   <section class="wrap--wide blog-head">
-    <p class="eyebrow"><em>Dizin</em></p>
     <h1 class="blog-head__title">Blog</h1>
-    <p class="blog-head__sub">
-      <em>Ters kronolojik.</em>
-      <span class="muted">
-        {posts.length} yazı · {years.length} yıl
-        {years.length > 0 && ` · ${years[years.length - 1]}—${years[0]}`}
-      </span>
-    </p>
   </section>
 
   {posts.length === 0 ? (
@@ -94,28 +86,13 @@ const blogLd = {
 
 <style>
   .blog-head {
-    padding-block: clamp(3rem, 7vw, 6rem) clamp(1rem, 3vw, 2rem);
+    padding-block: clamp(3rem, 7vw, 6rem) clamp(2rem, 4vw, 3.5rem);
   }
 
   .blog-head__title {
     font-size: var(--t-7);
-    margin: var(--s-3) 0 var(--s-4);
-    letter-spacing: -0.035em;
-  }
-
-  .blog-head__sub {
-    font-family: var(--font);
-    font-size: var(--t-1);
-    color: var(--ink-soft);
     margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5em;
-  }
-
-  .blog-head__sub em {
-    font-style: italic;
-    color: var(--ink);
+    letter-spacing: -0.035em;
   }
 
   .blog-body {
@@ -123,10 +100,10 @@ const blogLd = {
   }
 
   .year {
-    margin-bottom: var(--s-8);
+    margin-bottom: var(--s-9);
     display: grid;
-    grid-template-columns: 9rem 1fr;
-    gap: 2.5rem;
+    grid-template-columns: 8rem 1fr;
+    gap: clamp(2.5rem, 5vw, 5rem);
     align-items: start;
   }
 

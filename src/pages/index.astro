@@ -1,13 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../config';
-import { getPublishedPosts, formatDate } from '../utils/content';
-
-const allPosts = await getPublishedPosts();
-const recent = allPosts.slice(0, 5);
-
-const firstName = SITE.author.split(' ').slice(0, -1).join(' ');
-const lastName = SITE.author.split(' ').slice(-1)[0];
 ---
 
 <BaseLayout
@@ -15,280 +8,232 @@ const lastName = SITE.author.split(' ').slice(-1)[0];
   description={SITE.description}
   type="website"
 >
-  <section class="hero wrap--wide">
-    <p class="eyebrow fade-up fade-up-1"><em>Merhaba.</em></p>
-
-    <h1 class="hero__name fade-up fade-up-2">
-      <span class="hero__given">{firstName}</span>{' '}
-      <span class="hero__family">{lastName}</span>
+  <section class="lantern" data-lantern>
+    <h1 class="lantern__name" data-lantern-stage>
+      <span class="lantern__line">Ahmet</span>
+      <span class="lantern__line">Hakan</span>
+      <span class="lantern__line lantern__line--italic">Ergün</span>
     </h1>
 
-    <p class="hero__tagline fade-up fade-up-3">
+    <div class="lantern__pointer" data-lantern-pointer aria-hidden="true"></div>
+
+    <p class="lantern__hint" aria-hidden="true">
+      <em>karanlıkta gez</em>
+    </p>
+
+    <p class="lantern__tagline" aria-hidden="true">
       <em>{SITE.tagline}</em>
     </p>
-
-    <p class="hero__intro fade-up fade-up-4">
-      {/* TODO: kendi 1-2 cümlelik tanıtımını buraya yaz */}
-      Yazılım, tasarım ve üretim üzerine düşünür, yazar, yaparım.
-      Burası uzun düşünmeyi gerektiren işlerin biriktiği yer.
-    </p>
   </section>
-
-  <hr class="divider divider--centered fade-up fade-up-5" />
-
-  <section class="about wrap--wide">
-    <p class="section-label">Hakkımda</p>
-    <div class="about__body">
-      <p>
-        {/* TODO: birinci paragraf — nerede çalıştığın, ne işle uğraştığın */}
-        Burada birkaç paragrafla kendinden bahset — şu sıralar ne ile
-        ilgileniyorsun, hangi araçlarla çalışıyorsun, hangi konularda
-        düşünüyorsun. <code>src/pages/index.astro</code> dosyasından düzenle.
-      </p>
-      <p>
-        {/* TODO: ikinci paragraf — ilgi alanları, tutkular */}
-        İkinci paragrafa daha kişisel bir not bırakabilirsin — okumayı
-        sevdiğin konular, etkilendiğin kişiler, üzerinde çalıştığın yan
-        projeler.
-      </p>
-    </div>
-  </section>
-
-  {recent.length > 0 && (
-    <>
-      <hr class="divider divider--centered" />
-
-      <section class="recent wrap--wide">
-        <header class="recent__head">
-          <p class="section-label">Son Yazılar</p>
-          <a class="recent__all" href="/blog">Tümü →</a>
-        </header>
-
-        <ul class="post-list" role="list">
-          {recent.map((post) => {
-            const date = formatDate(post.data.pubDate, 'tr-TR');
-            const shortDate = new Intl.DateTimeFormat('tr-TR', {
-              day: '2-digit',
-              month: 'short',
-              year: 'numeric',
-            }).format(post.data.pubDate);
-            return (
-              <li class="post-list__item">
-                <a class="post-list__link" href={`/blog/${post.id}`}>
-                  <time class="post-list__date" datetime={date.iso}>
-                    {shortDate}
-                  </time>
-                  <span class="post-list__title">{post.data.title}</span>
-                  <span class="post-list__arrow" aria-hidden="true">→</span>
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-      </section>
-    </>
-  )}
 </BaseLayout>
 
+<script>
+  const root = document.querySelector<HTMLElement>('[data-lantern]');
+  const stage = document.querySelector<HTMLElement>('[data-lantern-stage]');
+  const dot = document.querySelector<HTMLElement>('[data-lantern-pointer]');
+
+  if (root && stage) {
+    let active = false;
+    let idleId = 0;
+
+    const setVars = (xPct: number, yPct: number) => {
+      stage.style.setProperty('--mx', `${xPct}%`);
+      stage.style.setProperty('--my', `${yPct}%`);
+      if (dot) {
+        dot.style.setProperty('--mx', `${xPct}%`);
+        dot.style.setProperty('--my', `${yPct}%`);
+      }
+    };
+
+    /* Idle: smooth Lissajous orbit. Two sine waves with different periods
+       trace a hypnotic figure-eight path so the light never repeats exactly. */
+    const idleOrbit = (ts: number) => {
+      const t = ts * 0.00045;
+      const x = 50 + Math.cos(t) * 28;
+      const y = 50 + Math.sin(t * 0.78) * 26;
+      setVars(x, y);
+      idleId = requestAnimationFrame(idleOrbit);
+    };
+    idleId = requestAnimationFrame(idleOrbit);
+
+    const onMove = (e: PointerEvent) => {
+      const x = (e.clientX / window.innerWidth) * 100;
+      const y = (e.clientY / window.innerHeight) * 100;
+      setVars(x, y);
+      if (!active) {
+        cancelAnimationFrame(idleId);
+        idleId = 0;
+        root.classList.add('lantern--active');
+        active = true;
+      }
+    };
+
+    // Listen on window so pointer over the header (separate stacking
+    // context) also drives the light, and direct write keeps it snappy.
+    window.addEventListener('pointermove', onMove, { passive: true });
+    window.addEventListener('pointerdown', onMove, { passive: true });
+  }
+</script>
+
 <style>
-  .hero {
-    padding-block: clamp(3rem, 8vw, 7rem) clamp(2rem, 5vw, 4rem);
+  .lantern {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    background:
+      radial-gradient(ellipse 90% 70% at 50% 45%, #14100c 0%, #050402 65%, #020100 100%);
+    overflow: hidden;
+    cursor: none;
+    isolation: isolate;
+    touch-action: none;
   }
 
-  .hero__name {
-    font-family: var(--font);
-    font-size: var(--t-7);
-    font-weight: 500;
-    line-height: 0.98;
-    letter-spacing: -0.035em;
-    margin: var(--s-4) 0 var(--s-5);
-    color: var(--ink);
-    font-optical-sizing: auto;
-    text-wrap: balance;
-  }
-
-  .hero__given {
-    display: inline-block;
-  }
-
-  .hero__family {
-    font-style: italic;
-    font-weight: 400;
-    color: var(--accent);
-    display: inline-block;
-  }
-
-  .hero__tagline {
-    font-family: var(--font);
-    font-size: var(--t-3);
-    font-weight: 400;
-    color: var(--ink-soft);
-    margin: 0 0 var(--s-5);
-    max-width: 28em;
-    line-height: 1.35;
-  }
-
-  .hero__tagline em {
-    font-style: italic;
-  }
-
-  .hero__intro {
-    font-family: var(--font);
-    font-size: var(--t-1);
-    color: var(--ink-mute);
-    max-width: 36em;
+  .lantern__name {
+    position: absolute;
+    inset: 0;
     margin: 0;
-    line-height: 1.6;
-  }
-
-  /* Section labels */
-  .section-label {
-    font-family: var(--font);
-    font-style: italic;
-    font-size: var(--t--1);
-    color: var(--muted);
-    margin: 0 0 var(--s-5);
-    letter-spacing: 0.01em;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.7em;
-  }
-
-  .section-label::before {
-    content: '';
-    width: 1.4rem;
-    height: 1px;
-    background: var(--accent);
-  }
-
-  /* About */
-  .about {
-    padding-block: var(--s-6) var(--s-6);
-  }
-
-  .about__body {
-    font-family: var(--font);
-    font-size: var(--t-1);
-    line-height: 1.7;
-    color: var(--ink-soft);
-    max-width: 38em;
-  }
-
-  .about__body p + p { margin-top: 1em; }
-
-  .about__body code {
-    font-family: var(--font-mono);
-    font-size: 0.86em;
-    background: var(--bg-elev);
-    padding: 0.12em 0.4em;
-    border-radius: var(--radius-xs);
-    border: 1px solid var(--rule);
-    color: var(--ink);
-  }
-
-  /* Recent posts */
-  .recent {
-    padding-block: var(--s-6) var(--s-7);
-  }
-
-  .recent__head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: var(--s-4);
-  }
-
-  .recent__head .section-label {
-    margin: 0;
-  }
-
-  .recent__all {
-    font-style: italic;
-    font-size: var(--t--1);
-    color: var(--muted);
-    background-image: linear-gradient(var(--rule), var(--rule));
-    background-size: 100% 1px;
-  }
-
-  .recent__all:hover {
-    color: var(--accent);
-    background-image: linear-gradient(var(--accent), var(--accent));
-  }
-
-  .post-list {
-    list-style: none;
     padding: 0;
-    margin: 0;
-  }
-
-  .post-list__item + .post-list__item {
-    border-top: 1px solid var(--rule);
-  }
-
-  .post-list__link {
     display: grid;
-    grid-template-columns: 8rem 1fr 1.5rem;
-    gap: 1.4rem;
-    align-items: baseline;
-    padding: 0.95rem 0.9rem;
-    margin-inline: -0.9rem;
-    border-radius: var(--radius-sm);
-    background-image: none;
-    color: var(--ink);
-    padding-bottom: 0.95rem;
-    transition:
-      background var(--t-fast),
-      transform var(--t-base);
-  }
-
-  .post-list__link:hover {
-    background: var(--surface-hover);
-    transform: translateX(3px);
-  }
-
-  .post-list__date {
-    font-family: var(--font);
-    font-size: var(--t--1);
-    font-style: italic;
-    color: var(--muted);
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-  }
-
-  .post-list__title {
+    grid-template-rows: 1fr 1fr 1fr;
+    place-items: stretch;
+    color: #f5ecd9;
     font-family: var(--font);
     font-weight: 500;
-    font-size: var(--t-1);
-    line-height: 1.32;
-    color: var(--ink);
-    letter-spacing: -0.012em;
+    letter-spacing: -0.045em;
+    line-height: 1;
+    text-wrap: nowrap;
+
+    --mx: 50%;
+    --my: 50%;
+    --r: 22vmin;
+
+    -webkit-mask:
+      radial-gradient(circle var(--r) at var(--mx) var(--my),
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 1) 30%,
+        rgba(0, 0, 0, 0) 100%);
+    mask:
+      radial-gradient(circle var(--r) at var(--mx) var(--my),
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 1) 30%,
+        rgba(0, 0, 0, 0) 100%);
+    will-change: mask, -webkit-mask;
   }
 
-  .post-list__arrow {
-    color: var(--muted-soft);
-    font-size: var(--t-0);
-    transition: color var(--t-fast), transform var(--t-base);
-    justify-self: end;
+  .lantern__line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: min(26vw, 32vh);
+    text-shadow:
+      0 0 28px rgba(255, 220, 160, 0.32),
+      0 0 60px rgba(255, 180, 100, 0.18);
+    user-select: none;
   }
 
-  .post-list__link:hover .post-list__arrow {
-    color: var(--accent);
-    transform: translateX(4px);
+  .lantern__line--italic {
+    font-style: italic;
+    font-weight: 400;
+    color: #f4c898;
   }
 
-  @media (max-width: 36rem) {
-    .post-list__link {
-      grid-template-columns: 1fr auto;
-      gap: 0.25rem;
+  /* Bigger, more prominent bulb */
+  .lantern__pointer {
+    position: absolute;
+    left: var(--mx, 50%);
+    top: var(--my, 50%);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(255, 240, 210, 1);
+    box-shadow:
+      0 0 0 1px rgba(255, 240, 210, 0.6),
+      0 0 22px 6px rgba(255, 210, 150, 0.7),
+      0 0 60px rgba(255, 180, 100, 0.4),
+      0 0 140px rgba(255, 150, 80, 0.2);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: 2;
+  }
+
+  .lantern--active .lantern__pointer {
+    opacity: 1;
+  }
+
+  .lantern__hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font);
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    color: rgba(245, 236, 217, 0.32);
+    margin: 0;
+    pointer-events: none;
+    animation: hint-pulse 2.8s ease-in-out infinite;
+    transition: opacity 600ms;
+    z-index: 3;
+  }
+
+  .lantern__hint em { font-style: italic; }
+
+  .lantern--active .lantern__hint {
+    opacity: 0;
+  }
+
+  @keyframes hint-pulse {
+    0%, 100% { opacity: 0.22; }
+    50%      { opacity: 0.55; }
+  }
+
+  .lantern__tagline {
+    position: absolute;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font);
+    font-style: italic;
+    font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+    color: rgba(245, 236, 217, 0.32);
+    margin: 0;
+    letter-spacing: 0.02em;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lantern__name {
+      -webkit-mask: none;
+      mask: none;
+      animation: none;
     }
-    .post-list__date {
-      grid-column: 1 / -1;
-      order: -1;
-      font-size: var(--t--2);
-    }
-    .post-list__arrow {
+    .lantern__hint,
+    .lantern__pointer {
       display: none;
+    }
+    .lantern {
+      cursor: auto;
+    }
+  }
+
+  @media (pointer: coarse) {
+    .lantern__name {
+      --r: 32vmin;
+    }
+    .lantern {
+      cursor: auto;
+    }
+    .lantern__hint {
+      display: none;
+    }
+  }
+
+  @media (max-aspect-ratio: 3 / 4) {
+    .lantern__line {
+      font-size: min(36vw, 28vh);
     }
   }
 </style>

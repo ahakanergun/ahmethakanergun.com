@@ -108,9 +108,9 @@
   --s-9: 6rem;     --s-10: 8rem;
 
   /* Containers */
-  --measure: 36rem;
-  --measure-wide: 46rem;
-  --measure-x-wide: 60rem;
+  --measure: 44rem;
+  --measure-wide: 60rem;
+  --measure-x-wide: 72rem;
   --gutter: clamp(1.25rem, 0.75rem + 2vw, 2.25rem);
 
   --radius-xs: 4px;
@@ -424,6 +424,50 @@ a.pill {
 .skip-link:focus {
   left: 1rem;
   top: 1rem;
+}
+
+/* ---------- Home (lantern) page overrides ---------- */
+
+/* When the lantern is on the page, hide the footer entirely and
+   pull the header out of the flow into a corner widget. */
+body:has([data-lantern]) .site-footer {
+  display: none;
+}
+
+body:has([data-lantern]) {
+  overflow: hidden;
+}
+
+body:has([data-lantern]) .site-header {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  left: auto;
+  width: auto;
+  padding: 0;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  z-index: 50;
+}
+
+body:has([data-lantern]) .site-header > * {
+  width: auto;
+  padding: 0;
+  margin: 0;
+}
+
+/* Over the floating header, hide the lantern's custom dot so the user
+   sees only the browser's native pointer cursor (hand over link). */
+body:has(.site-header:hover) [data-lantern-pointer] {
+  opacity: 0 !important;
+}
+
+/* Force a clear hand cursor on header anchors and buttons regardless
+   of any inherited cursor: none from the lantern. */
+.site-header a,
+.site-header button {
+  cursor: pointer;
 }
 
 /* ---------- Animations ---------- */

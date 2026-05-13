@@ -2,6 +2,7 @@
 title: Türkiye ve Birleşik Krallık Yapay Zekâ Stratejilerinin Karşılaştırılması
 description: "10 Şubat 2025 tarihinde Birleşik Krallık hükümeti \"AI Playbook for the UK Government (Birleşik Krallık Hükümeti için Yapay Zekâ Rehberi)\" başlıklı bir doküman yayınladı. Kamu kurumlarında teknoloji ve yazılımla ilgilenen"
 pubDate: 2025-02-12T06:25:16.000Z
+draft: true
 tags: []
 categories: [Genel]
 legacyURL: /turkiye-ve-birlesik-krallik-yapay-zeka-stratejilerinin-karsilastirilmasi
