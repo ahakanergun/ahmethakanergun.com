@@ -5,7 +5,6 @@ export const SITE = {
   description:
     'Ahmet Hakan Ergün — kişisel blog. Yazılım, tasarım ve üretim üzerine notlar ve denemeler.',
   author: 'Ahmet Hakan Ergün',
-  email: 'ahakanergun@gmail.com',
   locale: 'tr-TR',
   defaultOgImage: '/og-default.png',
   nav: [

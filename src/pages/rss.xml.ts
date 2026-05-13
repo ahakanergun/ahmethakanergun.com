@@ -16,7 +16,6 @@ export async function GET(context: APIContext) {
       description: post.data.description,
       link: `/blog/${post.id}`,
       categories: [...post.data.tags, ...post.data.categories],
-      author: SITE.email + ' (' + SITE.author + ')',
     })),
     customData: `<language>${SITE.locale}</language>`,
     trailingSlash: false,
