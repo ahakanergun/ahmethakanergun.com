@@ -76,10 +76,6 @@ const breadcrumbLd = {
 
       <h1 class="post__title">{post.data.title}</h1>
 
-      {post.data.description && (
-        <p class="post__deck"><em>{post.data.description}</em></p>
-      )}
-
       <div class="post__meta">
         <time datetime={pubDate.iso}>{pubDate.display}</time>
         <span class="post__sep" aria-hidden="true">·</span>
@@ -131,17 +127,6 @@ const breadcrumbLd = {
     margin: var(--s-3) 0 var(--s-3);
     letter-spacing: -0.028em;
   }
-
-  .post__deck {
-    font-family: var(--font);
-    font-size: var(--t-2);
-    line-height: 1.45;
-    color: var(--ink-mute);
-    margin: 0 0 var(--s-4);
-    max-width: 32em;
-  }
-
-  .post__deck em { font-style: italic; }
 
   .post__meta {
     display: flex;

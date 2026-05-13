@@ -16,14 +16,6 @@ import { SITE } from '../config';
     </h1>
 
     <div class="lantern__pointer" data-lantern-pointer aria-hidden="true"></div>
-
-    <p class="lantern__hint" aria-hidden="true">
-      <em>karanlıkta gez</em>
-    </p>
-
-    <p class="lantern__tagline" aria-hidden="true">
-      <em>{SITE.tagline}</em>
-    </p>
   </section>
 </BaseLayout>
 
@@ -162,55 +154,12 @@ import { SITE } from '../config';
     opacity: 1;
   }
 
-  .lantern__hint {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: var(--font);
-    font-size: 0.82rem;
-    letter-spacing: 0.08em;
-    color: rgba(245, 236, 217, 0.32);
-    margin: 0;
-    pointer-events: none;
-    animation: hint-pulse 2.8s ease-in-out infinite;
-    transition: opacity 600ms;
-    z-index: 3;
-  }
-
-  .lantern__hint em { font-style: italic; }
-
-  .lantern--active .lantern__hint {
-    opacity: 0;
-  }
-
-  @keyframes hint-pulse {
-    0%, 100% { opacity: 0.22; }
-    50%      { opacity: 0.55; }
-  }
-
-  .lantern__tagline {
-    position: absolute;
-    top: 1.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: var(--font);
-    font-style: italic;
-    font-size: clamp(0.85rem, 1.2vw, 1.05rem);
-    color: rgba(245, 236, 217, 0.32);
-    margin: 0;
-    letter-spacing: 0.02em;
-    pointer-events: none;
-    z-index: 3;
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .lantern__name {
       -webkit-mask: none;
       mask: none;
       animation: none;
     }
-    .lantern__hint,
     .lantern__pointer {
       display: none;
     }
@@ -225,9 +174,6 @@ import { SITE } from '../config';
     }
     .lantern {
       cursor: auto;
-    }
-    .lantern__hint {
-      display: none;
     }
   }
 

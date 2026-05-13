@@ -10,4 +10,3 @@ legacyURL: /yuksek-lisans-tezim
 
 [BAZI AB2 TİPİ SERT BİLEŞİKLERİN TEMEL FİZİKSEL ÖZELLİKLERİNİN İLK İLKELER YÖNTEMİYLE İNCELENMESİ](https://www.academia.edu/6197484/Baz%C4%B1_AB2_Tipi_Sert_Bile%C5%9Fiklerin_Temel_Fiziksel_%C3%96zelliklerinin_%C4%B0lk_%C4%B0lkeler_Y%C3%B6ntemiyle_%C4%B0ncelenmesi) BONUS: "First Principle Studies on GdCu"  başlıklı uluslarası Fizika dergisinde yayınlanan [makalem](http://ahmethakanergun.com/wp-content/uploads/2013/05/First-Principle-Studies-on-GdCu.pdf).
 
-[clomid 50 mg kaufen](http://traductoroficial.com/css/kaufen/index.html%3Fp=56.html)

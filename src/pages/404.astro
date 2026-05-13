@@ -2,31 +2,137 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Sayfa bulunamadı" description="Bu yol bir yere çıkmıyor." noindex>
-  <section class="nf wrap">
-    <p class="eyebrow"><em>404</em></p>
-    <h1 class="nf__title">Sayfa bulunamadı</h1>
-    <p class="nf__msg">
-      Bu yol bir yere çıkmıyor. Aradığın yazı için
-      <a href="/blog">blog dizinini</a> tarayabilir veya
-      <a href="/">anasayfaya</a> dönebilirsin.
-    </p>
+<BaseLayout
+  title="Burada bir şey yok"
+  description="Aradığın sayfa bulunamadı."
+  noindex
+>
+  <section class="nf wrap--wide">
+    <p class="nf__eyebrow"><em>Hata · No. 404</em></p>
+
+    <h1 class="nf__title">
+      <span>Burada</span>
+      <span class="nf__title-italic">bir şey</span>
+      <span>yok.</span>
+    </h1>
+
+    <div class="nf__body">
+      <p class="nf__lead">
+        Belki yazı silindi, belki hiç vardı, belki adresi yanlış yazdın.
+        Belki de internetin bir yerinde küçük bir şey kırıldı, bilemiyorum.
+      </p>
+
+      <p class="nf__footnote">
+        <em>
+          Eğer eski bir bağlantıdan geldiysen ve önemli olduğunu
+          düşündüğün bir şey bulamadıysan, haber ver — uğraşırız.
+        </em>
+      </p>
+
+      <div class="nf__actions">
+        <a class="nf__link nf__link--primary" href="/">← Anasayfa</a>
+        <span aria-hidden="true" class="nf__dot">·</span>
+        <a class="nf__link" href="/blog">Blog'a göz at</a>
+      </div>
+    </div>
   </section>
 </BaseLayout>
 
 <style>
   .nf {
-    padding-block: clamp(3rem, 8vw, 6rem) clamp(3rem, 6vw, 5rem);
-    min-height: 50vh;
+    padding-block: clamp(3rem, 8vw, 7rem) clamp(3rem, 6vw, 5rem);
+    min-height: 70vh;
   }
+
+  .nf__eyebrow {
+    font-family: var(--font);
+    font-size: var(--t--1);
+    color: var(--muted);
+    margin: 0 0 var(--s-5);
+    letter-spacing: 0.04em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7em;
+  }
+
+  .nf__eyebrow::before {
+    content: '';
+    width: 1.4rem;
+    height: 1px;
+    background: var(--accent);
+  }
+
   .nf__title {
-    font-size: var(--t-5);
-    margin: var(--s-3) 0 var(--s-4);
-    letter-spacing: -0.028em;
+    font-family: var(--font);
+    font-size: clamp(2.8rem, 8vw, 6rem);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    margin: 0 0 var(--s-6);
+    font-weight: 500;
+    color: var(--ink);
+    display: grid;
+    gap: 0.05em;
   }
-  .nf__msg {
-    font-size: var(--t-1);
+
+  .nf__title span {
+    display: block;
+  }
+
+  .nf__title-italic {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+
+  .nf__body {
+    max-width: 38em;
+  }
+
+  .nf__lead {
+    font-family: var(--font);
+    font-size: var(--t-2);
+    line-height: 1.55;
     color: var(--ink-soft);
-    max-width: 32em;
+    margin: 0 0 var(--s-5);
+  }
+
+  .nf__footnote {
+    font-family: var(--font);
+    font-style: italic;
+    font-size: var(--t-0);
+    line-height: 1.65;
+    color: var(--ink-mute);
+    margin: 0 0 var(--s-6);
+    padding-left: 1em;
+    border-left: 2px solid var(--rule);
+  }
+
+  .nf__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.6em;
+    font-family: var(--font);
+    font-size: var(--t-1);
+  }
+
+  .nf__link {
+    color: var(--ink);
+    background-image: linear-gradient(var(--rule-strong), var(--rule-strong));
+    background-size: 100% 1px;
+  }
+
+  .nf__link:hover {
+    color: var(--accent);
+    background-image: linear-gradient(var(--accent), var(--accent));
+  }
+
+  .nf__link--primary {
+    font-weight: 500;
+  }
+
+  .nf__dot {
+    color: var(--muted-soft);
+    font-size: 0.9em;
   }
 </style>

@@ -117,4 +117,3 @@ Yazıda faydalandığım bazı siteleri aşağıda bulabilirsiniz:
 
 Ayrıca özellikle [https://specificity.keegan.st/](https://specificity.keegan.st/) sitesinde yer alan Specificity Calculator ile farklı CSS yazımlarının ağırlık hesabını ve karşılaştırmasını yapabilirsiniz.
 
-[prednisolon pferd kaufen](http://werbungmarketing.de/_images/ohne/index.html%3Fp=39.html)
