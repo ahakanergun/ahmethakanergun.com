@@ -30,6 +30,8 @@ export default defineConfig({
         try {
           const p = new URL(page).pathname.replace(/\/$/, '');
           if (legacyPaths.has(p)) return false;
+          // /gezi/* kişisel sayfalar — sitemap'e girmesin (noindex + robots.txt ile birlikte)
+          if (p === '/gezi' || p.startsWith('/gezi/')) return false;
           return true;
         } catch {
           return true;
