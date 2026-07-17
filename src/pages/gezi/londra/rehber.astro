@@ -198,13 +198,60 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
   /* transport chips */
   .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
   .chip{font-size:.82rem;font-weight:600;border-radius:8px;padding:5px 11px;display:inline-flex;
-    align-items:center;gap:5px;border:1px solid transparent}
+    align-items:center;gap:5px;border:1px solid transparent;flex-wrap:wrap;min-width:0}
+  .chip .xf{white-space:nowrap}
   .chip .ico{font-weight:800;font-size:.72rem;letter-spacing:.04em}
   .chip.walk{background:#e3efe6;color:#00662a;border-color:#c6ded0}
   .chip.tube{background:#e7eef2;color:var(--blue);border-color:#cfe0e8}
   .chip.taxi{background:#f6e6df;color:var(--red);border-color:#ecd0c5}
   .chip.boat{background:#e3eef0;color:#2a6b72;border-color:#cbe3e5}
   .chip.coach{background:#f3e8cf;color:#8a5a14;border-color:#e6d3a8}
+  /* TfL hat rozetleri + otobüs numarası */
+  .ln{display:inline-block;padding:1px 8px;border-radius:4px;color:#fff;font-weight:800;font-size:.72rem;letter-spacing:.02em;margin-right:3px}
+  .ln-central{background:#E32017}
+  .ln-circle{background:#FFD300;color:#1c3f94}
+  .ln-district{background:#007A33}
+  .ln-northern{background:#000}
+  .ln-piccadilly{background:#0019A8}
+  .ln-jubilee{background:#7B868C}
+  .chip .busno{display:inline-block;background:#DA291C;color:#fff;font-weight:800;font-size:.76rem;border-radius:5px;padding:1px 8px;margin-right:3px}
+  .chip .xf{display:inline-block;border:1.5px dashed currentColor;border-radius:5px;padding:0 5px;font-size:.64rem;font-weight:800;margin-left:3px;vertical-align:1px}
+  /* doğum günü teması */
+  .day.bday{border-color:#c2456f;border-width:2px;background:linear-gradient(180deg,#fdf3f7,#fcf8fa)}
+  .day.bday .daynum{color:#c2456f}
+  .day.bday .stop .time{color:#c2456f}
+  .day.bday .stop .time::before{background:#c2456f}
+  .bday-banner{margin:2px 0 18px;background:linear-gradient(135deg,#c2456f,#992e55);color:#fff;border-radius:14px;
+    padding:14px 18px;font-weight:800;font-size:1.1rem;text-align:center;letter-spacing:.01em;
+    font-family:var(--serif)}
+  /* bilgi çekmecesi (tıklanabilir mekân adları) */
+  .il{background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;font-weight:inherit;
+    font-style:inherit;cursor:pointer;text-align:inherit;border-bottom:2px dotted var(--gold)}
+  .il:hover{border-bottom-color:var(--red)}
+  .idrawer-backdrop{display:none;position:fixed;inset:0;z-index:80;background:rgba(30,22,10,.45)}
+  .idrawer-backdrop.open{display:block;animation:fade .2s ease}
+  .idrawer{position:fixed;z-index:81;background:var(--paper);overflow-y:auto;visibility:hidden}
+  .idrawer.open{visibility:visible}
+  .idrawer .id-kicker{font-size:.68rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+  .idrawer h3{font-family:var(--serif, "Fraunces Variable", Georgia, serif);font-size:1.45rem;font-weight:700;color:var(--ink);margin:0 0 10px;padding-right:40px}
+  .idrawer p{font-size:.95rem;line-height:1.65;color:var(--ink-soft);margin:0 0 10px}
+  .idrawer p b{color:var(--ink)}
+  .idrawer .id-close{position:absolute;top:12px;right:14px;width:34px;height:34px;border-radius:50%;
+    border:1px solid var(--line);background:var(--card);font-size:1.15rem;line-height:1;cursor:pointer;color:var(--ink-soft)}
+  @media (min-width:761px){
+    .idrawer{top:0;right:0;bottom:0;width:min(420px,92vw);padding:30px 28px;box-shadow:-16px 0 50px rgba(30,22,10,.25);
+      transform:translateX(102%);transition:transform .28s cubic-bezier(.32,.72,0,1)}
+    .idrawer.open{transform:none}
+  }
+  @media (max-width:760px){
+    .idrawer{left:0;right:0;bottom:0;max-height:75vh;border-radius:22px 22px 0 0;
+      padding:22px 20px calc(24px + env(safe-area-inset-bottom,0px));box-shadow:0 -8px 40px rgba(40,30,15,.25);
+      transform:translateY(102%);transition:transform .28s cubic-bezier(.32,.72,0,1)}
+    .idrawer.open{transform:none}
+    .idrawer::before{content:"";display:block;width:42px;height:5px;border-radius:99px;background:var(--line);margin:0 auto 14px}
+  }
+  /* masaüstü gün nav aktif vurgusu */
+  .daynav a.on{background:var(--green);color:#f4efe4;border-color:var(--green)}
 
   .tip{margin-top:16px;background:var(--paper-2);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;
     padding:13px 16px;font-size:.93rem;line-height:1.55;color:var(--ink-soft)}
@@ -224,7 +271,7 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
   .diff .src{font-size:.72rem;color:#5e7253;font-style:italic;margin-top:6px}
 
   /* embedded per-day route maps */
-  .map-block{margin:16px 0 4px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--shadow)}
+  .map-block{margin:16px 0 18px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--shadow)}
   .map-block iframe{display:block;width:100%;height:360px;border:0}
 
   /* 3-leg map tabs */
@@ -240,6 +287,7 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
   .mapleg .legcap{font-size:.78rem;color:var(--ink-soft);padding:9px 14px;background:#fff;
     display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
   .mapleg .legcap b{color:var(--ink)}
+  .mapleg .legcap .chips{flex-basis:100%;order:3;margin-top:2px}
   .mapleg .legcap a{font-size:.8rem;font-weight:700;color:var(--green);text-decoration:none;white-space:nowrap}
 
   /* day total summary chip */
@@ -277,6 +325,14 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
   .nearby .nrow:last-child{margin-bottom:0}
   .nearby .nrow b{color:#16242e}
   .nearby .free{font-size:.64rem;font-weight:800;color:#00662a;background:#ddeee4;border-radius:5px;padding:1px 6px;margin-left:3px}
+  /* fotoğraf noktaları — ayrı kart */
+  .photobox{margin-top:14px;background:#f2eff8;border:1px solid #d9d2ea;border-left:4px solid #7a5a96;
+    border-radius:0 12px 12px 0;padding:13px 16px}
+  .photobox .ptag{display:inline-flex;align-items:center;gap:8px;font-size:.98rem;font-weight:800;color:#5a4374;margin-bottom:6px}
+  .photobox ul{margin:5px 0 2px;padding-left:18px;list-style:disc}
+  .photobox li{font-size:.92rem;color:#453a55;margin:3.5px 0;line-height:1.55}
+  .photobox li::marker{color:#a99cc4}
+  .photobox b{color:#2d2440}
   .food ul,.nearby ul,.diff ul,.stop .body ul{margin:5px 0 2px;padding-left:18px;list-style:disc}
   .stop .body ul li{font-size:.9rem;color:var(--ink-soft);margin:2.5px 0}
   .stop .body ul li::marker{color:#b9b09a}
@@ -323,9 +379,41 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
   .ltag{flex:0 0 auto;order:-1;font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
     background:var(--green);border:1px solid var(--green);color:#f4efe4;border-radius:7px;padding:4px 9px;white-space:nowrap;min-width:80px;text-align:center}
   .ltag.off{background:var(--paper-2);border-color:var(--line);color:var(--ink-soft)}
+  /* alışveriş: gün-gün gruplu görünüm (gün hücreleriyle aynı dil) */
+  .shopday{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:14px;overflow:hidden;box-shadow:var(--shadow)}
+  a.sd-head{display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--paper-2);
+    border-bottom:1px solid var(--line);background-image:none;text-decoration:none}
+  a.sd-head:hover{background:var(--surface-hover)}
+  .sd-num{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
+    width:50px;height:50px;background:#fff;border:1px solid var(--line);border-radius:12px;
+    box-shadow:0 1px 3px rgba(40,30,15,.08)}
+  .sd-num b{font-family:var(--serif);font-size:1.25rem;font-weight:700;line-height:1;color:var(--ink)}
+  .sd-num small{font-size:.55rem;font-weight:700;color:var(--ink-soft);white-space:nowrap}
+  .sd-num.any{background:var(--green)}
+  .sd-num.any b,.sd-num.any small{color:#f4efe4}
+  .sd-tx{display:flex;flex-direction:column;line-height:1.3;min-width:0}
+  .sd-tx b{font-size:1.02rem;color:var(--ink)}
+  .sd-tx span{font-size:.78rem;color:var(--ink-soft)}
+  .sd-head .sd-go{margin-left:auto;font-size:.72rem;font-weight:800;color:var(--green);white-space:nowrap}
+  .sd-list{list-style:none;margin:0;padding:4px 0}
+  .sd-list li{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;padding:9px 16px;font-size:.95rem;
+    color:var(--ink-soft);line-height:1.5;border-bottom:1px dashed var(--line)}
+  .sd-list li:last-child{border-bottom:0}
+  .sd-list li b{color:var(--ink)}
+  .cat{flex:0 0 auto;font-size:.62rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+    border-radius:5px;padding:2px 7px;white-space:nowrap}
+  .cat-book{background:#e7eef2;color:#0072a3}
+  .cat-kid{background:#f4d9d4;color:#b3231f}
+  .cat-gift{background:#f6e2c4;color:#8a5a14}
+  .cat-butik{background:#efe7f3;color:#7a5a96}
 
   /* solo cards (his / hers) */
   .solocard{border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px;margin-bottom:16px;background:var(--card)}
+  details.solocard>summary{cursor:pointer;list-style:none}
+  details.solocard>summary::-webkit-details-marker{display:none}
+  details.solocard>summary::after{content:"▾ aç";font-size:.72rem;font-weight:800;color:var(--ink-soft);
+    background:var(--paper-2);border-radius:999px;padding:5px 11px;white-space:nowrap}
+  details[open].solocard>summary::after{content:"▴ kapat"}
   .solocard.he{border-left:4px solid var(--green)}
   .solocard.she{border-left:4px solid #7a5a96}
   .solohead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;flex-wrap:wrap}
@@ -386,18 +474,35 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
   }
   @keyframes fade{from{opacity:0}to{opacity:1}}
 
-  /* mobile sticky day-pill strip (top) */
+  /* mobil: marka satırı + tüm günlerin tek ekranda göründüğü gün ızgarası */
+  .brandbar{display:none}
   .daystrip{display:none}
   @media (max-width:760px){
+    .brandbar{display:flex;align-items:center;gap:10px;padding:12px 14px 8px}
+    .bb-roundel{position:relative;width:28px;height:28px;border-radius:50%;border:7px solid var(--red);flex:0 0 auto}
+    .bb-roundel::after{content:"";position:absolute;left:-10px;right:-10px;top:50%;height:7px;transform:translateY(-50%);
+      background:var(--green);border-radius:2px}
+    .bb-tx{display:flex;flex-direction:column;line-height:1.2}
+    .bb-tx b{font-family:"Newsreader",Georgia,serif;font-size:1.15rem;font-weight:700;color:var(--ink)}
+    .bb-tx span{font-size:.74rem;color:var(--ink-soft);font-style:italic}
+    .bb-count{margin-left:auto;background:#e9e7f6;color:var(--green);font-size:.72rem;font-weight:800;
+      border-radius:999px;padding:6px 12px;white-space:nowrap}
+    .bb-count:empty{display:none}
+
     .daystrip{
       display:block;position:sticky;top:0;z-index:55;background:rgba(252,250,244,.97);
       backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-    .daystrip .dsrow{display:flex;gap:7px;overflow-x:auto;padding:9px 14px;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
-    .daystrip .dsrow::-webkit-scrollbar{display:none}
-    .daystrip a{flex:0 0 auto;text-decoration:none;font-size:.78rem;font-weight:700;white-space:nowrap;
-      padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink-soft);scroll-snap-align:start}
-    .daystrip a.big{background:var(--red);color:#fff;border-color:var(--red)}
-    .daystrip a.on{background:var(--green);color:#f4efe4;border-color:var(--green)}
+    .daystrip .dsrow{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:4px;padding:8px 8px}
+    .daystrip a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-width:0;
+      text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:11px;
+      padding:6px 0;min-height:46px;color:var(--ink-soft);box-shadow:0 1px 3px rgba(40,30,15,.07)}
+    .daystrip a b{font-family:"Newsreader",Georgia,serif;font-size:1.05rem;font-weight:700;line-height:1;color:var(--ink)}
+    .daystrip a span{font-size:.55rem;font-weight:600;letter-spacing:.01em;white-space:nowrap}
+    .daystrip a.pre{font-size:.66rem;font-weight:800;color:var(--ink)}
+    .daystrip a.big b{color:var(--red)}
+    .daystrip a.on{background:var(--green);border-color:var(--green)}
+    .daystrip a.on b,.daystrip a.on span{color:#f4efe4}
+    .daystrip a.on.pre{color:#f4efe4}
   }
 
   /* optional "olabilir" blocks (amber) */
@@ -492,19 +597,16 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
   <div class="wrap">
     <div class="kicker">Aile Seyahat Planı</div>
     <h1>Londra'da <em>Sekiz Gün</em></h1>
-    <p class="sub">Ahmet, eşi, Zeynep (10) ve minik Nil (1) için bebek arabası dostu, rahat tempolu bir rota. 23–30 Temmuz 2026.</p>
+    <p class="sub">23 – 30 Temmuz 2026 · Perşembe → Perşembe · 8 gün</p>
     <div class="facts">
       <div class="fact"><i data-lucide="plane"></i> Geliş: <b>23 Tem · 15:35 · STN</b></div>
       <div class="fact"><i data-lucide="plane"></i> Dönüş: <b>30 Tem · 13:40 · STN</b></div>
-      <div class="fact"><i data-lucide="users"></i> <b>2 yetişkin + 2 çocuk</b></div>
-      <div class="fact"><i data-lucide="baby"></i> <b>Bebek arabası var</b></div>
     </div>
   </div>
 </header>
 
 <nav class="daynav">
   <div class="row">
-    <a href="#oncelik">Biletler ✓</a>
     <a href="#mahalle">Mahalle</a>
     <a href="#g1">23 Per</a>
     <a href="#g2">24 Cum</a>
@@ -514,64 +616,43 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
     <a href="#g6">28 Sal</a>
     <a href="#g7">29 Çar</a>
     <a href="#g8">30 Per</a>
-    <a href="#ulasim">Ulaşım</a>
     <a href="#lezzet">Lezzetler</a>
-    <a href="#biletler">Biletler</a>
     <a href="#alisveris">Alışveriş</a>
     <a href="#solo">Solo Gezi</a>
   </div>
 </nav>
 
+<div class="brandbar">
+  <span class="bb-roundel"></span>
+  <div class="bb-tx"><b>Londra 2026</b><span>23–30 Temmuz · 8 gün</span></div>
+  <span class="bb-count" id="bbCount"></span>
+</div>
+
 <div class="daystrip">
   <div class="dsrow">
-    <a href="#g1">23 Per</a>
-    <a href="#g2">24 Cum</a>
-    <a href="#g3">25 Cmt</a>
-    <a href="#g4">26 Paz</a>
-    <a href="#g5" class="big">27 <i data-lucide="zap"></i>HP</a>
-    <a href="#g6">28 Sal</a>
-    <a href="#g7">29 Çar</a>
-    <a href="#g8">30 Per</a>
+    <a href="#g1"><b>1</b><span>23 Tem</span></a>
+    <a href="#g2"><b>2</b><span>24 Tem</span></a>
+    <a href="#g3"><b>3</b><span>25 Tem</span></a>
+    <a href="#g4"><b>4</b><span>26 Tem</span></a>
+    <a href="#g5" class="big"><b>5</b><span>27 Tem</span></a>
+    <a href="#g6"><b>6</b><span>28 Tem</span></a>
+    <a href="#g7"><b>7</b><span>29 Tem</span></a>
+    <a href="#g8"><b>8</b><span>30 Tem</span></a>
   </div>
 </div>
 
 <div class="wrap">
 
-  <!-- BOOKING -->
-  <section id="oncelik" style="padding-top:0">
-    <div class="book">
-      <h3>Biletler cebimizde ✓</h3>
-      <p class="note">Ana biletlerin hepsi alındı. <b>Önemli:</b> web'den alınan biletler mobil uygulamada görünmeyebilir — e-postadaki QR/PDF biletleri telefona kaydet (galeri ya da cüzdan); girişte e-postayı göstermek de yeterli.</p>
-      <ul>
-        <li><span class="pin">✓</span><span><b>24 Tem · 14:00</b> — London Eye + SEA LIFE combo. Eye saatli; SEA LIFE'a aynı gün peşinden geçilir.</span></li>
-        <li><span class="pin">✓</span><span><b>26 Tem · 11:30</b> — Doğa Tarihi Müzesi (ücretsiz saatli slot).</span></li>
-        <li><span class="pin">✓</span><span><b>26 Tem · 14:00</b> — Science Museum.</span></li>
-        <li><span class="pin">✓</span><span><b>27 Tem</b> — Harry Potter Studio Tour. Servis saatine göre 09:00'da evden çıkıyoruz.</span></li>
-        <li><span class="pin">✓</span><span><b>28 Tem · 12:30</b> — Tower Bridge cam zemin + Viktorya dönemi motor odaları.</span></li>
-        <li><span class="pin">✓</span><span><b>28 Tem · tüm gün</b> — Uber Boat 1 günlük hop-on-hop-off (River Roamer): istediğimiz iskelede inip binebiliriz.</span></li>
-        <li><span class="pin">✓</span><span><b>29 Tem · 10:00</b> — ZSL London Zoo girişi.</span></li>
-      </ul>
-      <p class="note" style="margin-top:16px;margin-bottom:0"><b>Kalan birkaç iş:</b> Tower of London saatli bileti (28 Tem sabahı, giriş ~10:00) · dönüş günü havaalanı transferi · restoran rezervasyonları — ayrıntılar <a href="#biletler" style="color:#f0d9a7">Biletler bölümünde ↓</a></p>
-    </div>
-  </section>
-
   <!-- STAY -->
   <section id="mahalle">
-    <h2 class="sec">Üssümüz: otel</h2>
-    <p class="sec-lead">Tüm rota, saatler ve ulaşım aşağıdaki otelden çıkıp otele dönecek şekilde tasarlandı.</p>
 
     <div class="stay-card primary">
       <span class="badge">Konaklama</span>
-      <h3>Queensway Apartments by Citystaylondon — 40 Queensway, Flat 1, First Floor, W2 3RS</h3>
-      <p>Bayswater'ın tam ortasında, Westminster ilçesinde. <b>Kensington Gardens ve Hyde Park yolun karşısında</b> — parkın Black Lion Gate girişi sokağın başında, <b>Diana oyun alanı neredeyse kapının önünde</b> (~7 dk). <b>Portobello / Notting Hill</b> Westbourne Grove üzerinden ~15 dk yürüyüş. Metro: <b>Queensway (Central)</b> ~2 dk ve <b>Bayswater (Circle/District)</b> ~3 dk — akşamları West End'den Central ile <b>aktarmasız</b> dönüş; müzelere ve Victoria'ya Circle/District ile aktarmasız gidiş. Sokağın kendisi restoran ve kafe dolu; bagajlı günlerde yine kapıya taksi en rahatı.</p>
-      <div class="stay-feats">
-        <span class="feat">Hyde Park &amp; Kensington Gardens karşıda</span>
-        <span class="feat">Diana oyun alanı ~7 dk</span>
-        <span class="feat">İki metro hattı kapıda</span>
-        <span class="feat">Portobello ~15 dk</span>
-      </div>
+      <h3>Queensway Apartments by Citystaylondon</h3>
+      <p>40 Queensway, Flat 1, First Floor, Londra W2 3RS · Westminster<br>
+      Metro: Queensway (Central) ve Bayswater (Circle/District) — ikisi de kapının dibinde.</p>
     </div>
-    <p class="sec-lead" style="margin-top:16px;font-size:.9rem">Her günün üç haritası var: <b>otel → gezi başlangıcı</b>, <b>gezi içi rota</b>, <b>gezi sonu → otel</b>. Sekmelerle geçiş yap. Her günün köşesinde o günün <b>toplam yürüme + ulaşım süresi</b> yazılı.</p>
+    <p class="sec-lead" style="margin-top:14px;font-size:.88rem">Programdaki renkli rozetler <b>Londra metrosunun resmî hat renkleri</b>: <span class="ln ln-central" style="font-size:.7rem">Central</span> <span class="ln ln-circle" style="font-size:.7rem">Circle</span> <span class="ln ln-district" style="font-size:.7rem">District</span> <span class="ln ln-northern" style="font-size:.7rem">Northern</span> <span class="ln ln-piccadilly" style="font-size:.7rem">Piccadilly</span> <span class="ln ln-jubilee" style="font-size:.7rem">Jubilee</span> — istasyon tabelaları ve metro haritasıyla birebir aynı renkler; rozetteki renge bakıp tabelada aynı rengi takip etmek yeterli. Yan yana iki rozet, o güzergâhta iki hattın da işlediği anlamına gelir — hangisi önce gelirse. Çiplerdeki <b>▼</b> işareti ineceğiniz durağı gösterir.</p>
   </section>
 
   <!-- DAYS -->
@@ -589,23 +670,40 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
       <div class="map-block">
         <div class="maptabs">
           <button class="on"><span class="mt-ico"><i data-lucide="plane"></i></span>Havaalanından otele</button>
+          <button><span class="mt-ico"><i data-lucide="sparkles"></i></span>Akşam yürüyüşü</button>
         </div>
         <div class="mapleg on">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.8860,0.2389&daddr=51.5113,-0.1872&dirflg=d&output=embed"></iframe>
-          <div class="legcap"><span><b>Stansted → otel.</b> Booking.com'un ücretsiz shuttle taksisi — uçuşu takip edip karşılıyorlar; kapıdan kapıya ~1-1,25 sa</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=London+Stansted+Airport&destination=40+Queensway+London+W2+3RS&travelmode=driving">Aç →</a></div>
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.8860,0.2389&daddr=40+Queensway+London+W2+3RS&dirflg=d&output=embed"></iframe>
+          <div class="legcap"><span><b>Stansted → otel.</b> Booking.com shuttle'ı uçuşu takip edip kapıda karşılıyor.</span><div class="chips"><span class="chip taxi"><span class="ico">SHUTTLE</span> ücretsiz · kapıdan kapıya · ~1-1,25 sa</span></div><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=London+Stansted+Airport&destination=40+Queensway+London+W2+3RS&travelmode=driving">Aç →</a></div>
+        </div>
+        <div class="mapleg">
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=40+Queensway+London+W2+3RS&daddr=51.5121,-0.1878%20to:51.5153,-0.1871%20to:51.5155,-0.1966&dirflg=w&output=embed"></iframe>
+          <div class="legcap"><span><b>Pinli akşam yürüyüşü:</b> otel → Bayswater istasyonu önü → Queensway boyunca kuzeye → Westbourne Grove vitrinleri (Ottolenghi köşede). ~20-25 dk, dümdüz; yemek için beğendiğin yerde dur.</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=40+Queensway+London+W2+3RS&destination=51.5155,-0.1966&waypoints=51.5121,-0.1878%7C51.5153,-0.1871&travelmode=walking">Aç →</a></div>
         </div>
       </div>
       <div class="tl">
-        <div class="stop"><div class="time">15:35</div><div class="body"><strong>Stansted'e iniş (VF5179)</strong><span class="desc">Pasaport + bagaj için ~1–1,5 saat ayır (yazın sıralar uzun).</span></div></div>
-        <div class="stop"><div class="time">17:00</div><div class="body"><strong>Ücretsiz shuttle taksi ile otele</strong><span class="desc"><b>Booking.com'un transferi ayarlandı:</b> şoför uçuşu takip ediyor, rötar olsa bile buluşma noktasında karşılıyor. Bagaj ve bebek arabasıyla kapıdan kapıya — aktarma yok.</span>
+        <div class="stop"><div class="time">15:35</div><div class="body"><strong>Stansted'e iniş (VF5179)</strong><span class="desc">Kabin bagajıyla hafifiz — bagaj beklemek yok, yalnızca pasaport sırası (~30-45 dk).</span></div></div>
+        <div class="stop"><div class="time">16:30</div><div class="body"><strong>Ücretsiz shuttle taksi ile otele</strong><span class="desc"><b>Booking.com'un transferi ayarlandı:</b> şoför uçuşu takip ediyor, rötar olsa bile buluşma noktasında karşılıyor. Bagaj ve bebek arabasıyla kapıdan kapıya — aktarma yok.</span>
           <div class="chips"><span class="chip taxi"><span class="ico">SHUTTLE</span> ücretsiz · kapıdan kapıya · ~1-1,25 sa</span></div></div></div>
-        <div class="stop"><div class="time">18:15</div><div class="body"><strong>Otele yerleş — Queensway (W2)</strong><span class="desc">Yerleş, soluklan; akşam planı tamamen esnek.</span></div></div>
-        <div class="stop meal-stop"><div class="time">19:30</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> AKŞAM</span><span class="desc">Kapının önü restoran dolu — Queensway &amp; Westbourne Grove'da her mutfak var. İlk akşamı dinlenmeye ayır; istersen <a href="#lezzet">Dishoom Kensington →</a> metroyla 2 durak.</span></div></div>
+        <div class="stop"><div class="time">17:45</div><div class="body"><strong>Otele yerleş — Queensway (W2)</strong><span class="desc">Yerleş, soluklan; akşam planı tamamen esnek.</span></div></div>
+        <div class="stop meal-stop"><div class="time">19:00</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> AKŞAM</span><span class="desc">Kapının önü restoran dolu — Queensway &amp; Westbourne Grove'da her mutfak var. İlk akşamı dinlenmeye ayır; istersen <a href="#lezzet">Dishoom Kensington →</a> metroyla 2 durak.</span></div></div>
+        <div class="stop"><div class="time">20:15</div><div class="body"><strong>Akşam yürüyüşü — Queensway &amp; Westbourne Grove</strong><span class="desc">Yemek sonrası sindirim turu (haritada "Akşam yürüyüşü" sekmesi): Queensway vitrinleri, kubbesiyle yenilenen <b><a href="https://www.google.com/maps/search/?api=1&query=The+Whiteley+London" target="_blank" rel="noopener">The Whiteley</a></b> (1911'den kalma eski Whiteleys pasajı — haritalarda "The Whiteley" adıyla geçiyor) ve Westbourne Grove'un butik köşeleri. Temmuzda hava ~21:00'e dek aydınlık — istersen 3 dk ötedeki Kensington Gardens kapısından parka kısa bir gün batımı bakışı.</span>
+          <div class="chips"><span class="chip walk"><span class="ico">YÜRÜ</span> ~20-25 dk · dümdüz</span></div></div></div>
+      </div>
+      <div class="nearby">
+        <div class="ntag"><span class="n"><i data-lucide="sparkles"></i></span> Bugün rotanda — gözden kaçırma</div>
+        <div class="nrow"><b>İlk akşam çevresi</b>
+          <ul>
+            <li><b><a href="https://www.google.com/maps/search/?api=1&query=The+Whiteley+London" target="_blank" rel="noopener">The Whiteley</a></b> (eski Whiteleys pasajı, 1911) — kubbeli tarihî bina yenilendi; haritada bu adla ara</li>
+            <li><b>Westbourne Grove</b> — pastane ve butik vitrinleri; Ottolenghi'nin tatlı vitrini köşede</li>
+            <li><b>Kensington Gardens kapısı</b> — otele 3 dk; uçuş yorgunluğuna kısa yeşillik molası</li>
+            <li>Queensway boyunca souvenir dükkânları — magnet/kartpostal işini ilk akşam halledin</li>
+          </ul></div>
       </div>
       <div class="food">
         <div class="ftag"><span class="f"><i data-lucide="utensils"></i></span> Bugün ne yenir?</div>
         <div class="row"><span class="meal">Akşam</span> İlk Londra yemeği için <b>Kensington High Street</b>'e yürüyün (12-15 dk) — cadde boyu aile restoranı var. <a href="https://www.google.com/maps/search/?api=1&query=Dishoom+Kensington" target="_blank" rel="noopener">Dishoom Kensington</a> da burada; black daal ve bacon naan'ı efsanedir. <span class="rbadge rb-book"><i data-lucide="phone"></i> AKŞAM REZERVASYON</span></div>
-        <div class="row"><span class="meal">Kahvaltı üssü</span> Hafta boyunca kahvaltı üssümüz kapının önü: <b>Queensway</b> ve <b>Westbourne Grove</b> kafe dolu; Notting Hill tarafındaki <b>Farm Girl</b> da ~12 dk. Şık bir sabah için <b>Ottolenghi</b> (Ledbury Rd) — vitrindeki tatlı dağları görülmeye değer, Elif bayılır.</div>
+        <div class="row"><span class="meal">Kahvaltı üssü</span> Hafta boyunca kahvaltı üssümüz kapının önü: <b>Queensway</b> ve <b>Westbourne Grove</b> kafe dolu; Notting Hill tarafındaki <b>Farm Girl</b> da ~12 dk. Şık bir sabah için <b><a href="https://www.google.com/maps/search/?api=1&query=Ottolenghi+Notting+Hill" target="_blank" rel="noopener">Ottolenghi</a></b> (Ledbury Rd) — vitrindeki tatlı dağları görülmeye değer.</div>
         <div class="safe">Güvenli akşam: Queensway akşamları canlı, aydınlık ve aile dolu; restoranlar kapının önünde olduğu için dönüş yolu diye bir şey yok.</div>
       </div>
     </div>
@@ -626,40 +724,32 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
           <button><span class="mt-ico"><i data-lucide="home"></i></span>Otele dönüş</button>
         </div>
         <div class="mapleg on">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.5113,-0.1872&daddr=51.501364,-0.14189&dirflg=r&output=embed"></iframe>
-          <div class="legcap"><span><b>Otel → Buckingham.</b> Otobüs 148 (Bayswater Rd → Hyde Park Corner) ~20 dk ya da Uber ~12-15 dk · ~£14</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.5113,-0.1872&destination=51.501364,-0.14189&travelmode=transit">Aç →</a></div>
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=40+Queensway+London+W2+3RS&daddr=51.501364,-0.14189&dirflg=r&output=embed"></iframe>
+          <div class="legcap"><span><b>Otel → Buckingham.</b></span><div class="chips"><span class="chip tube"><span class="busno">148</span> Bayswater Rd → ▼Hyde Park Corner (saraya 8 dk yürü) · ~20 dk <span class="xf">DİREKT</span></span><span class="chip taxi"><span class="ico">UBER</span> ~12-15 dk · ~£14</span></div><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=40+Queensway+London+W2+3RS&destination=51.501364,-0.14189&travelmode=transit">Aç →</a></div>
         </div>
         <div class="mapleg">
           <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.501364,-0.14189&daddr=51.5024,-0.1330%20to:51.5041,-0.1286%20to:51.5034,-0.1263%20to:51.4993,-0.1273%20to:51.5007,-0.1264%20to:51.5012,-0.1146%20to:51.5019,-0.1194&dirflg=w&output=embed"></iframe>
-          <div class="legcap"><span><b>Pinli yürüyüş:</b> Buckingham → pelikan gölü → Horse Guards → Downing St/Cenotaph → Westminster Abbey → Parliament Sq → graffiti tüneli (Leake St) → SEA LIFE. "Kaçırma" duraklarının hepsi rotada işaretli.</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.501364,-0.14189&destination=51.5019,-0.1194&waypoints=51.5024,-0.1330%7C51.5041,-0.1286%7C51.5034,-0.1263%7C51.4993,-0.1273%7C51.5007,-0.1264%7C51.5012,-0.1146&travelmode=walking">Aç →</a></div>
+          <div class="legcap"><span><b>Pinli yürüyüş:</b> Buckingham → Blue Bridge &amp; pelikan gölü → Horse Guards → Downing St/Cenotaph → Westminster Abbey → Parliament Sq → graffiti tüneli (Leake St) → SEA LIFE. "Kaçırma" duraklarının hepsi rotada işaretli.</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.501364,-0.14189&destination=51.5019,-0.1194&waypoints=51.5024,-0.1330%7C51.5041,-0.1286%7C51.5034,-0.1263%7C51.4993,-0.1273%7C51.5007,-0.1264%7C51.5012,-0.1146&travelmode=walking">Aç →</a></div>
         </div>
         <div class="mapleg">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.5040437,-0.1181412&daddr=51.5113,-0.1872&dirflg=r&output=embed"></iframe>
-          <div class="legcap"><span><b>South Bank → otel.</b> Waterloo→Bond St→Central→Queensway ~30 dk, ya da kapıya Uber ~£20</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.5040437,-0.1181412&destination=51.5113,-0.1872&travelmode=transit">Aç →</a></div>
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.5040437,-0.1181412&daddr=40+Queensway+London+W2+3RS&dirflg=r&output=embed"></iframe>
+          <div class="legcap"><span><b>South Bank → otel.</b></span><div class="chips"><span class="chip tube"><span class="ln ln-jubilee">Jubilee</span> Waterloo → Bond St <span class="ln ln-central">Central</span> → ▼Queensway · ~30 dk <span class="xf">1 AKTARMA</span></span><span class="chip taxi"><span class="ico">UBER</span> kapıya · ~£20</span></div><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.5040437,-0.1181412&destination=40+Queensway+London+W2+3RS&travelmode=transit">Aç →</a></div>
         </div>
-      </div>
-      <div class="opt">
-        <div class="otag"><span class="q">?</span> İstersen ekle · bu güne sığar</div>
-        <h5>Buckingham — Saray İçi (State Rooms)</h5>
-        <p class="ev">Yazın açık · ~Temmuz sonu</p>
-        <p>Saray devlet odaları her yaz birkaç haftalığına gezilebilir hale geliyor; içeri girmek isterseniz biletli, önceden ayırtın.</p>
-        <h5>Parliament Square</h5>
-        <p>Westminster'da zaten yanından geçiyorsunuz — Churchill ve diğer heykeller, hızlı bir durak.</p>
       </div>
       <div class="tl">
         <div class="stop meal-stop"><div class="time">09:00</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> KAHVALTI</span><span class="desc">Güne kapının önünde başla: Queensway / Westbourne Grove kafeleri. Tören öncesi sağlam bir kahvaltı iyi gider.</span></div></div>
         <div class="stop"><div class="time">10:00</div><div class="body"><strong>Otelden Buckingham'a</strong><span class="desc">Rahat çıkış; iyi nokta için 10:30'da sarayda ol.</span>
-          <div class="chips"><span class="chip taxi"><span class="ico">UBER</span> ~12-15 dk · ~£14</span><span class="chip tube"><span class="ico">OTOBÜS</span> 148 · Bayswater Rd→Hyde Park Corner · ~20 dk</span></div></div></div>
-        <div class="stop"><div class="time">11:00</div><div class="body"><strong><i data-lucide="star" class="hl-star"></i> Nöbet Değişimi — Buckingham Sarayı</strong><span class="desc">Büyük siyah tüylü (bearskin) şapkalı muhafızlar, bando, tören. ~45 dk, ücretsiz. Bebek arabasıyla en rahat izleme: <b>Wellington Barracks</b> önü ya da Victoria Memorial basamakları (ön kapı çok sıkışık).</span></div></div>
-        <div class="stop"><div class="time">11:50</div><div class="body"><strong>St James's Park'tan Westminster'a yürüyüş</strong><span class="desc">Gölün kenarından pelikanlar; Big Ben ve Parliament Sq fotoğrafları.</span>
+          <div class="chips"><span class="chip tube"><span class="busno">148</span> Bayswater Rd → ▼Hyde Park Corner (saraya 8 dk yürü) · ~20 dk <span class="xf">DİREKT</span></span><span class="chip taxi"><span class="ico">UBER</span> ~12-15 dk · ~£14</span></div></div></div>
+        <div class="stop"><div class="time">11:00</div><div class="body"><strong><i data-lucide="star" class="hl-star"></i> <button class="il" type="button" data-info="buckingham">Nöbet Değişimi — Buckingham Sarayı</button></strong><span class="desc">Büyük siyah tüylü (bearskin) şapkalı muhafızlar, bando, tören (İng. Changing of the Guard). ~45 dk, ücretsiz. Bebek arabasıyla en rahat izleme: <b>Wellington Barracks</b> önü ya da Victoria Memorial basamakları (ön kapı çok sıkışık).</span></div></div>
+        <div class="stop"><div class="time">11:50</div><div class="body"><strong>St James's Park'tan Westminster'a yürüyüş</strong><span class="desc">Gölün kenarından pelikanlar; <button class="il" type="button" data-info="bigben">Big Ben</button> ve Parliament Sq fotoğrafları.</span>
           <div class="chips"><span class="chip walk"><span class="ico">YÜRÜ</span> ~15 dk · park içi</span></div></div></div>
-        <div class="stop meal-stop"><div class="time">12:45</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> ÖĞLE</span><span class="desc">South Bank'te, köprüden karşıya (8 dk). Öneri: <a href="#lezzet">Fishcotheque fish &amp; chips →</a></span></div></div>
-        <div class="stop"><div class="time">14:00</div><div class="body"><strong>London Eye</strong><span class="desc"><b>Biletimiz 14:00'e alındı.</b> Tur 30 dk; kapsüller kapalı ve oturaklı.</span></div></div>
+        <div class="stop meal-stop"><div class="time">12:45</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> ÖĞLE</span><span class="desc">South Bank'te, köprüden karşıya (8 dk). <b>Açlığa göre esnek:</b> asıl öğleyi şimdi ye ya da hafif atıştırıp SEA LIFE sonrasına (~16:45) bırak — seçenekler aşağıdaki "Bugün ne yenir?" listesinde.</span></div></div>
+        <div class="stop"><div class="time">14:00</div><div class="body"><strong><button class="il" type="button" data-info="eye">London Eye</button></strong><span class="desc"><b>Biletimiz 14:00'e alındı.</b> Tur 30 dk; kapsüller kapalı ve oturaklı.</span></div></div>
         <div class="stop"><div class="time">15:00</div><div class="body"><strong>SEA LIFE London Aquarium</strong><span class="desc"><b>Combo biletimize dahil</b> — Eye'dan çıkınca peşine geçiyoruz. Köpekbalığı tüneli ikisini de büyüler; ~1,5 saat.</span>
           <div class="chips"><span class="chip walk"><span class="ico">YÜRÜ</span> 2 dk</span></div></div></div>
-        <div class="stop"><div class="time">16:45</div><div class="body"><strong>Jubilee Gardens oyun alanı &amp; South Bank yürüyüşü</strong><span class="desc">Sokak sanatçıları, Gabriel's Wharf. Nil arabada dinlenir.</span></div></div>
+        <div class="stop"><div class="time">16:45</div><div class="body"><strong>Jubilee Gardens oyun alanı &amp; South Bank yürüyüşü</strong><span class="desc">Sokak sanatçıları, Gabriel's Wharf. Bebek arabada dinlenir.</span></div></div>
         <div class="stop meal-stop"><div class="time">18:30</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> AKŞAM + DÖNÜŞ</span><span class="desc">South Bank'te erken akşam yemeği, sonra eve. Öneri: <a href="#lezzet">tatlı için Gabu Chocolatier →</a></span>
-          <div class="chips"><span class="chip taxi"><span class="ico">UBER</span> kapıya · ~25 dk · ~£20</span><span class="chip tube"><span class="ico">METRO</span> Waterloo→Bond St→Central→Queensway · ~30 dk</span></div></div></div>
+          <div class="chips"><span class="chip taxi"><span class="ico">UBER</span> kapıya · ~25 dk · ~£20</span><span class="chip tube"><span class="ln ln-jubilee">Jubilee</span> Waterloo → Bond St <span class="ln ln-central">Central</span> → ▼Queensway · ~30 dk <span class="xf">1 AKTARMA</span></span></div></div></div>
       </div>
       <div class="nearby">
         <div class="ntag"><span class="n"><i data-lucide="sparkles"></i></span> Bugün rotanda — gözden kaçırma</div>
@@ -667,12 +757,12 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
           <ul>
             <li>The Mall (kraliyet caddesi) ve Admiralty Arch</li>
             <li>St James's Park gölündeki pelikanlar</li>
-            <li><b>Park sincapları</b> — elden yem alıyorlar; Zeynep besler, Nil arabadan izler</li>
+            <li><b>Park sincapları</b> — elden yem alıyorlar; çocukların favorisi</li>
             <li>Horse Guards Parade — atlı muhafızlar</li>
           </ul></div>
         <div class="nrow"><b>Westminster</b>
           <ul>
-            <li>Westminster Abbey (dışarıdan)</li>
+            <li><button class="il" type="button" data-info="abbey">Westminster Abbey</button> (dışarıdan)</li>
             <li>Parliament Square heykelleri: Churchill, Mandela, Gandhi</li>
             <li>Downing Street 10 kapısı (Whitehall) ve Cenotaph anıtı</li>
           </ul></div>
@@ -681,42 +771,60 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
             <li>Southbank Centre kaykay alanı ve graffiti tüneli</li>
             <li>National Theatre'ın ücretsiz terası</li>
             <li>Köprü altındaki sahaf tezgâhları</li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Roupell+Street+London" target="_blank" rel="noopener">Roupell Street</a> — Viktorya işçi evleriyle film seti gibi korunmuş sokak (Waterloo'nun arkası, 4 dk) 📸</li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Lower+Marsh+London" target="_blank" rel="noopener">Lower Marsh</a> — Waterloo'nun yerel esnaf caddesi; kafeler, fırınlar, ikinci el dükkânları</li>
           </ul></div>
         <div class="nrow"><b>Mağaza &amp; mola</b>
           <ul>
-            <li><b>Buckingham Palace Shop</b> — tören sonrası corgi peluşlar (Zeynep + Nil'e)</li>
-            <li>Mola: <b>Southbank Centre</b>'ın içi — kapalı, bebek dostu, tuvaletli; yorulunca sığınak</li>
+            <li><b><a href="https://www.google.com/maps/search/?api=1&query=Buckingham+Palace+Shop" target="_blank" rel="noopener">Buckingham Palace Shop</a></b> — tören sonrası corgi peluşlar</li>
+            <li>Mola: <b><a href="https://www.google.com/maps/search/?api=1&query=Southbank+Centre" target="_blank" rel="noopener">Southbank Centre</a></b>'ın içi — kapalı, bebek dostu, tuvaletli; yorulunca sığınak</li>
           </ul></div>
-        <div class="nrow"><b>📸 Fotoğraf noktaları</b>
+      </div>
+      <div class="photobox">
+        <div class="ptag">📸 Fotoğraf noktaları</div>
           <ul>
             <li><b>Blue Bridge</b> (St James's Park gölü) — göl + Buckingham kartpostal karesi; rota tam üstünden geçiyor</li>
             <li><b>Kırmızı telefon kulübeleri + Big Ben</b> — Parliament Square / Great George St köşesi; Londra'nın en klasik karesi</li>
-          </ul></div>
+          </ul>
       </div>
-      <div class="tip"><b>Tören günü teyidi:</b> Nöbet Değişimi genelde <b>Pzt/Çar/Cuma 11:00</b> — bugün Cuma, uygun. Gitmeden householddivision.org.uk'tan kontrol et; yağmurda iptal olabiliyor. South Bank baştan sona düz — araba için Londra'nın en rahat hattı.</div>
+      <div class="tip"><b>24 Temmuz töreni ✓</b> — Guard Change 11:00: <b>1st Battalion Grenadier Guards</b>; bando: <b>Band of the Welsh Guards</b>. Yağmurda iptal olabilir; sabah householddivision.org.uk'a son bakış. South Bank baştan sona düz — bebek arabası için Londra'nın en rahat hattı.</div>
       <div class="food">
         <div class="ftag"><span class="f"><i data-lucide="utensils"></i></span> Bugün ne yenir?</div>
         <div class="row"><span class="meal">Öğle</span> Waterloo'daki <a href="https://www.google.com/maps/search/?api=1&query=Fishcotheque+Waterloo+London" target="_blank" rel="noopener">Fishcotheque</a> birebir: 1980'lerden beri işleyen köşe klasiği fish &amp; chips, çocuk porsiyonu da var.</div>
+        <div class="row"><span class="meal">Öğle · seçki</span> South Bank'in öne çıkanları — Eye öncesi ya da SEA LIFE sonrası, açlığa göre:
+          <ul>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Southbank+Centre+Food+Market" target="_blank" rel="noopener">Southbank Centre Food Market</a> — Cuma günleri kurulan ~20 tezgâhlı dünya mutfağı pazarı (Festival Hall'un arkası, Eye'a 5 dk); herkes farklısını seçer, çocukla en pratiği. <b>Bugün açık ✓</b></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=The+Anchor+and+Hope+The+Cut+London" target="_blank" rel="noopener">The Anchor &amp; Hope</a> — Londra gastropub akımının öncüsü (The Cut, Waterloo'ya 6 dk); mevsimlik İngiliz mutfağında bölgenin en iyisi</li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Wahaca+South+Bank" target="_blank" rel="noopener">Wahaca</a> — nehir cepheli, renkli Meksika sokak mutfağı; çocuk menüsüyle aile favorisi</li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Gourmet+Pizza+Company+Gabriels+Wharf" target="_blank" rel="noopener">Gourmet Pizza Co.</a> — Gabriel's Wharf'ın nehir kenarı pizza klasiği</li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Forza+Wine+National+Theatre" target="_blank" rel="noopener">Forza Wine</a> — National Theatre terasında manzaraya karşı atıştırma; yetişkinlere kısa keyif molası</li>
+          </ul></div>
         <div class="row"><span class="meal">Tatlı/kahve</span> İki güzel mola noktası:
           <ul>
             <li><a href="https://www.google.com/maps/search/?api=1&query=Gabu+Chocolatier+Gabriels+Wharf+London" target="_blank" rel="noopener">Gabu Chocolatier</a> — Gabriel's Wharf'ta yoğun sıcak çikolata ve kurabiye</li>
             <li><a href="https://www.google.com/maps/search/?api=1&query=La+Gelatiera+South+Bank" target="_blank" rel="noopener">La Gelatiera</a> — OXO Tower yanında el yapımı gelato</li>
-            <li><b>Konditor</b> (Cornwall Rd, Fishcotheque'e 3 dk) — efsane "curly whirly" browni; Elif'e kutuyla gidecek cinsten</li>
+            <li><b><a href="https://www.google.com/maps/search/?api=1&query=Konditor+Waterloo" target="_blank" rel="noopener">Konditor</a></b> (Cornwall Rd, Fishcotheque'e 3 dk) — efsane "curly whirly" browni; kutuyla eve gidecek cinsten</li>
           </ul></div>
-        <div class="row"><span class="meal">Akşam</span> South Bank'te erken bir akşam yemeği yiyin, sonra ışıklandırılmış London Eye boyunca yürüyerek günü kapatın.</div>
+        <div class="row"><span class="meal">Akşam</span> South Bank – Waterloo çevresinde aile dostu akşam seçenekleri:
+          <ul>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Gabriels+Wharf+London" target="_blank" rel="noopener">Gabriel's Wharf</a> — nehir kenarında mini restoran köyü; rahat, manzaralı, çocuklu aile dolu</li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Royal+Festival+Hall" target="_blank" rel="noopener">Royal Festival Hall sırası</a> — nehir cepheli çocuk dostu restoranlar (Wagamama vb.); bebek sandalyesi sorunsuz</li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=The+Founders+Arms+London" target="_blank" rel="noopener">The Founder's Arms</a> — St Paul's manzaralı nehir pub'ı (12 dk doğuda); yemekleri de iyi</li>
+            <li>Yemekten sonra ışıklı London Eye boyunca <b>Queen's Walk</b> yürüyüşüyle günü kapatın</li>
+          </ul></div>
         <div class="safe">Güvenli akşam: South Bank akşam canlı, aydınlık ve aile dostu — 19-20'ye kadar rahatça kalabilirsin.</div>
       </div>
     </div>
 
     <!-- DAY 3 -->
-    <div class="day" id="g3">
+    <div class="day bday" id="g3">
       <div class="day-head">
         <span class="daynum">03</span>
         <div><div class="daydate">25 Temmuz</div><div class="dayweek">Cumartesi</div></div>
         <span class="vibe calm">Çarşı + park</span>
       </div>
       <div class="daytitle">Portobello / Notting Hill &amp; Kensington Gardens</div>
-      <div class="tip" style="margin-top:0;margin-bottom:16px"><b>🎂 Bugün Zeynep 10 yaşında!</b> Kutlama günü rotası olduğu gibi kalıyor — yeni otelle daha da güzelleşti: brunch'ta pasta sürprizi, korsan gemili oyun alanı artık kapının dibinde, akşam yemeği de otelin caddesinde.</div>
+      <div class="bday-banner">🎂 Bugün Zeynep 10 yaşında!</div>
       <div class="daysum"><span class="ds"><i data-lucide="footprints"></i> Yürüme <b>~55 dk</b></span><span class="ds"><i data-lucide="train"></i> Ulaşım <b>gerekmiyor</b></span><span class="ds"><i data-lucide="timer"></i> Tempo <b>rahat</b></span></div>
       <div class="map-block">
         <div class="maptabs">
@@ -725,34 +833,27 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
           <button><span class="mt-ico"><i data-lucide="home"></i></span>Otele dönüş</button>
         </div>
         <div class="mapleg on">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.5113,-0.1872&daddr=51.5170002,-0.205847&dirflg=w&output=embed"></iframe>
-          <div class="legcap"><span><b>Otel → Portobello.</b> Westbourne Grove üzerinden keyifli yürüyüş ~15 dk, ya da Queensway→Notting Hill Gate 1 durak</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.5113,-0.1872&destination=51.5170002,-0.205847&travelmode=walking">Aç →</a></div>
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=40+Queensway+London+W2+3RS&daddr=51.5170002,-0.205847&dirflg=w&output=embed"></iframe>
+          <div class="legcap"><span><b>Otel → Portobello.</b></span><div class="chips"><span class="chip walk"><span class="ico">YÜRÜ</span> Westbourne Grove'dan ~15 dk</span><span class="chip tube"><span class="ln ln-central">Central</span> Queensway → ▼Notting Hill Gate · 1 durak</span></div><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=40+Queensway+London+W2+3RS&destination=51.5170002,-0.205847&travelmode=walking">Aç →</a></div>
         </div>
         <div class="mapleg">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.5170002,-0.205847&daddr=51.5153,-0.2047%20to:51.5155,-0.2005%20to:51.5049,-0.1882%20to:51.5060,-0.1834%20to:51.5075,-0.1755%20to:51.5102,-0.1757%20to:51.5064,-0.1874&dirflg=w&output=embed"></iframe>
-          <div class="legcap"><span><b>Pinli yürüyüş:</b> Portobello → Notting Hill Bookshop → mavi kapı (280 Westbourne Park Rd) → Kensington Palace (dış) → Round Pond → Peter Pan heykeli → Italian Gardens → Diana oyun alanı. Oradan Black Lion Gate = kapı.</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.5170002,-0.205847&destination=51.5064,-0.1874&waypoints=51.5153,-0.2047%7C51.5155,-0.2005%7C51.5049,-0.1882%7C51.5060,-0.1834%7C51.5075,-0.1755%7C51.5102,-0.1757&travelmode=walking">Aç →</a></div>
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.5170002,-0.205847&daddr=51.5153,-0.2047%20to:51.5155,-0.2005%20to:51.5133,-0.2002%20to:51.5112,-0.1999%20to:51.5069,-0.1943%20to:51.5049,-0.1882%20to:51.5060,-0.1834%20to:51.5075,-0.1755%20to:51.5102,-0.1757%20to:51.5064,-0.1874&dirflg=w&output=embed"></iframe>
+          <div class="legcap"><span><b>Pinli yürüyüş:</b> Portobello → Notting Hill Bookshop → mavi kapı → Denbigh Terrace → Alice's Antik → Churchill Arms → Kensington Palace (dış) → Round Pond → Peter Pan → Italian Gardens → Diana oyun alanı. Tüm "kaçırma" durakları pinli; oradan Black Lion Gate = kapı.</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.5170002,-0.205847&destination=51.5064,-0.1874&waypoints=51.5153,-0.2047%7C51.5155,-0.2005%7C51.5133,-0.2002%7C51.5112,-0.1999%7C51.5069,-0.1943%7C51.5049,-0.1882%7C51.5060,-0.1834%7C51.5075,-0.1755%7C51.5102,-0.1757&travelmode=walking">Aç →</a></div>
         </div>
         <div class="mapleg">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.5046865,-0.1695724&daddr=51.5113,-0.1872&dirflg=w&output=embed"></iframe>
-          <div class="legcap"><span><b>Park → otel.</b> Oyun alanı çıkışı Black Lion Gate zaten Queensway'in başı — kapıya ~8 dk yürüyüş</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.5046865,-0.1695724&destination=51.5113,-0.1872&travelmode=walking">Aç →</a></div>
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.5046865,-0.1695724&daddr=40+Queensway+London+W2+3RS&dirflg=w&output=embed"></iframe>
+          <div class="legcap"><span><b>Park → otel.</b> Black Lion Gate çıkışı Queensway'in başı.</span><div class="chips"><span class="chip walk"><span class="ico">YÜRÜ</span> kapıya ~8 dk</span></div><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.5046865,-0.1695724&destination=40+Queensway+London+W2+3RS&travelmode=walking">Aç →</a></div>
         </div>
-      </div>
-      <div class="opt">
-        <div class="otag"><span class="q">?</span> İstersen ekle · park kenarında</div>
-        <h5>Royal Albert Hall</h5>
-        <p>Kensington Gardens'ın güney kenarında; dışarıdan bile görkemli, Albert Anıtı'nın tam karşısında. Park gününde yol üstü.</p>
-        <h5>📸 St Luke's Mews — Love Actually'nin pembe evi</h5>
-        <p>Kart sahnesinin çekildiği 27 numaralı pembe kapı; Portobello'dan 5-6 dk'lık tatlı bir sapak (mews sakin bir konut sokağı — sessizce fotoğraf çekip çıkın).</p>
       </div>
       <div class="tl">
         <div class="stop"><div class="time">09:45</div><div class="body"><strong>Otelden Notting Hill'e</strong><span class="desc">Cumartesi Portobello'nun asıl günü; 10:30 öncesi varış kalabalığı yumuşatır.</span>
-          <div class="chips"><span class="chip walk"><span class="ico">YÜRÜ</span> otelden ~15 dk</span><span class="chip tube"><span class="ico">METRO</span> Queensway→Notting Hill Gate · 1 durak</span></div></div></div>
+          <div class="chips"><span class="chip walk"><span class="ico">YÜRÜ</span> otelden ~15 dk</span><span class="chip tube"><span class="ln ln-central">Central</span> Queensway → ▼Notting Hill Gate · 1 durak</span></div></div></div>
         <div class="stop meal-stop"><div class="time">10:00</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> BRUNCH</span><span class="desc">Portobello'da, market gezisinden önce. Öneri: <a href="#lezzet">Farm Girl / Pepperon →</a></span></div></div>
-        <div class="stop"><div class="time">10:45</div><div class="body"><strong>Portobello Road Market</strong><span class="desc">Antikalar, vintage, pastel evler, dünya mutfağı sokak lezzetleri. Notting Hill filminin sokağı.</span></div></div>
+        <div class="stop"><div class="time">10:45</div><div class="body"><strong><button class="il" type="button" data-info="portobello">Portobello Road Market</button></strong><span class="desc">Antikalar, vintage, pastel evler, dünya mutfağı sokak lezzetleri. Notting Hill filminin sokağı.</span></div></div>
         <div class="stop"><div class="time">12:30</div><div class="body"><strong>Kensington Gardens'a doğru yürüyüş</strong>
           <div class="chips"><span class="chip walk"><span class="ico">YÜRÜ</span> ~15 dk</span></div></div></div>
-        <div class="stop"><div class="time">13:15</div><div class="body"><strong>Diana Memorial Playground</strong><span class="desc">Dev korsan gemili oyun alanı — 10 ve 1 yaş için birebir.</span></div></div>
-        <div class="stop meal-stop"><div class="time">15:00</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> İKİNDİ ÇAYI</span><span class="desc">Eşine, Kensington Church St'te. Öneri: <a href="#lezzet">Candella Tea Room →</a> <span class="rbadge rb-book"><i data-lucide="phone"></i> KÜÇÜK MEKÂN</span></span></div></div>
+        <div class="stop"><div class="time">13:15</div><div class="body"><strong><button class="il" type="button" data-info="playground">Diana Memorial Playground</button></strong><span class="desc">Dev korsan gemili oyun alanı — her yaştan çocuk için birebir; yalnızca çocuklu aileler girebiliyor.</span></div></div>
+        <div class="stop meal-stop"><div class="time">15:00</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> İKİNDİ ÇAYI</span><span class="desc">Kensington Church St'te. Öneri: <a href="#lezzet">Candella Tea Room →</a> <span class="rbadge rb-book"><i data-lucide="phone"></i> KÜÇÜK MEKÂN</span></span></div></div>
         <div class="stop"><div class="time">17:00</div><div class="body"><strong>Dondurma &amp; otele dönüş</strong><span class="desc">Oyun alanından Black Lion Gate'e çık — Queensway'in başındasın; dondurma kapı önünde yenir.</span>
           <div class="chips"><span class="chip walk"><span class="ico">YÜRÜ</span> ~8 dk</span></div></div></div>
       </div>
@@ -766,9 +867,9 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
           </ul></div>
         <div class="nrow"><b>Kensington Gardens</b>
           <ul>
-            <li>Albert Memorial — görkemli altın anıt</li>
+            <li>Albert Memorial — görkemli altın anıt; tam karşısında <b><button class="il" type="button" data-info="rah">Royal Albert Hall</button></b> (parkın güney kenarında, rotaya 10 dk)</li>
             <li>Peter Pan heykeli ve Italian Gardens çeşmeleri</li>
-            <li>Kensington Palace (Diana'nın evi, dışarıdan) ve Round Pond</li>
+            <li><button class="il" type="button" data-info="kpalace">Kensington Palace</button> (dışarıdan) ve Round Pond</li>
             <li><b>Round Pond'da ördek-kuğu besleme</b> — otelin karşısı; bugün olmazsa herhangi bir sabahın 20 dakikalık klasiği</li>
           </ul></div>
         <div class="nrow"><b>Holland Park (Portobello'nun güneyi, ~15 dk)</b> <span class="free">PARK ÜCRETSİZ</span>
@@ -778,16 +879,19 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
           </ul></div>
         <div class="nrow"><b>Mağaza &amp; mola</b>
           <ul>
-            <li><b>The Notting Hill Bookshop</b> (13 Blenheim Crescent) — filmin gerçek kitapçısı; cam çatılı çocuk bölümü var, doğum günü kitabı buradan alınır. Portobello'nun tam dibinde</li>
-            <li><b>Biscuiteers</b> (194 Kensington Park Rd, 2 dk) — el boyaması "icing" bisküvi butiği; Londra'ya özgü en zarif yenilebilir hediyelik, Elif'in durağı</li>
+            <li><b><a href="https://www.google.com/maps/search/?api=1&query=The+Notting+Hill+Bookshop" target="_blank" rel="noopener">The Notting Hill Bookshop</a></b> (13 Blenheim Crescent) — filmin gerçek kitapçısı; cam çatılı çocuk bölümü var, doğum günü kitabı buradan alınır. Portobello'nun tam dibinde</li>
+            <li><b><a href="https://www.google.com/maps/search/?api=1&query=Biscuiteers+Notting+Hill" target="_blank" rel="noopener">Biscuiteers</a></b> (194 Kensington Park Rd, 2 dk) — el boyaması "icing" bisküvi butiği; Londra'ya özgü en zarif yenilebilir hediyelik</li>
             <li>Portobello tezgâhları — vintage oyuncak ve plak kolileri karıştırmalık</li>
           </ul></div>
-        <div class="nrow"><b>📸 Fotoğraf noktaları</b>
+      </div>
+      <div class="photobox">
+        <div class="ptag">📸 Fotoğraf noktaları — rota sırasıyla</div>
           <ul>
-            <li><b>Alice's Antik Dükkânı</b> (86 Portobello Rd) — kırmızı cephe; <b>Paddington filminde Bay Gruber'in dükkânı</b>, Portobello'nun en çok fotoğraflanan köşesi</li>
-            <li><b>Denbigh Terrace</b> — pastel boyalı evler sırası (Portobello'ya 1 dk); mavi kapıya renkli alternatif</li>
-            <li><b>Churchill Arms</b> — cephesi baştan aşağı çiçek, Londra'nın en çok fotoğraflanan pub'ı; Candella'ya giderken tam yol üstü</li>
-          </ul></div>
+            <li><b>Alice's Antik Dükkânı</b> (86 Portobello Rd) — kırmızı cephe; Paddington filminde Bay Gruber'in dükkânı</li>
+            <li><b>Denbigh Terrace</b> — pastel boyalı evler sırası (Portobello'ya 1 dk)</li>
+            <li><b>St Luke's Mews 27</b> — Love Actually'nin pembe evi (5-6 dk sapak; sakin konut sokağı, sessizce çekip çıkın)</li>
+            <li><b>Churchill Arms</b> — cephesi baştan aşağı çiçek; ikindi çayına giderken tam yol üstü</li>
+          </ul>
       </div>
       <div class="food">
         <div class="ftag"><span class="f"><i data-lucide="utensils"></i></span> Bugün ne yenir?</div>
@@ -797,10 +901,10 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
             <li><a href="https://www.google.com/maps/search/?api=1&query=Lowry+and+Baker+Portobello+Road" target="_blank" rel="noopener">Lowry &amp; Baker</a> — küçük ve samimi</li>
             <li><a href="https://www.google.com/maps/search/?api=1&query=Pepperon+Notting+Hill" target="_blank" rel="noopener">Pepperon</a> — tam İngiliz kahvaltısı, köpeği Coco ile meşhur</li>
           </ul></div>
-        <div class="row"><span class="meal">Tatlı</span> <b>Hummingbird Bakery</b> (133 Portobello Rd) — red velvet cupcake'in Londra klasiği; market gezisinin tam ortasında, doğum günü cupcake'i buradan.</div>
-        <div class="row"><span class="meal">İkindi çayı</span> Elif'e: <a href="https://www.google.com/maps/search/?api=1&query=Candella+Tea+Room+Kensington+Church+Street" target="_blank" rel="noopener">Candella Tea Room</a> — porselen takımlı, uygun fiyatlı; Notting Hill ile park arasında, Kensington Church St'te. <span class="rbadge rb-book"><i data-lucide="phone"></i> KÜÇÜK MEKÂN, AYIRT</span></div>
-        <div class="row"><span class="meal">Akşam</span> Doğum günü yemeği için sokağa çıkmak yeterli — otelin caddesindeki iki iyi İtalyan: <b>Garum</b> (Romalı mutfak) ya da <b>Mamma Mia</b> (aile klasiği).</div>
-        <div class="safe">Güvenli akşam: Bayswater artık evimiz — akşam canlı, aydınlık ve güvenli.</div>
+        <div class="row"><span class="meal">Tatlı</span> <b><a href="https://www.google.com/maps/search/?api=1&query=Hummingbird+Bakery+Portobello" target="_blank" rel="noopener">Hummingbird Bakery</a></b> (133 Portobello Rd) — red velvet cupcake'in Londra klasiği; market gezisinin tam ortasında, doğum günü cupcake'i buradan.</div>
+        <div class="row"><span class="meal">İkindi çayı</span> <a href="https://www.google.com/maps/search/?api=1&query=Candella+Tea+Room+Kensington+Church+Street" target="_blank" rel="noopener">Candella Tea Room</a> — porselen takımlı, uygun fiyatlı; Notting Hill ile park arasında, Kensington Church St'te. <span class="rbadge rb-book"><i data-lucide="phone"></i> KÜÇÜK MEKÂN, AYIRT</span></div>
+        <div class="row"><span class="meal">Akşam</span> Doğum günü yemeği için sokağa çıkmak yeterli — otelin caddesindeki iki iyi İtalyan: <b><a href="https://www.google.com/maps/search/?api=1&query=Garum+Queensway+London" target="_blank" rel="noopener">Garum</a></b> (Romalı mutfak) ya da <b><a href="https://www.google.com/maps/search/?api=1&query=Mamma+Mia+Queensway+London" target="_blank" rel="noopener">Mamma Mia</a></b> (aile klasiği).</div>
+        <div class="safe">Güvenli akşam: Bayswater akşamları canlı, aydınlık ve güvenli.</div>
       </div>
     </div>
 
@@ -820,36 +924,27 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
           <button><span class="mt-ico"><i data-lucide="home"></i></span>Otele dönüş</button>
         </div>
         <div class="mapleg on">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.5113,-0.1872&daddr=51.496715,-0.1763672&dirflg=r&output=embed"></iframe>
-          <div class="legcap"><span><b>Otel → müzeler.</b> Bayswater→South Kensington metro direkt (Circle/District) ~9 dk + 5 dk yürüyüş, ya da Uber ~10 dk · ~£10</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.5113,-0.1872&destination=51.496715,-0.1763672&travelmode=transit">Aç →</a></div>
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=40+Queensway+London+W2+3RS&daddr=Natural+History+Museum+London&dirflg=r&output=embed"></iframe>
+          <div class="legcap"><span><b>Otel → müzeler.</b></span><div class="chips"><span class="chip tube"><span class="ln ln-circle">Circle</span><span class="ln ln-district">District</span> Bayswater → ▼South Kensington (müzelere yaya alt geçidi) · ~9 dk <span class="xf">AKTARMASIZ</span></span><span class="chip walk"><span class="ico">YÜRÜ</span> +5 dk</span><span class="chip taxi"><span class="ico">UBER</span> ~10 dk · ~£10</span></div><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=40+Queensway+London+W2+3RS&destination=Natural+History+Museum+London&travelmode=transit">Aç →</a></div>
         </div>
         <div class="mapleg">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.496715,-0.1763672&daddr=51.4978,-0.1747%20to:51.4966,-0.1722%20to:51.5023,-0.1775%20to:51.5046,-0.1715&dirflg=w&output=embed"></iframe>
-          <div class="legcap"><span><b>Pinli yürüyüş:</b> Doğa Tarihi Müzesi → Science Museum → V&amp;A avlusu → Albert Memorial + Royal Albert Hall → Diana Memorial Fountain (Hyde Park). Müze sonrası dinlenme rotası hazır.</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.496715,-0.1763672&destination=51.5046,-0.1715&waypoints=51.4978,-0.1747%7C51.4966,-0.1722%7C51.5023,-0.1775&travelmode=walking">Aç →</a></div>
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=Natural+History+Museum+London&daddr=Science+Museum+London%20to:51.4966,-0.1722%20to:51.5023,-0.1775%20to:51.5046,-0.1715&dirflg=w&output=embed"></iframe>
+          <div class="legcap"><span><b>Pinli yürüyüş:</b> Doğa Tarihi Müzesi → Science Museum → V&amp;A avlusu → Albert Memorial + Royal Albert Hall → Diana Memorial Fountain (Hyde Park). Müze sonrası dinlenme rotası hazır.</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Natural+History+Museum+London&destination=51.5046,-0.1715&waypoints=Science+Museum+London%7C51.4966,-0.1722%7C51.5023,-0.1775&travelmode=walking">Aç →</a></div>
         </div>
         <div class="mapleg">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.4972216,-0.1767283&daddr=51.5113,-0.1872&dirflg=r&output=embed"></iframe>
-          <div class="legcap"><span><b>Müzeler → otel.</b> Uber ~10 dk · ~£12 (Sunday roast için yolda bir pub'a uğranabilir).</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.4972216,-0.1767283&destination=51.5113,-0.1872&travelmode=transit">Aç →</a></div>
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=Science+Museum+London&daddr=40+Queensway+London+W2+3RS&dirflg=r&output=embed"></iframe>
+          <div class="legcap"><span><b>Müzeler → otel.</b> Yolda Sunday roast pub'ına uğranabilir.</span><div class="chips"><span class="chip taxi"><span class="ico">UBER</span> ~10 dk · ~£12</span><span class="chip tube"><span class="ln ln-circle">Circle</span><span class="ln ln-district">District</span> South Kensington → ▼Bayswater · ~9 dk</span></div><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Science+Museum+London&destination=40+Queensway+London+W2+3RS&travelmode=transit">Aç →</a></div>
         </div>
-      </div>
-      <div class="opt">
-        <div class="otag"><span class="q">?</span> İstersen ekle · çocuklara göre</div>
-        <h5>Çocuk etkinlikleri</h5>
-        <p class="ev">Yaz tatili programı</p>
-        <p>Science Museum'un ücretsiz "Space Show"/Bubble Explorers gibi canlı çocuk gösterileri ve NHM'in 0-4 yaş "Adventure Babies" seansları yaz boyu sürüyor — Nil için de bir şey çıkabilir. Tarihleri müze sitesinden kontrol et.</p>
-        <p style="margin-top:8px;font-size:.82rem;color:#234e68">V&amp;A müzesi yanı başta ama yetişkin (tasarım/moda) müzesi — <b>solo gezine</b> ayırdım.</p>
-        <h5>📸 Kynance Mews</h5>
-        <p>Begonvil sarılı taş kemerli mews sokağı — Londra'nın en fotojenik köşelerinden; müzelerden ~8 dk'lık sapak (Gloucester Rd tarafı). Elif'in kamera günü için birebir.</p>
       </div>
       <div class="tl">
         <div class="stop meal-stop"><div class="time">09:30</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> KAHVALTI</span><span class="desc">Müze girişimiz 11:30 — sabah acele yok. Rahat bir Pazar kahvaltısı: Queensway / Westbourne Grove kafeleri, ya da parkta Italian Gardens kenarında.</span></div></div>
         <div class="stop"><div class="time">10:45</div><div class="body"><strong>Otelden müzelere</strong><span class="desc">Pazar sabahı yollar sakin. Girişten önce NHM'in masalsı dış cephesi önünde fotoğraf molası verin.</span>
-          <div class="chips"><span class="chip tube"><span class="ico">METRO</span> Bayswater→South Ken direkt · ~9 dk</span><span class="chip taxi"><span class="ico">UBER</span> ~10 dk · ~£10</span></div></div></div>
-        <div class="stop"><div class="time">11:30</div><div class="body"><strong>Doğa Tarihi Müzesi</strong><span class="desc"><b>Biletimiz 11:30'a alındı.</b> Dinozorlar ve mavi balina öncelikli; ~2 saat rahat rahat gezilir.</span></div></div>
+          <div class="chips"><span class="chip tube"><span class="ln ln-circle">Circle</span><span class="ln ln-district">District</span> Bayswater → ▼South Kensington (müzelere yaya alt geçidi) · ~9 dk <span class="xf">AKTARMASIZ</span></span><span class="chip taxi"><span class="ico">UBER</span> ~10 dk · ~£10</span></div></div></div>
+        <div class="stop"><div class="time">11:30</div><div class="body"><strong><button class="il" type="button" data-info="nhm">Doğa Tarihi Müzesi</button></strong><span class="desc"><b>Biletimiz 11:30'a alındı.</b> Dinozorlar ve mavi balina öncelikli; ~2 saat rahat rahat gezilir. Yaz dönemi çocuk etkinliklerini (0-4 yaş seansları dahil) müze sitesinden kontrol etmekte fayda var.</span></div></div>
         <div class="stop meal-stop"><div class="time">13:30</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> ÖĞLE</span><span class="desc">Müze kafelerinde pratik bir öğle — 14:00'te yan binada olacağız.</span></div></div>
-        <div class="stop"><div class="time">14:00</div><div class="body"><strong>Science Museum</strong><span class="desc"><b>Biletimiz 14:00'e alındı.</b> Yan bina, 3 dk yürüme; interaktif çocuk bölümleri (Wonderlab) Zeynep için birebir. Nil içinse bodrumdaki ücretsiz <b>The Garden</b> su/duyu oyun alanı — bebeklerin müzesi orası.</span>
+        <div class="stop"><div class="time">14:00</div><div class="body"><strong><button class="il" type="button" data-info="science">Science Museum</button></strong><span class="desc"><b>Biletimiz 14:00'e alındı.</b> Yan bina, 3 dk yürüme; interaktif çocuk bölümleri (Wonderlab) büyük çocuklar için birebir. Bebekler içinse bodrumdaki ücretsiz <b>The Garden</b> oyun alanı (3-6 yaş odaklı; su bölümü miniklere de birebir, yedek üst şart).</span>
           <div class="chips"><span class="chip walk"><span class="ico">YÜRÜ</span> 3 dk</span></div></div></div>
-        <div class="stop"><div class="time">16:00</div><div class="body"><strong>Hyde Park — Diana Memorial Fountain</strong><span class="desc">Müzelerden 10 dk: halka şeklinde akan anıt-çeşme; yazın çocuklar ayaklarını suya sokabiliyor — Nil için birebir dinlenme molası. Sonra erken akşam.</span>
+        <div class="stop"><div class="time">16:00</div><div class="body"><strong>Hyde Park — <button class="il" type="button" data-info="fountain">Diana Memorial Fountain</button></strong><span class="desc">Müzelerden 10 dk: halka şeklinde akan anıt-çeşme; yazın çocuklar ayaklarını suya sokabiliyor — bebekli aileler için birebir dinlenme molası. Sonra erken akşam.</span>
           <div class="chips"><span class="chip walk"><span class="ico">YÜRÜ</span> ~10 dk</span></div></div></div>
         <div class="stop meal-stop"><div class="time">17:30</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> SUNDAY ROAST</span><span class="desc">Bugün Pazar — fırın eti ritüeli. Öneri: <a href="#lezzet">Hunter's Moon / Hereford Arms →</a> <span class="rbadge rb-book"><i data-lucide="phone"></i> AYIRT</span></span></div></div>
       </div>
@@ -874,22 +969,25 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
           </ul></div>
         <div class="nrow"><b>Mağaza &amp; mola</b>
           <ul>
-            <li><b>NHM dinozor mağazası</b> ve Science Museum shop — çocuk hediyeliklerinin en iyileri</li>
-            <li>Mola: <b>V&amp;A avlusu</b> — havuzlu bahçe, giriş serbest, müzelerin yanı başında</li>
-            <li>Dönüşte istersen: <b>Harrods yemek katı</b> (12 dk)</li>
+            <li><b><a href="https://www.google.com/maps/search/?api=1&query=Natural+History+Museum+Shop+London" target="_blank" rel="noopener">NHM dinozor mağazası</a></b> ve Science Museum shop — çocuk hediyeliklerinin en iyileri</li>
+            <li>Mola: <b><a href="https://www.google.com/maps/search/?api=1&query=Victoria+and+Albert+Museum" target="_blank" rel="noopener">V&amp;A avlusu</a></b> — havuzlu bahçe, giriş serbest, müzelerin yanı başında</li>
+            <li>Dönüşte istersen: <b><a href="https://www.google.com/maps/search/?api=1&query=Harrods" target="_blank" rel="noopener">Harrods yemek katı</a></b> (12 dk)</li>
           </ul></div>
-        <div class="nrow"><b>📸 Fotoğraf noktaları</b>
+      </div>
+      <div class="photobox">
+        <div class="ptag">📸 Fotoğraf noktaları — rota sırasıyla</div>
           <ul>
-            <li><b>NHM Hintze Hall</b> — tavandan sarkan mavi balina iskeletinin altında aile karesi (girişin hemen içinde)</li>
-            <li>NHM'in katedral gibi dış cephesi — sabah fotoğraf molası zaten programda</li>
-          </ul></div>
+            <li>NHM'in katedral gibi dış cephesi — girişten önce (programda)</li>
+            <li><b>NHM Hintze Hall</b> — tavandan sarkan mavi balina iskeletinin altında aile karesi</li>
+            <li><b>Kynance Mews</b> — begonvil sarılı taş kemerli mews sokağı (müzelerden 8 dk sapak, Gloucester Rd tarafı)</li>
+          </ul>
       </div>
       <div class="food">
         <div class="ftag"><span class="f"><i data-lucide="utensils"></i></span> Bugün ne yenir?</div>
         <div class="row"><span class="meal">Pazar!</span> Bugün <b>Sunday roast</b> günü — müze dönüşü klasik İngiliz deneyimi için iki iyi pub:
           <ul>
-            <li><b>The Hunter's Moon</b> — Fulham Road</li>
-            <li><b>The Hereford Arms</b> — South Kensington, müzelerden yürüme mesafesi</li>
+            <li><b><a href="https://www.google.com/maps/search/?api=1&query=The+Hunters+Moon+Fulham+Road" target="_blank" rel="noopener">The Hunter's Moon</a></b> — Fulham Road</li>
+            <li><b><a href="https://www.google.com/maps/search/?api=1&query=The+Hereford+Arms+South+Kensington" target="_blank" rel="noopener">The Hereford Arms</a></b> — South Kensington, müzelerden yürüme mesafesi</li>
           </ul>
           <span class="rbadge rb-book"><i data-lucide="phone"></i> PAZAR 12-15 DOLUYOR, AYIRT</span></div>
         <div class="row"><span class="meal">Öğle</span> Müze kafeleri pratik; alternatif olarak yürüme mesafesindeki <b>Farm Girl</b>.</div>
@@ -911,50 +1009,55 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
         <div class="maptabs">
           <button class="on"><span class="mt-ico"><i data-lucide="bed-double"></i></span>Otel → Victoria</button>
           <button><span class="mt-ico"><i data-lucide="bus"></i></span>Victoria → Stüdyo</button>
+          <button><span class="mt-ico"><i data-lucide="sparkles"></i></span>Victoria akşamı</button>
         </div>
         <div class="mapleg on">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.5113,-0.1872&daddr=51.4924279,-0.148728&dirflg=r&output=embed"></iframe>
-          <div class="legcap"><span><b>Otel → Victoria.</b> Servis buradan kalkıyor. Bayswater→Victoria Circle/District direkt ~15 dk, ya da Uber ~15 dk · ~£15</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.5113,-0.1872&destination=51.4924279,-0.148728&travelmode=transit">Aç →</a></div>
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=40+Queensway+London+W2+3RS&daddr=51.4924279,-0.148728&dirflg=r&output=embed"></iframe>
+          <div class="legcap"><span><b>Otel → Victoria.</b> Stüdyo servisi buradan kalkıyor.</span><div class="chips"><span class="chip tube"><span class="ln ln-circle">Circle</span><span class="ln ln-district">District</span> Bayswater → ▼Victoria · ~15 dk <span class="xf">AKTARMASIZ</span></span><span class="chip taxi"><span class="ico">UBER</span> ~15 dk · ~£15</span></div><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=40+Queensway+London+W2+3RS&destination=51.4924279,-0.148728&travelmode=transit">Aç →</a></div>
         </div>
         <div class="mapleg">
           <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.4924279,-0.148728&daddr=51.6903361,-0.4181589&dirflg=r&output=embed"></iframe>
-          <div class="legcap"><span><b>Victoria → Leavesden stüdyo.</b> Markalı servis ~50-60 dk (yolda HP filmleri). Akşam aynı yoldan dönüş.</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.4924279,-0.148728&destination=51.6903361,-0.4181589&travelmode=transit">Aç →</a></div>
+          <div class="legcap"><span><b>Victoria → Leavesden stüdyo.</b> Yolda HP filmleri; akşam aynı yoldan dönüş.</span><div class="chips"><span class="chip coach"><span class="ico">SERVİS</span> ~50-60 dk</span></div><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.4924279,-0.148728&destination=51.6903361,-0.4181589&travelmode=transit">Aç →</a></div>
         </div>
-      </div>
-      <div class="opt">
-        <div class="otag"><span class="q">?</span> İstersen ekle · Harry Potter bonusu</div>
-        <h5>King's Cross — 9¾ Peronu</h5>
-        <p>Euston rotasını seçersen King's Cross hemen yanı başında (~10 dk). İstasyondaki <b>9¾ Peronu</b> fotoğraf noktası ve Harry Potter Mağazası — fotoğraf alanı ücretsiz. Stüdyo gününün Zeynep için tatlı kapanışı; dönüşte uğramak çok kolay.</p>
-        <h5>📸 St Pancras cephesi</h5>
-        <p>9¾'ün tam karşısında: Harry Potter'da Ford Anglia'nın üzerinden uçtuğu masalsı kızıl istasyon binası — King's Cross'a uğrarsanız iki ikonik kare birden.</p>
-        <h5>Stüdyo mağazası</h5>
-        <p>Bazı ürünler (asalar, bina atkıları, Butterbeer kupası) yalnızca stüdyoda satılıyor — HP hediye alışverişinin asıl yeri burası; çıkışta vakit ayırın.</p>
+        <div class="mapleg">
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=Victoria+Station+London&daddr=Westminster+Cathedral%20to:Peggy+Porschen+Belgravia%20to:Eccleston+Yards%20to:The+Thomas+Cubitt+London&dirflg=w&output=embed"></iframe>
+          <div class="legcap"><span><b>Pinli Victoria akşam turu:</b> istasyon → Westminster Cathedral → Elizabeth Street'in çiçekli köşesi Peggy Porschen → Eccleston Yards avlusu → The Thomas Cubitt (akşam yemeği). Dümdüz, bebek arabası dostu.</span><div class="chips"><span class="chip walk"><span class="ico">YÜRÜ</span> toplam ~25 dk</span><span class="chip tube"><span class="ln ln-circle">Circle</span><span class="ln ln-district">District</span> Victoria → ▼Bayswater · ~15 dk <span class="xf">AKTARMASIZ</span></span></div><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Victoria+Station+London&destination=The+Thomas+Cubitt+London&waypoints=Westminster+Cathedral%7CPeggy+Porschen+Belgravia%7CEccleston+Yards&travelmode=walking">Aç →</a></div>
+        </div>
       </div>
       <div class="tl">
         <div class="stop meal-stop"><div class="time">08:00</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> KAHVALTI</span><span class="desc">Büyük gün — evden sağlam kahvaltıyla çıkın. Otel çevresindeki kafeler erken açılır; geç kalınırsa Victoria'da hızlı bir fırın/Pret de olur.</span></div></div>
         <div class="stop"><div class="time">09:00</div><div class="body"><strong>Otelden Victoria'ya</strong><span class="desc"><b>Biletlerimiz alındı.</b> Servis otobüsü buradan kalkıyor; check-in 15 dk önce. (Bu gün istisna — servis saati sabit, erken kalkmaya değer.)</span>
-          <div class="chips"><span class="chip tube"><span class="ico">METRO</span> Bayswater→Victoria direkt · ~15 dk</span><span class="chip taxi"><span class="ico">UBER</span> ~15 dk · ~£15</span></div></div></div>
+          <div class="chips"><span class="chip tube"><span class="ln ln-circle">Circle</span><span class="ln ln-district">District</span> Bayswater → ▼Victoria · ~15 dk <span class="xf">AKTARMASIZ</span></span><span class="chip taxi"><span class="ico">UBER</span> ~15 dk · ~£15</span></div></div></div>
         <div class="stop"><div class="time">09:45</div><div class="body"><strong>Markalı servis otobüsü ile Leavesden'e</strong><span class="desc">Merkeze ~32 km kuzeybatı. Klimalı otobüste yolda Harry Potter filmleri oynar.</span>
           <div class="chips"><span class="chip coach"><span class="ico">SERVİS</span> ~50–60 dk</span></div></div></div>
-        <div class="stop"><div class="time">11:00</div><div class="body"><strong>Stüdyo turu başlıyor</strong><span class="desc">Büyük Salon, Diagon Yolu, Yasak Orman, 9¾ Peronu. Kendi temponda, ~4 saat.</span></div></div>
+        <div class="stop"><div class="time">11:00</div><div class="body"><strong><button class="il" type="button" data-info="hpstudio">Stüdyo turu</button> başlıyor</strong><span class="desc">Büyük Salon (Great Hall), Diagon Yolu (Diagon Alley), Yasak Orman, 9¾ Peronu. Kendi temponda, ~4 saat.</span></div></div>
         <div class="stop meal-stop"><div class="time">13:00</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> ÖĞLE</span><span class="desc">Stüdyo içinde Backlot Café + Butterbeer — mola için ideal.</span></div></div>
-        <div class="stop"><div class="time">13:30</div><div class="body"><strong>25. Yıl: "Hogwarts'ta İlk Yıl" sergisi</strong><span class="desc">7 May–7 Eyl 2026 özel — Felsefe Taşı, altın Snitch gibi orijinal aksesuarlar.</span></div></div>
-        <div class="stop"><div class="time">15:30</div><div class="body"><strong>Dönüş servisi → Victoria → otel</strong>
-          <div class="chips"><span class="chip coach"><span class="ico">SERVİS</span> ~60 dk</span><span class="chip taxi"><span class="ico">UBER</span> Victoria→otel ~15 dk · ~£15</span></div></div></div>
-        <div class="stop meal-stop"><div class="time">18:30</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> AKŞAM</span><span class="desc">Uzun gün — otele yakın kolay bir yemek. Euston rotasındaysan dönüşte <a href="#lezzet">Dishoom King's Cross →</a></span></div></div>
+        <div class="stop"><div class="time">13:30</div><div class="body"><strong>25. Yıl: "Hogwarts'ta İlk Yıl" sergisi</strong><span class="desc">7 May–7 Eyl 2026 özel — Felsefe Taşı, altın Snitch gibi orijinal aksesuarlar. Çıkışta stüdyo mağazasına vakit ayırın: bazı ürünler yalnızca burada satılıyor.</span></div></div>
+        <div class="stop"><div class="time">15:30</div><div class="body"><strong>Dönüş servisi → Victoria</strong><span class="desc">Victoria'ya ~16:30-17:00 varış.</span>
+          <div class="chips"><span class="chip coach"><span class="ico">SERVİS</span> ~60 dk</span></div></div></div>
+        <div class="stop"><div class="time">17:00</div><div class="body"><strong>Victoria akşam turu — Belgravia'nın şık köşeleri</strong><span class="desc">Haritada "Victoria akşamı" sekmesi; hepsi düz, ~25 dk yürüyüş:</span>
+          <ul>
+            <li><b><button class="il" type="button" data-info="cathedral">Westminster Cathedral</button></b> (5 dk) — çizgili kuleli Neo-Bizans katedral; girişi ücretsiz. İstasyon önünde minyatür <b>Little Ben</b> 📸</li>
+            <li><b><a href="https://www.google.com/maps/search/?api=1&query=Elizabeth+Street+Belgravia" target="_blank" rel="noopener">Elizabeth Street</a></b> — Belgravia'nın çiçekli butik caddesi; köşesinde Londra'nın en çok fotoğraflanan pembe pastanesi <b><a href="https://www.google.com/maps/search/?api=1&query=Peggy+Porschen+Belgravia" target="_blank" rel="noopener">Peggy Porschen</a></b> 📸 — kutu kekle mola</li>
+            <li><b><a href="https://www.google.com/maps/search/?api=1&query=Eccleston+Yards" target="_blank" rel="noopener">Eccleston Yards</a></b> — duvar resimli, kafeli saklı avlu</li>
+            <li>Meraklısına: 180 Ebury St — <b>Mozart</b> ilk senfonisini 8 yaşında bu evde yazdı (plaket)</li>
+          </ul></div></div>
+        <div class="stop meal-stop"><div class="time">18:15</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> AKŞAM</span><span class="desc">Victoria seçkisi aşağıda "Bugün ne yenir?" kutusunda — yorgunluk ağır bastıysa metroyla eve dönüp kapı önünde de yenir.</span>
+          <div class="chips"><span class="chip tube"><span class="ln ln-circle">Circle</span><span class="ln ln-district">District</span> Victoria → ▼Bayswater · ~15 dk <span class="xf">AKTARMASIZ</span></span><span class="chip taxi"><span class="ico">UBER</span> ~15 dk · ~£15</span></div></div></div>
       </div>
       <div class="tip"><b>Araba notu:</b> Stüdyo arabayla rahat gezilir, içeride kafe var. Tüm deneyim servisle birlikte ~7,5 saat sürer. Hafta içi seçtim çünkü hafta sonundan belirgin sakin.</div>
 
-      <div class="diff">
-        <div class="dtag"><span class="plus">+</span> Alternatif · daha hızlı &amp; hesaplı</div>
-        <h5>Euston → Watford Junction → ücretsiz servis</h5>
-        <p>Victoria'dan kalkan paket servis yerine: metroyla <b>Euston</b>'a, oradan <b>Watford Junction</b>'a direkt trenle (~20 dk), istasyon çıkışındaki Harry Potter kaplı <b>Mullany's servis otobüsüne</b> bin. Bu servis stüdyo biletini gösterince ücretsiz, ~15 dk. Trende Oyster/temassız geçerli. Tek dezavantajı iki aktarma — bebek arabasıyla biraz daha hareket; ama paket servisten <b>belirgin hızlı ve ucuz</b>. Bileti yine wbstudiotour.co.uk'tan ayrı al.</p>
-        <div class="chips"><span class="chip tube"><span class="ico">TREN</span> Euston→Watford ~20 dk</span><span class="chip coach"><span class="ico">SERVİS</span> ücretsiz · ~15 dk</span></div>
-      </div>
       <div class="food">
         <div class="ftag"><span class="f"><i data-lucide="utensils"></i></span> Bugün ne yenir?</div>
-        <div class="row"><span class="meal">Akşam</span> Uzun bir günün sonunda en iyisi kapı önü: <b>Queensway</b> restoranları ya da Westbourne Grove kafeleri — yürüme mesafesi sıfır.</div>
-        <div class="row"><span class="meal">İpucu</span> Dönüşte Euston rotası seçilirse King's Cross'taki efsane <b>Dishoom King's Cross</b> akşam yemeği için birebir.</div>
+        <div class="row"><span class="meal">Akşam · Victoria</span> Servis buraya bıraktığı için akşamı Belgravia'da yemek çok pratik — bölgenin en sevilenleri:
+          <ul>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Market+Halls+Victoria" target="_blank" rel="noopener">Market Halls Victoria</a> — istasyonun dibinde, Edward dönemi pasajında 8 mutfaklı yemek salonu + çatı terası; herkes farklısını seçer, yorgun aile için birebir</li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=The+Thomas+Cubitt+Belgravia" target="_blank" rel="noopener">The Thomas Cubitt</a> — Elizabeth Street'in ünlü gastropub'ı; Belgravia klasiği</li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=The+Orange+Pimlico+Road" target="_blank" rel="noopener">The Elizabeth</a> (eski adıyla The Orange) — Pimlico Rd'un sevilen köşe pub-restoranı</li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Kazan+Restaurant+Victoria" target="_blank" rel="noopener">Kazan</a> — Wilton Rd'daki yüksek puanlı Türk restoranı; ev özlemine birebir</li>
+            <li>Tatlı: <a href="https://www.google.com/maps/search/?api=1&query=Peggy+Porschen+Belgravia" target="_blank" rel="noopener">Peggy Porschen</a> — pembe cepheli kek dükkânından kutuyla</li>
+          </ul></div>
+        <div class="row"><span class="meal">Alternatif</span> Yorgunluk ağır bastıysa direkt eve: kapı önündeki <b>Queensway</b> restoranları — yürüme mesafesi sıfır.</div>
         <div class="safe">Güvenli akşam: yorucu bir gün; erken dön, dinlenin.</div>
       </div>
     </div>
@@ -966,56 +1069,56 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
         <div><div class="daydate">28 Temmuz</div><div class="dayweek">Salı</div></div>
         <span class="vibe mid">Tarih + nehir</span>
       </div>
-      <div class="daysum"><span class="ds"><i data-lucide="footprints"></i> Yürüme <b>~35 dk</b></span><span class="ds"><i data-lucide="train"></i> Ulaşım <b>~55 dk</b></span><span class="ds"><i data-lucide="ship"></i> Tekne <b>günlük bilet ✓</b></span><span class="ds"><i data-lucide="timer"></i> Tempo <b>orta</b></span></div>
+      <div class="daytitle">Tower, Borough &amp; tekneyle Greenwich</div>
+      <div class="daysum"><span class="ds"><i data-lucide="footprints"></i> Yürüme <b>~50 dk</b></span><span class="ds"><i data-lucide="train"></i> Ulaşım <b>~55 dk</b></span><span class="ds"><i data-lucide="ship"></i> Tekne <b>günlük bilet ✓</b></span><span class="ds"><i data-lucide="timer"></i> Tempo <b>dolu ama tekneli</b></span></div>
       <div class="map-block">
         <div class="maptabs">
           <button class="on"><span class="mt-ico"><i data-lucide="bed-double"></i></span>Otelden gidiş</button>
-          <button><span class="mt-ico"><i data-lucide="route"></i></span>Gezi rotası</button>
+          <button><span class="mt-ico"><i data-lucide="route"></i></span>Yürüyüş rotası</button>
+          <button><span class="mt-ico"><i data-lucide="ship"></i></span>Greenwich</button>
           <button><span class="mt-ico"><i data-lucide="home"></i></span>Otele dönüş</button>
         </div>
         <div class="mapleg on">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.5113,-0.1872&daddr=51.5081124,-0.0759493&dirflg=r&output=embed"></iframe>
-          <div class="legcap"><span><b>Otel → Tower.</b> Central hattı Queensway→Bank ~22 dk + 12 dk yürüyüş, ya da Uber ~35 dk · ~£30</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.5113,-0.1872&destination=51.5081124,-0.0759493&travelmode=transit">Aç →</a></div>
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=40+Queensway+London+W2+3RS&daddr=Leadenhall+Market+London&dirflg=r&output=embed"></iframe>
+          <div class="legcap"><span><b>Otel → Leadenhall (City).</b></span><div class="chips"><span class="chip tube"><span class="ln ln-central">Central</span> Queensway → ▼Bank · ~22 dk <span class="xf">AKTARMASIZ</span></span><span class="chip walk"><span class="ico">YÜRÜ</span> Bank → Leadenhall 5 dk</span><span class="chip taxi"><span class="ico">UBER</span> ~35 dk · ~£30</span></div><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=40+Queensway+London+W2+3RS&destination=Leadenhall+Market+London&travelmode=transit">Aç →</a></div>
         </div>
         <div class="mapleg">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.5081124,-0.0759493&daddr=51.5055,-0.0754%20to:51.5030,-0.0717%20to:51.5066,-0.0814%20to:51.5062,-0.0900%20to:51.5055826,-0.0904808&dirflg=w&output=embed"></iframe>
-          <div class="legcap"><span><b>Pinli yürüyüş:</b> Tower → Tower Bridge (cam zemin) → Shad Thames + Butler's Wharf (📸) → HMS Belfast → Golden Hinde → Borough Market. Sonrası tekneyle Westminster'a; Sky Garden/Leadenhall kuzeyde 10 dk sapak.</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.5081124,-0.0759493&destination=51.5055826,-0.0904808&waypoints=51.5055,-0.0754%7C51.5030,-0.0717%7C51.5066,-0.0814%7C51.5062,-0.0900&travelmode=walking">Aç →</a></div>
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=Leadenhall+Market+London&daddr=Tower+of+London%20to:St+Katharine+Docks%20to:Tower+Bridge%20to:51.5030,-0.0717%20to:51.5066,-0.0814%20to:51.5062,-0.0900%20to:51.5055826,-0.0904808&dirflg=w&output=embed"></iframe>
+          <div class="legcap"><span><b>Pinli yürüyüş:</b> Leadenhall (Diagon Yolu) → Tower dış çeperi → St Katharine Docks → Tower Bridge → Shad Thames + Butler's Wharf (📸) → HMS Belfast → Golden Hinde → Borough Market. Sonrası tekneyle Greenwich'e.</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Leadenhall+Market+London&destination=51.5055826,-0.0904808&waypoints=Tower+of+London%7CSt+Katharine+Docks%7CTower+Bridge%7C51.5030,-0.0717%7C51.5066,-0.0814%7C51.5062,-0.0900&travelmode=walking">Aç →</a></div>
         </div>
         <div class="mapleg">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.5015009,-0.1235908&daddr=51.5113,-0.1872&dirflg=r&output=embed"></iframe>
-          <div class="legcap"><span><b>Westminster → otel.</b> Westminster→Bond St→Central→Queensway ~30 dk, ya da kapıya Uber ~£20</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.5015009,-0.1235908&destination=51.5113,-0.1872&travelmode=transit">Aç →</a></div>
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=Cutty+Sark+Greenwich&daddr=Greenwich+Market%20to:Royal+Observatory+Greenwich&dirflg=w&output=embed"></iframe>
+          <div class="legcap"><span><b>Pinli Greenwich turu:</b> Cutty Sark (iskele dibinde) → Greenwich Market → parkın tepesinde Royal Observatory &amp; Meridyen Çizgisi. Yokuş ~15 dk; dönüşte aynı yoldan iskeleye.</span><div class="chips"><span class="chip walk"><span class="ico">YÜRÜ</span> toplam ~25 dk</span><span class="chip boat"><span class="ico">TEKNE</span> dönüş: Greenwich Pier → ▼Westminster · ~55 dk</span></div><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Cutty+Sark+Greenwich&destination=Royal+Observatory+Greenwich&waypoints=Greenwich+Market&travelmode=walking">Aç →</a></div>
         </div>
-      </div>
-      <div class="opt">
-        <div class="otag"><span class="q">?</span> İstersen ekle · nehir hattında</div>
-        <h5>Sky Garden (manzara — Shard'a gerek yok)</h5>
-        <p>Tower'ın 5 dk yanında, 20 Fenchurch'ün tepesinde <b>ücretsiz</b> bahçeli teras. The View from The Shard (~£32) yerine bunu öneririm; önceden ücretsiz slot ayırt.</p>
-        <h5>Millennium Köprüsü &amp; Shakespeare's Globe</h5>
-        <p>Borough'a yürürken Millennium Köprüsü (HP'de yıkılan köprü) ve Globe'un dışını görürsünüz; Globe mağazasına biletsiz girilir.</p>
-        <h5>Greenwich uzatması</h5>
-        <p>Günlük tekne biletimize <b>dahil</b> — ekstra ücret yok. Cutty Sark gemisi, üstü kapalı Greenwich Market ve ücretsiz denizcilik müzesi eklenir.</p>
+        <div class="mapleg">
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.5015009,-0.1235908&daddr=40+Queensway+London+W2+3RS&dirflg=r&output=embed"></iframe>
+          <div class="legcap"><span><b>Westminster → otel.</b></span><div class="chips"><span class="chip tube"><span class="ln ln-jubilee">Jubilee</span> Westminster → Bond St <span class="ln ln-central">Central</span> → ▼Queensway · ~30 dk <span class="xf">1 AKTARMA</span></span><span class="chip taxi"><span class="ico">UBER</span> kapıya · ~£20</span></div><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.5015009,-0.1235908&destination=40+Queensway+London+W2+3RS&travelmode=transit">Aç →</a></div>
+        </div>
       </div>
       <div class="tl">
-        <div class="stop meal-stop"><div class="time">08:45</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> KAHVALTI</span><span class="desc">Bugün program saatli — otel çevresinde hızlı bir kahvaltı yapıp 09:15'te yola çıkalım.</span></div></div>
-        <div class="stop"><div class="time">09:15</div><div class="body"><strong>Otelden Tower'a</strong><span class="desc">Central hattı Queensway'den City'ye direkt; Bank'te in, 12 dk yürü (ya da kapıya Uber).</span>
-          <div class="chips"><span class="chip tube"><span class="ico">METRO</span> Central → Bank · ~22 dk + 12 dk yürüyüş</span><span class="chip taxi"><span class="ico">UBER</span> ~35 dk · ~£30</span></div></div></div>
-        <div class="stop"><div class="time">10:00</div><div class="body"><strong>Tower of London</strong><span class="desc">Kraliyet Mücevherleri, kuzgunlar, Beefeater turu; ~2 saat. 12:15'te çıkıyoruz — köprüdeki saatli girişimize yetişeceğiz. <b>Saatli bileti 10:00 civarına al — programda kalan tek bilet bu.</b></span></div></div>
-        <div class="stop"><div class="time">12:30</div><div class="body"><strong><i data-lucide="star" class="hl-star"></i> Tower Bridge — cam zemin + motor odaları</strong><span class="desc"><b>Biletimiz 12:30'a alındı.</b> Üst geçitte cam zeminden 42 m aşağıda nehir ve trafik; Viktorya dönemi buhar motor odaları da bilete dahil. ~1 saat; asansörlü, bebek arabası dostu. Diagon Yolu'nun çekildiği <b>Leadenhall Market</b> Tower'a 12 dk — vakit kalırsa uğrayın.</span>
+        <div class="stop meal-stop"><div class="time">08:45</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> KAHVALTI</span><span class="desc">Köprü girişimiz 12:30 — sabah rahat. Otel çevresinde kahvaltı, 09:45'te yola.</span></div></div>
+        <div class="stop"><div class="time">09:45</div><div class="body"><strong>Otelden City'ye</strong><span class="desc">Central hattı Queensway'den direkt; Bank'te inip 5 dk yürü.</span>
+          <div class="chips"><span class="chip tube"><span class="ln ln-central">Central</span> Queensway → ▼Bank · ~22 dk <span class="xf">AKTARMASIZ</span> + 12 dk yürüyüş</span><span class="chip taxi"><span class="ico">UBER</span> ~35 dk · ~£30</span></div></div></div>
+        <div class="stop"><div class="time">10:30</div><div class="body"><strong><i data-lucide="star" class="hl-star"></i> <button class="il" type="button" data-info="leadenhall">Leadenhall Market</button> — Diagon Yolu</strong><span class="desc">Kırmızı-altın demir işçilikli Viktorya pasajı; Harry Potter'da Diagon Yolu burada çekildi, Çatlak Kazan'ın mavi kapısı Bull's Head Passage'da. Sabah saatinde bomboş — fotoğraf için en iyi vakit. ~30 dk.</span></div></div>
+        <div class="stop"><div class="time">11:15</div><div class="body"><strong><button class="il" type="button" data-info="tower">Tower of London</button> — dıştan tur</strong><span class="desc">İçeri girmiyoruz; kale dışından da çok şey veriyor: kuru hendek boyunca surlar, nehir tarafındaki <b>Traitors' Gate</b> (mahkûmların kaleye alındığı su kapısı) ve Tower Wharf rıhtımından köprüyle kale aynı karede. ~35 dk, ücretsiz.</span>
+          <div class="chips"><span class="chip walk"><span class="ico">YÜRÜ</span> Leadenhall'dan ~12 dk</span></div></div></div>
+        <div class="stop"><div class="time">11:55</div><div class="body"><strong><a href="https://www.google.com/maps/search/?api=1&query=St+Katharine+Docks" target="_blank" rel="noopener">St Katharine Docks</a></strong><span class="desc">Kalenin hemen arkasına saklanmış marina: yatlar, köprücükler ve 1800'lerden kalma çiçek kaplı <b><a href="https://www.google.com/maps/search/?api=1&query=Dickens+Inn" target="_blank" rel="noopener">Dickens Inn</a></b> 📸. Köprünün kuzey ayağına 4 dk. ~25 dk mola.</span></div></div>
+        <div class="stop"><div class="time">12:30</div><div class="body"><strong><i data-lucide="star" class="hl-star"></i> <button class="il" type="button" data-info="towerbridge">Tower Bridge</button> — cam zemin + motor odaları</strong><span class="desc"><b>Biletimiz 12:30'a alındı.</b> Üst geçitte cam zeminden (Glass Floor) 42 m aşağıda nehir ve trafik; Viktorya dönemi buhar motor odaları (Engine Rooms) da bilete dahil. ~1 saat; asansörlü, bebek arabası dostu.</span>
           <div class="chips"><span class="chip walk"><span class="ico">YÜRÜ</span> Tower'dan 5 dk</span></div></div></div>
-        <div class="stop meal-stop"><div class="time">13:45</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> GEÇ ÖĞLE</span><span class="desc">Nehir kenarından Borough Market'e yürüyüş (~20-25 dk) — günün yemek vurgusu burada. Öneri: <a href="#lezzet">Kappacasein / Bread Ahead →</a></span>
+        <div class="stop meal-stop"><div class="time">13:30</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> GEÇ ÖĞLE</span><span class="desc">Nehir kenarından Borough Market'e yürüyüş (~20-25 dk) — günün yemek vurgusu burada; ~1 saat, 14:45'te teknedeyiz. Öneri: <a href="#lezzet">tezgâh listesi aşağıda →</a></span>
           <div class="chips"><span class="chip walk"><span class="ico">YÜRÜ</span> ~20–25 dk</span></div></div></div>
-        <div class="stop"><div class="time">15:30</div><div class="body"><strong>Uber Boat — günlük biletimiz devrede</strong><span class="desc"><b>1 günlük hop-on-hop-off (River Roamer) alındı:</b> gün boyu istediğimiz iskelede inip binmek serbest. London Bridge iskelesinden kalk; enerji varsa önce doğuya <b>Greenwich</b>'e uzan (Cutty Sark + üstü kapalı çarşı, ~20 dk), dönüşte tek seferde <b>Westminster</b>'a gel. Nehirde geçen süre çocuklar için dinlenme sayılır.</span>
-          <div class="chips"><span class="chip boat"><span class="ico">TEKNE</span> gün boyu serbest in-bin</span></div></div></div>
-        <div class="stop"><div class="time">17:00</div><div class="body"><strong>Westminster — Big Ben &amp; Parlamento</strong></div></div>
-        <div class="stop"><div class="time">18:00</div><div class="body"><strong>Güvenli dönüş</strong><span class="desc">Akşam yemeğini ister merkezde ye, ister otel tarafında.</span>
-          <div class="chips"><span class="chip taxi"><span class="ico">UBER</span> kapıya · ~25 dk · ~£20</span><span class="chip tube"><span class="ico">METRO</span> Westminster→Bond St→Central→Queensway · ~30 dk</span></div></div></div>
+        <div class="stop"><div class="time">14:45</div><div class="body"><strong>Tekneyle Greenwich'e</strong><span class="desc">Günlük hop-on-hop-off biletimiz devrede. London Bridge iskelesinden doğuya ~30 dk — Tower Bridge'in altından geçilir.</span>
+          <div class="chips"><span class="chip boat"><span class="ico">TEKNE</span> London Bridge → Greenwich · ~30 dk</span></div></div></div>
+        <div class="stop"><div class="time">15:30</div><div class="body"><strong>Greenwich — Cutty Sark &amp; çarşı</strong><span class="desc">İskelenin dibinde <b><button class="il" type="button" data-info="cuttysark">Cutty Sark</button></b> (dışından etkileyici; içi biletli), 2 dk ötede üstü kapalı <b><button class="il" type="button" data-info="greenwichmarket">Greenwich Market</button></b>.</span></div></div>
+        <div class="stop"><div class="time">16:15</div><div class="body"><strong><i data-lucide="star" class="hl-star"></i> <button class="il" type="button" data-info="observatory">Royal Observatory &amp; Meridyen Çizgisi</button></strong><span class="desc">Parkın tepesine ~15 dk yokuş (bebek arabasıyla yavaş ama yapılır). Avluda <b>Başlangıç Meridyeni</b> (Prime Meridian) — bir ayağınız doğu, bir ayağınız batı yarım kürede. Tepeden Canary Wharf silüeti bedava; gözlemevi içi biletli (~£20, saat müzesi + teleskoplar).</span>
+          <div class="chips"><span class="chip walk"><span class="ico">YÜRÜ</span> park içinden ~15 dk</span></div></div></div>
+        <div class="stop"><div class="time">17:30</div><div class="body"><strong>Tekneyle Westminster'a — manzara turu</strong><span class="desc">Dönüş ~55 dk: Tower Bridge, <button class="il" type="button" data-info="globe">Globe</button>, Tate, <button class="il" type="button" data-info="stpauls">St Paul's</button> manzarası, OXO ve final olarak Big Ben + London Eye önünden. Günün dinlenme ayağı — büfeden bir şeyler alıp kurulun. Akşam yemeği iskelesini aşağıdaki tekne seçeneklerine göre belirleyin; illa Westminster'a kadar gitmek zorunda değilsiniz.</span>
+          <div class="chips"><span class="chip boat"><span class="ico">TEKNE</span> Greenwich → Westminster · ~55 dk</span></div></div></div>
+        <div class="stop"><div class="time">18:30</div><div class="body"><strong>Westminster — Big Ben karesi &amp; dönüş</strong><span class="desc">Kısa fotoğraf molası, sonra eve.</span>
+          <div class="chips"><span class="chip taxi"><span class="ico">UBER</span> kapıya · ~25 dk · ~£20</span><span class="chip tube"><span class="ln ln-jubilee">Jubilee</span> Westminster → Bond St <span class="ln ln-central">Central</span> → ▼Queensway <span class="xf">1 AKTARMA</span></span></div></div></div>
       </div>
       <div class="nearby">
         <div class="ntag"><span class="n"><i data-lucide="sparkles"></i></span> Bugün rotanda — manzara &amp; kaçırma</div>
-        <div class="nrow"><b>Manzara terası — Shard'a gerek yok</b> <span class="free">ÜCRETSİZ</span>
-          <ul>
-            <li><b>Sky Garden</b> (20 Fenchurch, "Walkie-Talkie") Tower'a 5 dk: ücretsiz bahçeli teras — The View from The Shard'a (~£32) para vermeye gerek bırakmaz; önceden ücretsiz slot ayırtılır</li>
-          </ul></div>
         <div class="nrow"><b>City / Tower çevresi</b>
           <ul>
             <li>Leadenhall Market — Diagon Yolu'nun çekildiği pasaj</li>
@@ -1026,45 +1129,49 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
           <ul>
             <li>Shakespeare's Globe ve Millennium Köprüsü + karşıda St Paul's</li>
             <li>Tate Modern terası — ücretsiz panorama</li>
-            <li>Golden Hinde gemisi ve Clink hapishane müzesi</li>
+            <li><button class="il" type="button" data-info="goldenhinde">Golden Hinde</button> gemisi ve Clink hapishane müzesi</li>
           </ul></div>
         <div class="nrow"><b>Tekne + Westminster</b>
           <ul>
-            <li>HMS Belfast savaş gemisi (nehirden görülür)</li>
+            <li><button class="il" type="button" data-info="hmsbelfast">HMS Belfast</button> savaş gemisi (nehirden görülür)</li>
             <li>İnişte County Hall ve Whitehall heykelleri</li>
           </ul></div>
         <div class="nrow"><b>Mağaza &amp; mola</b>
           <ul>
-            <li><b>Tower Bridge resmî mağazası</b> — köprü çıkışında, cam zemin hatırası</li>
-            <li><b>Monmouth Coffee</b> (Borough) — eve dönecek kahve çekirdeği buradan</li>
+            <li><b><a href="https://www.google.com/maps/search/?api=1&query=Tower+Bridge+Gift+Shop" target="_blank" rel="noopener">Tower Bridge resmî mağazası</a></b> — köprü çıkışında, cam zemin hatırası</li>
+            <li><b><a href="https://www.google.com/maps/search/?api=1&query=Monmouth+Coffee+Borough" target="_blank" rel="noopener">Monmouth Coffee</a></b> (Borough) — eve dönecek kahve çekirdeği buradan</li>
             <li>Mola: tekne yolculuğunun kendisi — büfeden sıcak bir şey alıp manzaraya kurulun</li>
           </ul></div>
-        <div class="nrow"><b>📸 Fotoğraf noktaları</b>
+      </div>
+      <div class="photobox">
+        <div class="ptag">📸 Fotoğraf noktaları</div>
           <ul>
-            <li><b>Shad Thames</b> — demir geçitli Viktorya depo sokağı; köprüden inince 2 dk, rotaya pinlendi</li>
+            <li><b><button class="il" type="button" data-info="shadthames">Shad Thames</button></b> — demir geçitli Viktorya depo sokağı; köprüden inince 2 dk, rotaya pinlendi</li>
             <li><b>Butler's Wharf rıhtımı</b> — Tower Bridge'in en iyi fotoğraf açısı; Belfast'a yürürken arkanıza bakın</li>
             <li><b>Bridget Jones'un evi</b> — Borough Market'te The Globe pub'ın üstündeki köşe daire</li>
-          </ul></div>
-      </div>
-      <div class="diff">
-        <div class="dtag"><span class="plus">+</span> Günlük tekne biletini sonuna kadar kullan</div>
-        <h5>River Roamer ile esnek rota</h5>
-        <p>Biletimiz gün boyu sınırsız in-bin olduğu için nehir kısmı tamamen esnek:</p>
-        <ul>
-          <li><b>Klasik hat:</b> London Bridge → Westminster (~30 dk) — Shakespeare's Globe, Millennium Köprüsü, St Paul's manzarası, Tate, OXO Tower ve final olarak London Eye + Big Ben önünden geçer. Manzara/dakika oranı en yüksek hat bu.</li>
-          <li><b>Greenwich uzatması:</b> önce doğu yönüne ~20 dk — Cutty Sark, üstü kapalı Greenwich Market ve ücretsiz denizcilik müzesi; dönüşte Tower Bridge'in altından geçersin. Gün uzar ama artık ekstra ücret yok.</li>
-          <li><b>Pratik notlar:</b> Uber Boat geniş, kapalı ve koltuklu; <b>bebek arabası açık hâlde biner</b>, tuvalet ve büfe var. Turist teknelerinden daha rahat.</li>
-        </ul>
+            <li><b>Greenwich:</b> Cutty Sark önü, meridyen çizgisinde iki-yarımküre karesi, tepeden Canary Wharf silüeti</li>
+          </ul>
       </div>
       <div class="food">
         <div class="ftag"><span class="f"><i data-lucide="utensils"></i></span> Bugün ne yenir?</div>
-        <div class="row"><span class="meal">Öğle</span> <b>Borough Market</b>'in üç efsane tezgâhı:
+        <div class="row"><span class="meal">Öğle</span> <b><button class="il" type="button" data-info="borough">Borough Market</button></b> olmazsa olmazları — tarihî ve en sevilen tezgâhlar:
           <ul>
             <li><a href="https://www.google.com/maps/search/?api=1&query=Kappacasein+Borough+Market" target="_blank" rel="noopener">Kappacasein</a> — Londra'nın en ünlü ızgara peynirli sandviçi</li>
-            <li><a href="https://www.google.com/maps/search/?api=1&query=Bread+Ahead+Borough+Market" target="_blank" rel="noopener">Bread Ahead</a> — kremalı donut, Zeynep'e</li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Padella+Borough+Market" target="_blank" rel="noopener">Padella</a> — el açması taze makarna; kuyruğuyla meşhur, erken sıraya girin</li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Bread+Ahead+Borough+Market" target="_blank" rel="noopener">Bread Ahead</a> — kremalı donut klasiği</li>
             <li><a href="https://www.google.com/maps/search/?api=1&query=Humble+Crumble+Borough+Market" target="_blank" rel="noopener">Humble Crumble</a> — sıcak meyveli crumble</li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Marias+Market+Cafe+Borough" target="_blank" rel="noopener">Maria's Market Café</a> — 1961'den beri; pazarın en eski esnaf lokantası</li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Neals+Yard+Dairy+Borough+Market" target="_blank" rel="noopener">Neal's Yard Dairy</a> — İngiliz peynirciliğinin tapınağı; tadım verirler</li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Richard+Hawards+Oysters+Borough+Market" target="_blank" rel="noopener">Richard Haward's Oysters</a> — 1792'den beri aynı ailenin istiridyecisi</li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Ginger+Pig+Borough+Market" target="_blank" rel="noopener">Ginger Pig</a> — efsane sausage roll</li>
           </ul></div>
-        <div class="row"><span class="meal">Akşam</span> Westminster sonrası otele dönün (~16 dk) ya da merkezde kalın; enerji varsa Soho/Chinatown'da akşam yemeği güzel biter.</div>
+        <div class="row"><span class="meal">Akşam · tekneyle</span> Günlük tekne biletiyle akşam yemeğine nehirden gidin — üç seçkin durak:
+          <ul>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Battersea+Power+Station" target="_blank" rel="noopener">Battersea Power Station</a> — restore edilen dev santralin içi restoran dolu (<a href="https://www.google.com/maps/search/?api=1&query=Gordon+Ramsay+Street+Pizza+Battersea" target="_blank" rel="noopener">Street Pizza</a>, <a href="https://www.google.com/maps/search/?api=1&query=Megans+Battersea" target="_blank" rel="noopener">Megan's</a> vb.); nehir cephesi ve türbin salonları gezmeye değer. Westminster'dan tekneyle 2 durak batı; dönüş kapıya Uber ~15 dk</li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Swan+at+the+Globe" target="_blank" rel="noopener">Swan at the Globe</a> — Globe'un bitişiğinde, St Paul's manzaralı nehir restoranı; <b>Bankside iskelesinde</b> in, dönüşte Blackfriars'tan <span class="ln ln-circle">Circle</span><span class="ln ln-district">District</span> ▼Bayswater</li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Hawksmoor+Wood+Wharf" target="_blank" rel="noopener">Hawksmoor Wood Wharf</a> — Canary Wharf'ta su üstü pavyonda ünlü steakhouse (Pazar dışında da roast'uyla meşhur); <b>Greenwich dönüşü ilk iskele</b>, yemek sonrası tekneyle batıya devam</li>
+          </ul></div>
+        <div class="row"><span class="meal">Alternatif</span> Yorgunsak klasik plan: Westminster'da Big Ben karesi, metroyla eve; kapı önü Queensway her zaman hazır.</div>
         <div class="safe">Güvenli akşam: Bankside, South Bank ve Westminster akşam aydınlık ve kalabalık — rahat.</div>
       </div>
     </div>
@@ -1086,53 +1193,46 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
           <button><span class="mt-ico"><i data-lucide="home"></i></span>Otele dönüş</button>
         </div>
         <div class="mapleg on">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.5113,-0.1872&daddr=51.5352875,-0.1534303&dirflg=r&output=embed"></iframe>
-          <div class="legcap"><span><b>Otel → London Zoo.</b> Uber kapıya en rahatı ~15 dk · ~£15; ya da 274 otobüsü (Baker St üzerinden) ~30 dk</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.5113,-0.1872&destination=51.5352875,-0.1534303&travelmode=transit">Aç →</a></div>
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=40+Queensway+London+W2+3RS&daddr=51.5352875,-0.1534303&dirflg=r&output=embed"></iframe>
+          <div class="legcap"><span><b>Otel → London Zoo.</b></span><div class="chips"><span class="chip taxi"><span class="ico">UBER</span> kapıya · ~15 dk · ~£15</span><span class="chip tube"><span class="busno">274</span> Baker St üzerinden → ▼London Zoo durağı · ~30 dk</span></div><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=40+Queensway+London+W2+3RS&destination=51.5352875,-0.1534303&travelmode=transit">Aç →</a></div>
         </div>
         <div class="mapleg">
           <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.5352875,-0.1534303&daddr=51.5387,-0.1600%20to:51.5414,-0.1460%20to:51.5390,-0.1426&dirflg=w&output=embed"></iframe>
-          <div class="legcap"><span><b>Pinli yürüyüş:</b> Zoo → Primrose Hill manzara tepesi → Amy Winehouse heykeli (Stables Market) → Camden Market. Kanal kenarından, hepsi işaretli. Sonra Northern hattıyla Covent Garden'a (~12 dk).</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.5352875,-0.1534303&destination=51.5390,-0.1426&waypoints=51.5387,-0.1600%7C51.5414,-0.1460&travelmode=walking">Aç →</a></div>
+          <div class="legcap"><span><b>Pinli yürüyüş:</b> Zoo → Primrose Hill manzara tepesi → Amy Winehouse heykeli (Stables Market) → Camden Market. Kanal kenarından, hepsi işaretli. Sonra <span class="ln ln-northern">Northern</span> ile King's Cross sapağına (2 durak).</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.5352875,-0.1534303&destination=51.5390,-0.1426&waypoints=51.5387,-0.1600%7C51.5414,-0.1460&travelmode=walking">Aç →</a></div>
         </div>
         <div class="mapleg">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.5117,-0.1226&daddr=51.5139,-0.1271%20to:51.5107,-0.1275%20to:51.5080,-0.1281%20to:51.5103,-0.1301%20to:51.5118,-0.1310&dirflg=w&output=embed"></iframe>
-          <div class="legcap"><span><b>Pinli akşam turu:</b> Covent Garden çarşısı → Seven Dials (Market) → Cecil Court sahafları → Trafalgar Square → Leicester Sq film heykelleri → Chinatown. Toplam ~30 dk yürüyüş, akşam yemeğinde biter.</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.5117,-0.1226&destination=51.5118,-0.1310&waypoints=51.5139,-0.1271%7C51.5107,-0.1275%7C51.5080,-0.1281%7C51.5103,-0.1301&travelmode=walking">Aç →</a></div>
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.5117,-0.1226&daddr=51.5139,-0.1271%20to:51.5107,-0.1275%20to:51.5080,-0.1281%20to:51.5103,-0.1301%20to:51.5118,-0.1310%20to:51.5127,-0.1410&dirflg=w&output=embed"></iframe>
+          <div class="legcap"><span><b>Pinli akşam turu:</b> Covent Garden çarşısı → Seven Dials (Market) → Cecil Court sahafları → Trafalgar Square → Leicester Sq film heykelleri (LEGO + M&amp;M's burada) → Chinatown'da yemek → Hamleys (Regent St) finali. Toplam ~40 dk yürüyüş.</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.5117,-0.1226&destination=51.5127,-0.1410&waypoints=51.5139,-0.1271%7C51.5107,-0.1275%7C51.5080,-0.1281%7C51.5103,-0.1301%7C51.5118,-0.1310&travelmode=walking">Aç →</a></div>
         </div>
         <div class="mapleg">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.5122737,-0.1234492&daddr=51.5113,-0.1872&dirflg=r&output=embed"></iframe>
-          <div class="legcap"><span><b>Covent Garden → otel.</b> Tottenham Court Rd'dan Central hattı <b>Queensway'e aktarmasız</b> ~12 dk (gece için en rahat), ya da Uber ~£18</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.5122737,-0.1234492&destination=51.5113,-0.1872&travelmode=transit">Aç →</a></div>
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.5122737,-0.1234492&daddr=40+Queensway+London+W2+3RS&dirflg=r&output=embed"></iframe>
+          <div class="legcap"><span><b>Covent Garden → otel.</b></span><div class="chips"><span class="chip tube"><span class="ln ln-central">Central</span> Oxford Circus / Tottenham Court Rd → ▼Queensway · ~10-12 dk <span class="xf">AKTARMASIZ</span></span><span class="chip taxi"><span class="ico">UBER</span> ~£18</span></div><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=51.5122737,-0.1234492&destination=40+Queensway+London+W2+3RS&travelmode=transit">Aç →</a></div>
         </div>
-      </div>
-      <div class="opt">
-        <div class="otag"><span class="q">?</span> İstersen ekle · yol üstü</div>
-        <h5>Hamleys — 7 katlı oyuncak mağazası</h5>
-        <p>Dünyanın en eski ve büyük oyuncakçısı (1760), Regent Street'te; Çarşamba geç saate kadar açık. Chinatown'a Piccadilly Circus üzerinden ~8-10 dk — akşam yemeğinden önce 30-45 dk uğramak kolay.</p>
-        <h5>London Transport Museum</h5>
-        <p>Covent Garden meydanında, çocuk dostu (eski otobüslere, metrolara biniliyor). Erken inip vakit yaratırsan Zeynep için harika.</p>
-        <h5>Sakin dönüş alternatifi: kanal teknesi</h5>
-        <p>Camden'den <b>Little Venice</b>'e nostaljik kanal teknesi (~45 dk; Regent's Park ve Zoo'nun önünden geçer — Zoo iskelesi kapalı, yalnızca geçiş). Little Venice'ten otele ~15-20 dk yürüyüş. Gün yorucu geçtiyse Covent Garden ayağı yerine güzel bir kapanış; <b>sırf tekne için ayrıca gitmeye değmez</b>, ancak zaten Camden'deyken mantıklı.</p>
       </div>
       <div class="tl">
         <div class="stop meal-stop"><div class="time">08:45</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> KAHVALTI</span><span class="desc">Girişimiz 10:00'a saatli — otel çevresinde hızlı bir kahvaltı yeterli; Zoo içinde de kafeler var.</span></div></div>
         <div class="stop"><div class="time">09:15</div><div class="body"><strong>Otelden London Zoo'ya</strong><span class="desc">Kapıya Uber en rahatı; serin saatlerde hayvanlar daha aktif.</span>
-          <div class="chips"><span class="chip taxi"><span class="ico">UBER</span> kapıya · ~15 dk · ~£15</span><span class="chip tube"><span class="ico">OTOBÜS</span> 274 · ~30 dk</span></div></div></div>
-        <div class="stop"><div class="time">10:00</div><div class="body"><strong><i data-lucide="star" class="hl-star"></i> ZSL London Zoo — rahat tempoda</strong><span class="desc"><b>Giriş biletimiz 10:00'a alındı</b> (Nil ücretsiz). ~3 saat, kendi hızınızda; bebek arabası dostu, çoğu yer düz ya da rampalı. Kaçırmayın:</span>
+          <div class="chips"><span class="chip taxi"><span class="ico">UBER</span> kapıya · ~15 dk · ~£15</span><span class="chip tube"><span class="busno">274</span> Baker St üzerinden → ▼London Zoo durağı · ~30 dk</span></div></div></div>
+        <div class="stop"><div class="time">10:00</div><div class="body"><strong><i data-lucide="star" class="hl-star"></i> <button class="il" type="button" data-info="zoo">ZSL London Zoo</button> — rahat tempoda</strong><span class="desc"><b>Giriş biletimiz 10:00'a alındı</b> (bebekler ücretsiz). ~3 saat, kendi hızınızda; bebek arabası dostu, çoğu yer düz ya da rampalı. Kaçırmayın:</span>
           <ul>
-            <li><b>Sürüngen Evi</b> — ilk Harry Potter filmindeki piton sahnesi!</li>
+            <li><b>Sürüngen Evi</b> (Reptile House) — ilk Harry Potter filmindeki piton sahnesi!</li>
             <li>Land of the Lions, Tiger Territory, Gorilla Kingdom</li>
             <li>Penguin Beach — yemek saatine denk gelin</li>
             <li>Butterfly Paradise ve 1835'ten kalma zürafa evi</li>
-            <li><b>Animal Adventure çocuk bölümü</b> — hayvan dokunma alanı + sıçrama çeşmeleri; Nil'e birebir (yedek kıyafet şart!)</li>
+            <li><b>Animal Adventure çocuk bölümü</b> — hayvan dokunma alanı + sıçrama çeşmeleri; minikler için birebir (yedek kıyafet şart!)</li>
           </ul>
           <span class="desc">2026 ZSL'nin 200. yılı — özel etkinlikler olabilir.</span></div></div>
         <div class="stop meal-stop"><div class="time">12:30</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> ÖĞLE</span><span class="desc">Zoo içindeki restoran/picnic alanında pratik bir öğle (dışarıdan yiyecek de sokulabiliyor) — yürüyüşe ara.</span></div></div>
         <div class="stop"><div class="time">13:30</div><div class="body"><strong>Zoo'dan Camden'e — kanal kenarı yürüyüş</strong><span class="desc">Regent's Canal boyunca ~10-15 dk keyifli yürüyüş doğrudan Camden Lock'a çıkar; istersen 274 otobüs.</span>
           <div class="chips"><span class="chip walk"><span class="ico">YÜRÜ</span> kanal kenarı ~12 dk</span></div></div></div>
-        <div class="stop"><div class="time">14:00</div><div class="body"><strong>Camden Market &amp; Camden Lock</strong><span class="desc">Kanal kenarı, eklektik dükkânlar, dünya mutfağı tezgâhları. Çarşamba olduğu için hafta sonundan çok daha sakin. Tatlı + gezinti.</span></div></div>
-        <div class="stop"><div class="time">15:45</div><div class="body"><strong>Northern hattı → Covent Garden</strong><span class="desc">Camden Town → Leicester Square direkt; meydana 4 dk yürüyüş.</span>
-          <div class="chips"><span class="chip tube"><span class="ico">METRO</span> Northern · ~12 dk</span></div></div></div>
-        <div class="stop"><div class="time">16:15</div><div class="body"><strong>Covent Garden + Neal's Yard + Seven Dials</strong><span class="desc">Sokak gösterileri, Apple Market, rengârenk avlu. Hediyelik için ideal.</span></div></div>
-        <div class="stop meal-stop"><div class="time">18:00</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> AKŞAM + DÖNÜŞ</span><span class="desc">8 dk yürü → Chinatown. Sonra Tottenham Court Rd'dan Central hattı aktarmasız eve. Öneri: <a href="#lezzet">Hankki / Bubblewrap →</a></span>
-          <div class="chips"><span class="chip walk"><span class="ico">YÜRÜ</span> 8 dk</span><span class="chip tube"><span class="ico">METRO</span> Central direkt · ~15 dk</span><span class="chip taxi"><span class="ico">UBER</span> ~20 dk · ~£18</span></div></div></div>
+        <div class="stop"><div class="time">14:00</div><div class="body"><strong><button class="il" type="button" data-info="camden">Camden Market</button> &amp; Camden Lock</strong><span class="desc">Kanal kenarı, eklektik dükkânlar, dünya mutfağı tezgâhları. Çarşamba olduğu için hafta sonundan çok daha sakin. Tatlı + gezinti.</span></div></div>
+        <div class="stop"><div class="time">15:30</div><div class="body"><strong>King's Cross sapağı — 9¾ Peronu (ücretsiz)</strong><span class="desc">Camden'den Northern hattıyla 2 durak. İstasyon içinde duvara gömülü bagaj arabasıyla <b><button class="il" type="button" data-info="kx">9¾ Peronu</button></b> fotoğraf noktası — kendi telefonunla çekim ücretsiz (kuyruk olabilir), yanında HP Shop; dışarıda St Pancras'ın masalsı kızıl cephesi. ~30-40 dk; kuyruk uzunsa atlayıp direkt Covent Garden'a geçin.</span>
+          <div class="chips"><span class="chip tube"><span class="ln ln-northern">Northern</span> Camden Town → ▼King's Cross · 2 durak</span><span class="chip tube"><span class="ln ln-piccadilly">Piccadilly</span> King's Cross → ▼Covent Garden · ~6 dk <span class="xf">AKTARMASIZ</span></span></div></div></div>
+        <div class="stop"><div class="time">16:45</div><div class="body"><strong><button class="il" type="button" data-info="coventgarden">Covent Garden</button> + Neal's Yard + Seven Dials</strong><span class="desc">Sokak gösterileri, Apple Market, rengârenk avlu. Vakit kalırsa meydandaki <b>London Transport Museum</b> (kapanış 18:00; yetişkin ~£25, çocuklar ücretsiz) — eski otobüslere binilen çocuk dostu müze.</span></div></div>
+        <div class="stop meal-stop"><div class="time">18:15</div><div class="body"><span class="mealmark"><span class="mm"><i data-lucide="utensils"></i></span> AKŞAM</span><span class="desc">8 dk yürü → Chinatown'da akşam yemeği. Öneri: <a href="#lezzet">Hankki / Bubblewrap →</a></span>
+          <div class="chips"><span class="chip walk"><span class="ico">YÜRÜ</span> 8 dk</span></div></div></div>
+        <div class="stop"><div class="time">19:45</div><div class="body"><strong><button class="il" type="button" data-info="hamleys">Hamleys</button> — kapanış turu</strong><span class="desc">Chinatown'dan Piccadilly Circus üzerinden 8-10 dk: 7 katlı, 1760'tan beri açık dünyanın en ünlü oyuncakçısı (Çarşamba geç kapanış). Sonra Oxford Circus'tan eve.</span>
+          <div class="chips"><span class="chip walk"><span class="ico">YÜRÜ</span> ~10 dk</span><span class="chip tube"><span class="ln ln-central">Central</span> Oxford Circus → ▼Queensway · ~10 dk <span class="xf">AKTARMASIZ</span></span><span class="chip taxi"><span class="ico">UBER</span> ~20 dk · ~£18</span></div></div></div>
       </div>
       <div class="nearby">
         <div class="ntag"><span class="n"><i data-lucide="sparkles"></i></span> Bugün rotanda — gözden kaçırma</div>
@@ -1150,7 +1250,7 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
         <div class="nrow"><b>Covent Garden çevresi</b> <span class="free">ÜCRETSİZ</span>
           <ul>
             <li>Seven Dials güneş saati ve Leicester Square film el izleri</li>
-            <li>Trafalgar Square: Nelson Sütunu + Dördüncü Kaide</li>
+            <li><button class="il" type="button" data-info="trafalgar">Trafalgar Square</button>: Nelson Sütunu + Dördüncü Kaide</li>
             <li>St Martin-in-the-Fields ve Cecil Court sahaf pasajı</li>
           </ul></div>
         <div class="nrow"><b>Soho / Piccadilly</b>
@@ -1160,27 +1260,30 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
           </ul></div>
         <div class="nrow"><b>Mağaza &amp; mola — bugün alışveriş günü</b>
           <ul>
-            <li><b>Covent Garden çarşısı:</b> Benjamin Pollock's oyuncakçısı (1880'lerden Viktorya oyuncak tiyatroları), Transport Museum Shop (TfL koltuk kumaşı ürünleri + "Mind the Gap" çorapları), Whittard, Ben's Cookies</li>
-            <li><b>Stanfords</b> — dünyanın en ünlü seyahat kitapçısı; 3 dk ötede Cecil Court sahaf pasajı</li>
-            <li><b>LEGO Store</b> + <b>M&amp;M's World</b> (Leicester Sq) — Londra'ya özel setler; 4 katlı M&amp;M dünyası ücretsiz gezilir, dev maskotlarla foto</li>
-            <li><b>House of MinaLima</b> (Soho, ücretsiz galeri) + <b>House of Spells</b> (Charing Cross Rd) — Zeynep'in büyü ikilisi: biri sergi, biri dükkân</li>
-            <li><b>Petersham Nurseries — Floral Court</b> — çiçekli gizli avlu + şık ev/bahçe butiği (çarşıya 2 dk) · <b>Neal's Yard Remedies</b> — doğal kozmetiğin orijinali, rengarenk avlunun kendisinde; Elif'in iki durağı</li>
-            <li>Opsiyon: <b>Hamleys</b> (Regent St, geç saate dek açık) ve <b>Waterstones Piccadilly</b> çocuk katı + resimli HP baskıları — Chinatown'a 5 dk</li>
-            <li>Mola: <b>Seven Dials Market</b> — kapalı yemek pazarı; dinlenme/yağmur sığınağı, herkes farklı mutfak seçebilir (Covent Garden'a 2 dk)</li>
+            <li><b>Covent Garden çarşısı:</b> <a href="https://www.google.com/maps/search/?api=1&query=Benjamin+Pollocks+Toyshop+Covent+Garden" target="_blank" rel="noopener">Benjamin Pollock's</a> oyuncakçısı (1880'lerden Viktorya oyuncak tiyatroları), <a href="https://www.google.com/maps/search/?api=1&query=London+Transport+Museum+Shop" target="_blank" rel="noopener">Transport Museum Shop</a> (TfL koltuk kumaşı ürünleri + "Mind the Gap" çorapları), <a href="https://www.google.com/maps/search/?api=1&query=Whittard+Covent+Garden" target="_blank" rel="noopener">Whittard</a>, <a href="https://www.google.com/maps/search/?api=1&query=Bens+Cookies+Covent+Garden" target="_blank" rel="noopener">Ben's Cookies</a></li>
+            <li><b><a href="https://www.google.com/maps/search/?api=1&query=Stanfords+Covent+Garden" target="_blank" rel="noopener">Stanfords</a></b> — dünyanın en ünlü seyahat kitapçısı; 3 dk ötede Cecil Court sahaf pasajı</li>
+            <li><b><a href="https://www.google.com/maps/search/?api=1&query=LEGO+Store+Leicester+Square" target="_blank" rel="noopener">LEGO Store</a></b> + <b><a href="https://www.google.com/maps/search/?api=1&query=M%26Ms+World+London" target="_blank" rel="noopener">M&amp;M's World</a></b> (Leicester Sq) — Londra'ya özel setler; 4 katlı M&amp;M dünyası ücretsiz gezilir, dev maskotlarla foto</li>
+            <li><b><a href="https://www.google.com/maps/search/?api=1&query=House+of+MinaLima" target="_blank" rel="noopener">House of MinaLima</a></b> (Soho, ücretsiz galeri) + <b><a href="https://www.google.com/maps/search/?api=1&query=House+of+Spells+London" target="_blank" rel="noopener">House of Spells</a></b> (Charing Cross Rd) — büyü meraklıları için ikili: biri sergi, biri dükkân</li>
+            <li><b><a href="https://www.google.com/maps/search/?api=1&query=Petersham+Nurseries+Covent+Garden" target="_blank" rel="noopener">Petersham Nurseries — Floral Court</a></b> — çiçekli gizli avlu + şık ev/bahçe butiği (çarşıya 2 dk) · <b><a href="https://www.google.com/maps/search/?api=1&query=Neals+Yard+Remedies+Covent+Garden" target="_blank" rel="noopener">Neal's Yard Remedies</a></b> — doğal kozmetiğin orijinali, rengarenk avlunun kendisinde</li>
+            <li>Opsiyon: <b><a href="https://www.google.com/maps/search/?api=1&query=Hamleys+Regent+Street" target="_blank" rel="noopener">Hamleys</a></b> (Regent St, geç saate dek açık) ve <b><a href="https://www.google.com/maps/search/?api=1&query=Waterstones+Piccadilly" target="_blank" rel="noopener">Waterstones Piccadilly</a></b> çocuk katı + resimli HP baskıları — Chinatown'a 5 dk</li>
+            <li>Mola: <b><a href="https://www.google.com/maps/search/?api=1&query=Seven+Dials+Market" target="_blank" rel="noopener">Seven Dials Market</a></b> — kapalı yemek pazarı; dinlenme/yağmur sığınağı, herkes farklı mutfak seçebilir (Covent Garden'a 2 dk)</li>
           </ul></div>
-        <div class="nrow"><b>📸 Fotoğraf noktaları</b>
+      </div>
+      <div class="photobox">
+        <div class="ptag">📸 Fotoğraf noktaları — rota sırasıyla</div>
           <ul>
-            <li><b>Leicester Sq film heykelleri</b> ("Scenes in the Square") — Paddington, Mary Poppins ve süpürgeli Harry Potter; akşam turu rotasında</li>
-            <li><b>Outernet / Now Building</b> — dev LED gökyüzü tavanı, ücretsiz; dönüş metrosuna (Tottenham Court Rd) girerken kapının dibinde</li>
-            <li><b>Primrose Hill zirvesi</b> + Regent's Canal'ın renkli tekneleri — kanal yürüyüşü rotasında</li>
-          </ul></div>
+            <li><b><button class="il" type="button" data-info="primrose">Primrose Hill</button> zirvesi</b> + Regent's Canal'ın renkli tekneleri — kanal yürüyüşünde</li>
+            <li><b>9¾ Peronu + St Pancras cephesi</b> — King's Cross sapağında</li>
+            <li><b>Leicester Sq film heykelleri</b> ("Scenes in the Square") — Paddington, Mary Poppins ve süpürgeli Harry Potter</li>
+            <li><b>Outernet / Now Building</b> — dev LED gökyüzü tavanı, ücretsiz (Tottenham Court Rd girişinde)</li>
+          </ul>
       </div>
       <div class="food">
         <div class="ftag"><span class="f"><i data-lucide="utensils"></i></span> Bugün ne yenir?</div>
         <div class="row"><span class="meal">Öğle</span> <b>Camden Market</b>'te dünya mutfağı tezgâhları sizi bekliyor:
           <ul>
             <li><a href="https://www.google.com/maps/search/?api=1&query=Poppies+Fish+and+Chips+Camden" target="_blank" rel="noopener">Poppies</a> — retro dekorlu, ödüllü fish &amp; chips</li>
-            <li><a href="https://www.google.com/maps/search/?api=1&query=Chin+Chin+Labs+Camden" target="_blank" rel="noopener">Chin Chin Labs</a> — sıvı azotla gözünüzün önünde yapılan dondurma; Zeynep'e küçük bir bilim gösterisi gibi gelecek</li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Chin+Chin+Labs+Camden" target="_blank" rel="noopener">Chin Chin Labs</a> — sıvı azotla gözünüzün önünde yapılan dondurma; çocuklara küçük bir bilim gösterisi gibi gelir</li>
           </ul></div>
         <div class="row"><span class="meal">Kahve</span> Covent Garden'da iki iyi adres: <a href="https://www.google.com/maps/search/?api=1&query=WatchHouse+Seven+Dials" target="_blank" rel="noopener">WatchHouse</a> (kardamonlu çöreğiyle meşhur) ve <a href="https://www.google.com/maps/search/?api=1&query=Redemption+Roasters+Covent+Garden" target="_blank" rel="noopener">Redemption Roasters</a>.</div>
         <div class="row"><span class="meal">Akşam</span> Günü <b>Chinatown</b>'da kapatın:
@@ -1207,8 +1310,8 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
           <button class="on"><span class="mt-ico"><i data-lucide="plane"></i></span>Otelden havaalanına</button>
         </div>
         <div class="mapleg on">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=51.5113,-0.1872&daddr=51.8860,0.2389&dirflg=d&output=embed"></iframe>
-          <div class="legcap"><span><b>Otel → Stansted.</b> Kapıdan kapıya taksi ya da önceden ayarlanmış sabit fiyatlı transfer ~1-1,25 sa — dönüş aracını önceden ayarla</span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=40+Queensway+London+W2+3RS&destination=London+Stansted+Airport&travelmode=driving">Aç →</a></div>
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?saddr=40+Queensway+London+W2+3RS&daddr=51.8860,0.2389&dirflg=d&output=embed"></iframe>
+          <div class="legcap"><span><b>Otel → Stansted.</b> Dönüş aracını önceden ayarla.</span><div class="chips"><span class="chip taxi"><span class="ico">TAKSİ/TRANSFER</span> kapıdan kapıya · ~1-1,25 sa</span></div><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=40+Queensway+London+W2+3RS&destination=London+Stansted+Airport&travelmode=driving">Aç →</a></div>
         </div>
       </div>
       <div class="tl">
@@ -1230,120 +1333,25 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
   <!-- TASTE GUIDE -->
   <section id="lezzet">
     <h2 class="sec">Yemek — gün gün özet</h2>
-    <p class="sec-lead">Ayrıntılar ve bağlantılar her günün "Bugün ne yenir?" kutusunda; bu tablo hızlı bakış için.</p>
+    <p class="sec-lead">Ayrıntılar ve bağlantılar her günün "Bugün ne yenir?" kutusunda; bu liste hızlı bakış için.</p>
     <div class="tastecard">
-      <table class="pricetable">
-        <tr><th>Gün</th><th>Öğün</th><th>Nerede</th></tr>
-        <tr><td>1 · Per</td><td>Akşam</td><td>Kapı önü: Queensway restoranları · ya da Dishoom Kensington <b>(rez.)</b></td></tr>
-        <tr><td>2 · Cum</td><td>Öğle / tatlı</td><td>Fishcotheque fish &amp; chips (Waterloo) · Gabu sıcak çikolata / La Gelatiera · Konditor browni</td></tr>
-        <tr><td>3 · Cmt</td><td>Brunch / çay / akşam</td><td>Farm Girl ya da Pepperon · Hummingbird cupcake · Candella ikindi çayı <b>(rez.)</b> · doğum günü yemeği Queensway'de: Garum / Mamma Mia</td></tr>
-        <tr><td>4 · Paz</td><td>Öğle / akşam</td><td>Müze kafeleri · Sunday roast: Hunter's Moon / Hereford Arms <b>(rez.)</b></td></tr>
-        <tr><td>5 · Pzt</td><td>Öğle / akşam</td><td>Backlot Café + Butterbeer (stüdyo) · akşam Queensway ya da Dishoom King's Cross</td></tr>
-        <tr><td>6 · Sal</td><td>Geç öğle</td><td>Borough Market: Kappacasein · Bread Ahead · Humble Crumble</td></tr>
-        <tr><td>7 · Çar</td><td>Öğle / kahve / akşam</td><td>Zoo içi ya da Camden (Poppies, Chin Chin Labs) · WatchHouse kahve · Chinatown: Hankki / Banana Tree + Bubblewrap · mola: Seven Dials Market</td></tr>
-        <tr><td>8 · Per</td><td>Kahvaltı</td><td>Otelde hızlı — sonra yola</td></tr>
-      </table>
-    </div>
-  </section>
-
-  <!-- TICKETS -->
-  <section id="biletler">
-    <h2 class="sec">Biletler — durum</h2>
-    <p class="sec-lead">Ana biletlerin hepsi cebimizde. Aşağıda gün gün alınanlar, kalan birkaç iş ve istenirse eklenebilecek opsiyoneller.</p>
-
-    <div class="grouplabel"><span class="dot" style="background:#007d32"></span> Alındı ✓</div>
-    <div class="tix">
       <ul class="donelist">
-        <li><span class="dday">Gün 2 · 24 Tem</span><span><b>London Eye — 14:00</b> + SEA LIFE combo; Eye'dan çıkınca akvaryuma geçilir. Nil ücretsiz.</span></li>
-        <li><span class="dday">Gün 4 · 26 Tem</span><span><b>Doğa Tarihi Müzesi — 11:30</b> ücretsiz saatli slot; kuyruksuz giriş.</span></li>
-        <li><span class="dday">Gün 4 · 26 Tem</span><span><b>Science Museum — 14:00</b>; NHM'den 3 dk yürüme.</span></li>
-        <li><span class="dday">Gün 5 · 27 Tem</span><span><b>Harry Potter Studio Tour</b> — servis saatine göre 09:00'da evden çıkış.</span></li>
-        <li><span class="dday">Gün 6 · 28 Tem</span><span><b>Tower Bridge — 12:30</b>: cam zemin + Viktorya dönemi motor odaları.</span></li>
-        <li><span class="dday">Gün 6 · 28 Tem</span><span><b>Uber Boat River Roamer</b> — 1 günlük hop-on-hop-off; gün boyu serbest in-bin, Greenwich uzatması dahil.</span></li>
-        <li><span class="dday">Gün 7 · 29 Tem</span><span><b>ZSL London Zoo — 10:00 giriş</b>. Nil ücretsiz.</span></li>
+        <li><span class="dday">1. Gün</span><span><b>Akşam:</b> kapı önünde Queensway restoranları · Dishoom Kensington <b>(rez.)</b></span></li>
+        <li><span class="dday">2. Gün</span><span><b>Öğle:</b> Fishcotheque fish &amp; chips ya da Southbank Centre Food Market (Cuma ✓) · <b>Tatlı:</b> Gabu sıcak çikolata / La Gelatiera / Konditor browni</span></li>
+        <li><span class="dday">3. Gün</span><span><b>Brunch:</b> Farm Girl ya da Pepperon · <b>Tatlı:</b> Hummingbird cupcake · <b>İkindi çayı:</b> Candella <b>(rez.)</b> · <b>Akşam:</b> Garum / Mamma Mia (Queensway)</span></li>
+        <li><span class="dday">4. Gün</span><span><b>Öğle:</b> müze kafeleri · <b>Akşam:</b> Sunday roast — Hunter's Moon / Hereford Arms <b>(rez.)</b></span></li>
+        <li><span class="dday">5. Gün</span><span><b>Öğle:</b> Backlot Café + Butterbeer (stüdyo) · <b>Akşam:</b> Victoria/Belgravia — Market Halls, Thomas Cubitt, Kazan · tatlı: Peggy Porschen</span></li>
+        <li><span class="dday">6. Gün</span><span><b>Geç öğle:</b> Borough Market tezgâhları — Kappacasein · Padella · Bread Ahead · Humble Crumble · <b>Akşam:</b> tekneyle Battersea Power Station / Swan at the Globe / Hawksmoor</span></li>
+        <li><span class="dday">7. Gün</span><span><b>Öğle:</b> Zoo içi ya da Camden (Poppies, Chin Chin Labs) · <b>Kahve:</b> WatchHouse · <b>Mola:</b> Seven Dials Market · <b>Akşam:</b> Chinatown — Hankki / Banana Tree + Bubblewrap</span></li>
+        <li><span class="dday">8. Gün</span><span><b>Kahvaltı:</b> otelde hızlı — sonra yola</span></li>
       </ul>
-    </div>
-
-    <div class="grouplabel"><span class="dot" style="background:var(--red)"></span> Kalan işler</div>
-    <div class="tix">
-      <div class="tixhead"><h4>Tower of London</h4><span class="price">£37 / £18,50</span></div>
-      <p>28 Tem sabahı için saatli bilet — programda giriş 10:00. Online almak kapıdan ~£3-5 ucuz; çocuk (5-15) £18,50, 5 yaş altı ücretsiz ama Nil için de yer ayırtılıyor. Resmî: hrp.org.uk.</p>
-    </div>
-    <div class="tix">
-      <div class="tixhead"><h4>Havaalanı transferleri</h4><span class="price">geliş ücretsiz ✓</span></div>
-      <p><b>Geliş (23 Tem):</b> Booking.com'un ücretsiz shuttle taksisi ayarlandı — uçuşu takip edip karşılıyorlar, kapıdan kapıya. <b>Dönüş (30 Tem):</b> sabit fiyatlı transfer ya da taksi ayarla (~£55-65, ~1-1,25 sa); gidişteki firmanın dönüş ayağı da sorulabilir.</p>
-    </div>
-    <div class="tix">
-      <div class="tixhead"><h4>Restoran rezervasyonları</h4></div>
-      <ul class="donelist">
-        <li><span class="dday">Gün 1 / 4</span><span><b>Dishoom Kensington</b> — akşam yemeği için rezervasyon şart.</span></li>
-        <li><span class="dday">Gün 4 · Pazar</span><span><b>Sunday roast</b> — Hunter's Moon ya da Hereford Arms; Pazar 12-15 arası doluyor.</span></li>
-        <li><span class="dday">Gün 3</span><span><b>Candella Tea Room</b> — ikindi çayı; küçük mekân, önceden ayırt.</span></li>
-      </ul>
-    </div>
-
-    <div class="grouplabel"><span class="dot" style="background:var(--gold)"></span> Opsiyoneller — istenirse hepsi önceden biletli</div>
-    <div class="tix">
-      <ul class="donelist">
-        <li><span class="dday">Gün 2'ye sığar</span><span><b>Buckingham State Rooms</b> — yaz açılışı, ~£35, saatli. royalcollection.org.uk</span></li>
-        <li><span class="dday">Ayrı gün</span><span><b>Madame Tussauds</b> — fikir değişirse Merlin saatli bilet; Baker St, Zoo'ya yakın.</span></li>
-      </ul>
-    </div>
-
-    <div class="grouplabel"><span class="dot" style="background:var(--green)"></span> Ücretsiz — bilet gerektirmez</div>
-    <div class="tix">
-      <ul class="donelist">
-        <li><span class="dday">Gün 2</span><span>Nöbet Değişimi, Horse Guards, St James's Park, South Bank yürüyüşü.</span></li>
-        <li><span class="dday">Gün 3</span><span>Portobello Market, Notting Hill sokakları, Kensington Gardens ve Diana oyun alanı.</span></li>
-        <li><span class="dday">Gün 5</span><span>King's Cross 9¾ fotoğraf noktası (Euston rotasında).</span></li>
-        <li><span class="dday">Gün 6</span><span>Borough Market girişi, Sky Garden (önceden ücretsiz slot), Millennium Köprüsü, Leadenhall Market.</span></li>
-        <li><span class="dday">Gün 7</span><span>Camden, Covent Garden, Neal's Yard, Trafalgar Square, Chinatown takları.</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- TRANSPORT -->
-  <section id="ulasim">
-    <h2 class="sec">Ulaşım &amp; bebek arabası rehberi</h2>
-    <p class="sec-lead">Londra'da çocuklu seyahatin püf noktaları:</p>
-    <div class="info-grid">
-      <div class="info"><h4>Ulaşım fiyatları — £ ve ~TL (1£ ≈ 61 TL, Haziran 2026)</h4>
-        <table class="pricetable">
-          <tr><th>Ulaşım</th><th>Fiyat</th><th>~TL</th><th>Süre/Not</th></tr>
-          <tr><td>Metro (1-2. bölge, tek)</td><td>~£2,90 (yoğun saat ~£3,40)</td><td class="try">~175-205 TL</td><td>Temassız öde-geç; günlük tavan ~£8,90 (~545 TL)</td></tr>
-          <tr><td>Otobüs (tek)</td><td>£1,75 · 1 saatte aktarmalar dahil</td><td class="try">~105 TL</td><td>Araba katlamadan biner; günlük tavan ~£5,25</td></tr>
-          <tr><td>Çocuklar (11 yaş altı)</td><td>Ücretsiz</td><td class="try">0 TL</td><td>Zeynep + Nil tüm metro/otobüste bedava</td></tr>
-          <tr><td>Uber (kısa, 10-15 dk)</td><td>~£10-15</td><td class="try">~610-915 TL</td><td>Örn. otel→Buckingham ~£15</td></tr>
-          <tr><td>Uber (orta, 25-35 dk)</td><td>~£18-30</td><td class="try">~1.100-1.830 TL</td><td>Örn. otel→Tower ~£30; akşam kapıya dönüş ~£18-20</td></tr>
-          <tr><td>Siyah taksi (black cab)</td><td>Uber'den ~%20-30 pahalı</td><td class="try">—</td><td>Bebek koltuğu muafiyeti + araba açık girer</td></tr>
-          <tr><td>Uber Boat (tekne, merkez)</td><td>~£10 / 5-15 yaş yarım</td><td class="try">~610 TL</td><td>London Bridge→Westminster ~30 dk; Nil ücretsiz</td></tr>
-          <tr><td>Havaalanı ↔ otel</td><td>Geliş: ücretsiz shuttle ✓ · dönüş taksi ~£55-65</td><td class="try">0 / ~3.355-3.965 TL</td><td>Kapıdan kapıya ~1-1,25 sa; dönüşü önceden ayarla</td></tr>
-          <tr><td>HP servis paketi (kişi)</td><td>~£94 (bilet+servis)</td><td class="try">~5.735 TL</td><td>Victoria'dan; tren alternatifi: bilet £58,50 + tren ~£12</td></tr>
-        </table>
-        <p style="margin-top:8px;font-size:.82rem">Plandaki diğer £ tutarlarını TL'ye çevirmek için <b>~61 ile çarp</b>. Kur yaklaşıktır; gidiş tarihinde değişebilir.</p>
-      </div>
-      <div class="info"><h4>Ödeme</h4><p>Metro/otobüste <b>temassız kart/telefonla</b> öde-geç en pratiği; günlük üst limit (cap) var. <b>11 yaş altı ücretsiz</b> seyahat eder — yani Zeynep ve Nil bedava.</p></div>
-      <div class="info"><h4>Bebek arabası</h4><p>Metroda birçok istasyonda asansör yok; mümkünse <b>otobüsleri</b> tercih et (hepsi alçak tabanlı + rampalı). Otelin istasyonları <b>Queensway</b> (Central) ve <b>Bayswater</b> (Circle/District) kapının dibinde ama asansörsüz — bebek arabalı günlerde otobüs ya da taksi yine en pratik. Müzeler, London Eye ve stüdyoda bebek bakım odası mevcut.</p></div>
-      <div class="info"><h4>Uber mı, taksi mi?</h4><p>Uber'de <b>çocuk koltuğu standart gelmez</b>. Nil için en pratik çözüm <b>siyah taksi (black cab)</b>: koltuk zorunluluğundan muaf, içine bebek arabası açık girer. Bagajlı transferlerde (ilk/son gün) <b>Uber XL</b> ya da taksi, valizlerle aktarma yapmadan kapıdan kapıya götürür.</p></div>
-      <div class="info"><h4>Faydalı uygulama</h4><p><b>Citymapper</b> — Londra için kapı-kapı yönlendirme, asansörlü/erişilebilir rotaları ve canlı sefer saatlerini gösterir.</p></div>
-      <div class="info"><h4>Hava</h4><p>Temmuzda ~22–26°C ama değişken. İnce katmanlar + küçük bir yağmurluk; güneşli günler için şapka/krem. Arabaya yağmurluk örtü pratik olur.</p></div>
-      <div class="info"><h4>Tempo</h4><p>Plan bilerek "büyük gün – sakin gün" ritminde. Nil'in şekerleme saatlerini park/tekne/araba molalarına denk getirdim; bir gün ağır gelirse o günü kısaltıp ertesini boş bırakmak en iyisi.</p></div>
-      <div class="info"><h4>Akşam çocukla/bebekle nereye? (19-21 arası)</h4>
-        <div class="litem"><span class="lname">1 · South Bank</span><span class="ldesc">Açık ara en iyisi: nehir kenarı, ışıklı Eye, sokak sanatçıları, geniş düz yürüyüş, bol aile.</span><span class="ltag">Gün 2</span></div>
-        <div class="litem"><span class="lname">2 · Covent Garden</span><span class="ldesc">Kapalı çarşı + gösteriler; hava bozsa bile keyifli.</span><span class="ltag">Gün 7</span></div>
-        <div class="litem"><span class="lname">3 · Chinatown + Leicester Sq</span><span class="ldesc">Evet, mantıklı: 19-21 arası ışıl ışıl, kalabalık ve aile dolu; fenerler çocuklara şenlik gibi. Not: araba kalabalıkta yavaş ilerler, çantana dikkat.</span><span class="ltag">Gün 7</span></div>
-        <div class="litem"><span class="lname">4 · Granary Square</span><span class="ldesc">King's Cross'ta zemin fıskiyeleri akşam renkli ışıklı — çocuklar bayılır.</span><span class="ltag">Gün 5 dönüşü</span></div>
-        <div class="litem"><span class="lname">5 · Queensway &amp; Westbourne Grove</span><span class="ldesc">Otelin sokağı: her mutfaktan restoran, akşam canlı ve aydınlık.</span><span class="ltag">Her akşam</span></div>
-        <div class="litem"><span class="lname">6 · Paddington İstasyonu</span><span class="ldesc">Paddington ayısı heykeli + Brunel'in görkemli istasyon çatısı; otele 12 dk yürüyüş — boş bir akşamın mini foto gezisi.</span><span class="ltag">Boş akşam</span></div>
-        <p style="margin-top:8px;font-size:.84rem">Hepsinden dönüş: Central hattı aktarmasız ya da kapıya Uber (~£15-20 · ~915-1.220 TL).</p>
-      </div>
     </div>
   </section>
 
   <!-- SHOPPING -->
   <section id="alisveris">
-    <h2 class="sec">Alışveriş — kompakt rehber</h2>
-    <p class="sec-lead">Rotadaki mağazalar zaten her günün <b>"Mağaza &amp; mola"</b> listesinde. Burada toplu bakış ve birkaç genel adres var.</p>
+    <h2 class="sec">Alışveriş — gün gün</h2>
+    <p class="sec-lead">Her mağaza, rotada denk geldiği günün altında. Başlığa dokununca o günün programına gidersin.</p>
     <div class="tip" style="margin-bottom:20px"><b>Bilinmesi gerekenler:</b>
       <ul style="margin:6px 0 0;padding-left:18px">
         <li>Turistlere KDV iadesi 2021'de kalktı — "tax-free" beklemeyin.</li>
@@ -1352,51 +1360,80 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
       </ul>
     </div>
 
-    <div class="tastecard">
-      <h4><i data-lucide="book-open"></i> Kitapçı &amp; çocuk — rotadakiler</h4>
-      <div class="litem"><span class="ltag">Gün 3</span><span class="lname">Notting Hill Bookshop</span><span class="ldesc">Filmin gerçek kitapçısı (13 Blenheim Crescent); cam çatılı çocuk bölümü — doğum günü kitabı durağı.</span></div>
-      <div class="litem"><span class="ltag">Gün 5</span><span class="lname red">HP Shop 9¾</span><span class="ldesc">İsme özel Hogwarts kabul mektubu + bina atkıları; Euston rotasında, King's Cross.</span></div>
-      <div class="litem"><span class="ltag">Gün 7</span><span class="lname alt">Benjamin Pollock's</span><span class="ldesc">1880'lerden Viktorya oyuncak tiyatroları — Covent Garden çarşısının üst katında; Hamleys'in zıttı, masal gibi.</span></div>
-      <div class="litem"><span class="ltag">Gün 7</span><span class="lname">Stanfords</span><span class="ldesc">Dünyanın en ünlü seyahat kitapçısı (1853); yanı başında Cecil Court sahaf pasajı.</span></div>
-      <div class="litem"><span class="ltag">Gün 7</span><span class="lname red">LEGO Store</span><span class="ldesc">Leicester Sq — Londra'ya özel setler (double-decker, Tower Bridge mini).</span></div>
-      <div class="litem"><span class="ltag">Gün 7</span><span class="lname alt">House of MinaLima</span><span class="ldesc">HP filmlerinin grafik tasarım galerisi (Soho) — giriş ücretsiz; Zeynep'in ikinci büyü dünyası.</span></div>
-      <div class="litem"><span class="ltag">Gün 7 ops.</span><span class="lname red">Hamleys + Waterstones Piccadilly</span><span class="ldesc">7 katlı oyuncakçı ve Avrupa'nın en büyük kitapçısının çocuk katı (resimli HP baskıları) — Chinatown'a 5 dk.</span></div>
-      <div class="litem"><span class="ltag off">Her yerde</span><span class="lname red">Jellycat</span><span class="ldesc">Kült peluşlar TR fiyatının çok altında — Hamleys, Waterstones ve müze mağazalarında.</span></div>
+    <div class="shopday">
+      <a class="sd-head" href="#g2"><span class="sd-num"><b>2</b><small>24 Tem</small></span><span class="sd-tx"><b>Cuma — Buckingham &amp; South Bank</b><span>Tören sonrası tek durak</span></span><span class="sd-go">güne git →</span></a>
+      <ul class="sd-list">
+        <li><span class="cat cat-gift">hediyelik</span><span><b><a href="https://www.google.com/maps/search/?api=1&query=Buckingham+Palace+Shop" target="_blank" rel="noopener">Buckingham Palace Shop</a></b> — tören sonrası corgi peluşlar ve saray hediyelikleri</span></li>
+      </ul>
     </div>
 
-    <div class="tastecard">
-      <h4><i data-lucide="gift"></i> Hediyelik klasikleri</h4>
-      <div class="litem"><span class="ltag">Gün 2</span><span class="lname">Buckingham Palace Shop</span><span class="ldesc">Tören sonrası corgi peluşlar.</span></div>
-      <div class="litem"><span class="ltag">Gün 4</span><span class="lname">NHM dinozor mağazası</span><span class="ldesc">Müze hediyeliklerinin en iyisi; Science shop bitişik.</span></div>
-      <div class="litem"><span class="ltag">Gün 5</span><span class="lname gold">Stüdyo mağazası</span><span class="ldesc">Bazı HP ürünleri yalnızca stüdyoda satılıyor.</span></div>
-      <div class="litem"><span class="ltag">Gün 6</span><span class="lname gold">Monmouth çekirdeği</span><span class="ldesc">Borough'da; eve dönecek taze kavrum kahve.</span></div>
-      <div class="litem"><span class="ltag">Gün 7</span><span class="lname gold">Whittard + Ben's Cookies + TfL moquette</span><span class="ldesc">Covent Garden üçlüsü: çay/sıcak çikolata, teneke kutuda kurabiye, metro kumaşından cüzdan-çanta.</span></div>
-      <div class="litem"><span class="ltag off">Rota dışı</span><span class="lname gold">Fortnum &amp; Mason / Twinings</span><span class="ldesc">Şık çay hediyesi gerekirse: F&amp;M Piccadilly'de (Gün 7 akşamına eklenebilir), Twinings Strand'de.</span></div>
-      <div class="litem"><span class="ltag off">Boots · yol üstü</span><span class="lname blue">Eczane rafı</span><span class="ldesc">Childs Farm bebek bakım serisi, büyük boy Sudocrem, No7 serumlar — hepsi Boots şubelerinden.</span></div>
-      <div class="litem"><span class="ltag off">Her gün · market</span><span class="lname">Market rafı</span><span class="ldesc">Walkers shortbread, Marmite, Paddington marmelatı, clotted cream fudge; Ella's/Organix bebek atıştırmalıkları.</span></div>
+    <div class="shopday">
+      <a class="sd-head" href="#g3"><span class="sd-num"><b>3</b><small>25 Tem</small></span><span class="sd-tx"><b>Cumartesi — Portobello &amp; Notting Hill</b><span>Doğum günü + pazar günü</span></span><span class="sd-go">güne git →</span></a>
+      <ul class="sd-list">
+        <li><span class="cat cat-book">kitapçı</span><span><b><a href="https://www.google.com/maps/search/?api=1&query=The+Notting+Hill+Bookshop" target="_blank" rel="noopener">The Notting Hill Bookshop</a></b> — filmin gerçek kitapçısı; cam çatılı çocuk bölümü, doğum günü kitabı durağı</span></li>
+        <li><span class="cat cat-gift">hediyelik</span><span><b><a href="https://www.google.com/maps/search/?api=1&query=Biscuiteers+Notting+Hill" target="_blank" rel="noopener">Biscuiteers</a></b> — el boyaması "icing" bisküvi butiği; en zarif yenilebilir hediyelik</span></li>
+        <li><span class="cat cat-gift">hediyelik</span><span><b>Portobello tezgâhları</b> — antika, vintage oyuncak ve plak kolileri</span></li>
+      </ul>
     </div>
 
-    <div class="tastecard">
-      <h4><i data-lucide="calendar"></i> Hangi mağaza hangi güne?</h4>
-      <table class="pricetable">
-        <tr><th>Gün</th><th>Rota üstü</th></tr>
-        <tr><td>2 · Cum</td><td>Buckingham Palace Shop (tören sonrası)</td></tr>
-        <tr><td>3 · Cmt</td><td>Notting Hill Bookshop + Portobello tezgâhları</td></tr>
-        <tr><td>4 · Paz</td><td>NHM dinozor mağazası; dönüşte Harrods yemek katı (ops.)</td></tr>
-        <tr><td>5 · Pzt</td><td>Stüdyo mağazası; Euston rotasında HP Shop 9¾</td></tr>
-        <tr><td>6 · Sal</td><td>Tower Bridge mağazası; Borough'da Monmouth</td></tr>
-        <tr><td>7 · Çar</td><td>Zoo shop → Camden tezgâhları → Covent Garden (Pollock's, Transport Museum Shop, Whittard, Ben's, Stanfords) → MinaLima → ops. Hamleys / Waterstones / LEGO</td></tr>
-      </table>
+    <div class="shopday">
+      <a class="sd-head" href="#g4"><span class="sd-num"><b>4</b><small>26 Tem</small></span><span class="sd-tx"><b>Pazar — Müzeler</b><span>Müze mağazaları</span></span><span class="sd-go">güne git →</span></a>
+      <ul class="sd-list">
+        <li><span class="cat cat-kid">çocuk</span><span><b><a href="https://www.google.com/maps/search/?api=1&query=Natural+History+Museum+Shop+London" target="_blank" rel="noopener">NHM dinozor mağazası</a></b> + Science Museum shop — çocuk hediyeliklerinin en iyileri</span></li>
+        <li><span class="cat cat-gift">hediyelik</span><span><b><a href="https://www.google.com/maps/search/?api=1&query=Harrods" target="_blank" rel="noopener">Harrods yemek katı</a></b> — dönüş yolunda istenirse (12 dk); kutulu çay ve tatlılar</span></li>
+      </ul>
+    </div>
+
+    <div class="shopday">
+      <a class="sd-head" href="#g5"><span class="sd-num"><b>5</b><small>27 Tem</small></span><span class="sd-tx"><b>Pazartesi — Harry Potter stüdyosu</b><span>Tek ama önemli durak</span></span><span class="sd-go">güne git →</span></a>
+      <ul class="sd-list">
+        <li><span class="cat cat-kid">çocuk</span><span><b>Stüdyo mağazası</b> — asalar, bina atkıları, Butterbeer kupası; bazı ürünler yalnızca burada satılıyor</span></li>
+      </ul>
+    </div>
+
+    <div class="shopday">
+      <a class="sd-head" href="#g6"><span class="sd-num"><b>6</b><small>28 Tem</small></span><span class="sd-tx"><b>Salı — Tower, Borough &amp; Greenwich</b><span>Kahve ve el yapımı işler</span></span><span class="sd-go">güne git →</span></a>
+      <ul class="sd-list">
+        <li><span class="cat cat-gift">hediyelik</span><span><b><a href="https://www.google.com/maps/search/?api=1&query=Tower+Bridge+Gift+Shop" target="_blank" rel="noopener">Tower Bridge mağazası</a></b> — köprü çıkışında, cam zemin hatırası</span></li>
+        <li><span class="cat cat-gift">hediyelik</span><span><b><a href="https://www.google.com/maps/search/?api=1&query=Monmouth+Coffee+Borough" target="_blank" rel="noopener">Monmouth Coffee</a></b> (Borough) — eve dönecek taze kavrum çekirdek</span></li>
+        <li><span class="cat cat-gift">hediyelik</span><span><b><a href="https://www.google.com/maps/search/?api=1&query=Greenwich+Market" target="_blank" rel="noopener">Greenwich Market tezgâhları</a></b> — el yapımı takı, baskı ve zanaat işleri</span></li>
+      </ul>
+    </div>
+
+    <div class="shopday">
+      <a class="sd-head" href="#g7"><span class="sd-num"><b>7</b><small>29 Tem</small></span><span class="sd-tx"><b>Çarşamba — Camden &amp; Covent Garden</b><span>Büyük alışveriş günü</span></span><span class="sd-go">güne git →</span></a>
+      <ul class="sd-list">
+        <li><span class="cat cat-kid">çocuk</span><span><b><a href="https://www.google.com/maps/search/?api=1&query=Harry+Potter+Shop+at+Platform+9+3%2F4" target="_blank" rel="noopener">HP Shop 9¾</a></b> — King's Cross sapağında; isme özel Hogwarts kabul mektubu, bina atkıları</span></li>
+        <li><span class="cat cat-gift">hediyelik</span><span><b><a href="https://www.google.com/maps/search/?api=1&query=Camden+Market" target="_blank" rel="noopener">Camden tezgâhları</a></b> — eklektik dükkânlar, el işleri</span></li>
+        <li><span class="cat cat-kid">oyuncak</span><span><b><a href="https://www.google.com/maps/search/?api=1&query=Benjamin+Pollocks+Toyshop+Covent+Garden" target="_blank" rel="noopener">Benjamin Pollock's</a></b> — 1880'lerden Viktorya oyuncak tiyatroları (Covent Garden çarşısı, üst kat)</span></li>
+        <li><span class="cat cat-gift">hediyelik</span><span><b><a href="https://www.google.com/maps/search/?api=1&query=London+Transport+Museum+Shop" target="_blank" rel="noopener">Transport Museum Shop</a></b> — TfL koltuk kumaşı (moquette) ürünleri + "Mind the Gap" çorapları</span></li>
+        <li><span class="cat cat-gift">hediyelik</span><span><b><a href="https://www.google.com/maps/search/?api=1&query=Whittard+Covent+Garden" target="_blank" rel="noopener">Whittard</a></b> (çay, sıcak çikolata) + <b><a href="https://www.google.com/maps/search/?api=1&query=Bens+Cookies+Covent+Garden" target="_blank" rel="noopener">Ben's Cookies</a></b> (teneke kutuda kurabiye)</span></li>
+        <li><span class="cat cat-book">kitapçı</span><span><b><a href="https://www.google.com/maps/search/?api=1&query=Stanfords+Covent+Garden" target="_blank" rel="noopener">Stanfords</a></b> — dünyanın en ünlü seyahat kitapçısı; 3 dk ötede <b>Cecil Court</b> sahaf pasajı</span></li>
+        <li><span class="cat cat-kid">çocuk</span><span><b><a href="https://www.google.com/maps/search/?api=1&query=LEGO+Store+Leicester+Square" target="_blank" rel="noopener">LEGO Store</a></b> + <b><a href="https://www.google.com/maps/search/?api=1&query=M%26Ms+World+London" target="_blank" rel="noopener">M&amp;M's World</a></b> (Leicester Sq) — Londra'ya özel setler; 4 katlı M&amp;M dünyası ücretsiz gezilir</span></li>
+        <li><span class="cat cat-kid">çocuk</span><span><b><a href="https://www.google.com/maps/search/?api=1&query=House+of+MinaLima" target="_blank" rel="noopener">House of MinaLima</a></b> (ücretsiz galeri) + <b><a href="https://www.google.com/maps/search/?api=1&query=House+of+Spells+London" target="_blank" rel="noopener">House of Spells</a></b> — büyü meraklıları için ikili</span></li>
+        <li><span class="cat cat-butik">butik</span><span><b><a href="https://www.google.com/maps/search/?api=1&query=Petersham+Nurseries+Covent+Garden" target="_blank" rel="noopener">Petersham Nurseries</a></b> (çiçekli avlu, ev-bahçe) + <b><a href="https://www.google.com/maps/search/?api=1&query=Neals+Yard+Remedies+Covent+Garden" target="_blank" rel="noopener">Neal's Yard Remedies</a></b> (doğal kozmetiğin orijinali)</span></li>
+        <li><span class="cat cat-kid">çocuk</span><span><b><a href="https://www.google.com/maps/search/?api=1&query=Hamleys+Regent+Street" target="_blank" rel="noopener">Hamleys</a></b> — programda 19:45 durağı · istenirse <b><a href="https://www.google.com/maps/search/?api=1&query=Waterstones+Piccadilly" target="_blank" rel="noopener">Waterstones Piccadilly</a></b> çocuk katı + resimli HP baskıları (Chinatown'a 5 dk)</span></li>
+        <li><span class="cat cat-gift">hediyelik</span><span><b><a href="https://www.google.com/maps/search/?api=1&query=Fortnum+and+Mason+Piccadilly" target="_blank" rel="noopener">Fortnum &amp; Mason</a></b> — şık çay hediyesi gerekiyorsa Piccadilly'de, akşam turuna 5 dk sapak</span></li>
+      </ul>
+    </div>
+
+    <div class="shopday">
+      <a class="sd-head" href="#g1"><span class="sd-num any"><b>∞</b><small>her gün</small></span><span class="sd-tx"><b>Yol üstü — güne bağlı değil</b><span>Şubesi her yerde olanlar</span></span></a>
+      <ul class="sd-list">
+        <li><span class="cat cat-kid">çocuk</span><span><b>Jellycat</b> — kült peluşlar TR fiyatının çok altında; Hamleys, Waterstones ve müze mağazalarında</span></li>
+        <li><span class="cat cat-gift">eczane</span><span><b>Boots rafı</b> — Childs Farm bebek serisi, büyük boy Sudocrem, No7 serumlar</span></li>
+        <li><span class="cat cat-gift">market</span><span><b>Market rafı</b> — Walkers shortbread, Marmite, Paddington marmelatı, clotted cream fudge; Ella's/Organix bebek atıştırmalıkları</span></li>
+      </ul>
     </div>
   </section>
 
   <!-- SOLO TRIP -->
   <section id="solo">
-    <h2 class="sec">Tek tek gezmek isteyeceğiniz yerler</h2>
-    <p class="sec-lead">Çocuklarla yapılan turda sığmayan, yetişkinlere göre yerler. İkinizden biri çocuklarla kalırken diğeri gidebilir; ya da ileride 6 aylık vizeyle solo bir dönüşte. İki ayrı liste: biri sana (tarih, müze, spor, sakinlik), biri eşine (alışveriş, kafe, rahat yürüyüş).</p>
+    <h2 class="sec">Yetişkin rotaları</h2>
+    <p class="sec-lead">Aile turuna sığmayan, yetişkinlere göre yerler — nöbetleşe yarım gün ya da ileride ayrı bir gezi için. Başlıklara dokunarak açın.</p>
 
-    <div class="solocard he">
-      <div class="solohead"><span class="who"><i data-lucide="user"></i> Sana</span><span class="days">~2 tam gün</span></div>
+    <details class="solocard he">
+      <summary class="solohead"><span class="who"><i data-lucide="landmark"></i> Rota A — Tarih &amp; Müze</span><span class="days">~2 tam gün</span></summary>
       <p class="solointro">Tarih + müze ağırlıklı; çoğu ücretsiz ve birbirine yürüme/kısa metro mesafesinde. İki güne böldüm: biri "Bloomsbury–Westminster tarih", biri "nehir + City + spor".</p>
       <div class="litem"><span class="lname">British Museum</span><span class="ldesc">Rosetta Taşı, mumyalar, Partenon mermerleri. Bloomsbury, ücretsiz. Tek başına yarım–tam gün.</span><span class="ltag">Gün A</span></div>
       <div class="litem"><span class="lname">British Library</span><span class="ldesc">Magna Carta, Shakespeare ilk baskıları, Beatles el yazmaları — "Treasures" odası. British Museum'a 12 dk.</span><span class="ltag">Gün A</span></div>
@@ -1409,20 +1446,20 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
       <div class="litem"><span class="lname red"><i data-lucide="trophy"></i> Lord's / Twickenham</span><span class="ldesc">Kriket "evi" Lord's müze + tur, ya da Twickenham ragbi müzesi — niş ama spor tutkununa değer.</span><span class="ltag off">İsteğe bağlı</span></div>
       <div class="litem"><span class="lname gold"><i data-lucide="landmark"></i> Stonehenge (Taş Devri)</span><span class="ldesc">~5.000 yıllık megalit anıt, Neolitik dönemden. Londra'ya ~2 saat (tren+servis ya da turla). Yanında <b>Salisbury Katedrali</b> (Magna Carta nüshası burada) + istersen <b>Avebury</b> taş çemberi/Silbury Höyüğü eklenir. Tarih + arkeoloji sevenin rüyası.</span><span class="ltag">+1 tam gün</span></div>
       <p class="solonote"><b>Sakinlik molası:</b> Sir John Soane's Museum (mimarın ev-müzesi) ve Wallace Collection — ikisi de ücretsiz, küçük, sessiz; tarih+huzur arayan için ideal ara duraklar. <b>Not:</b> Stonehenge tek başına şehir dışı bir tam gün (~9-10 saat) ister; bu geziye değil, solo/ileriki bir dönüşe denk getirmek en rahatı.</p>
-    </div>
+    </details>
 
-    <div class="solocard she">
-      <div class="solohead"><span class="who"><i data-lucide="user"></i> Eşine</span><span class="days">~2 gün</span></div>
+    <details class="solocard she">
+      <summary class="solohead"><span class="who"><i data-lucide="shopping-bag"></i> Rota B — Alışveriş, Kafe &amp; Fotoğraf</span><span class="days">~2 gün</span></summary>
       <p class="solointro">Alışveriş, kafe ve rahat yürüyüş ağırlıklı; koşturmadan, oturup keyif yaparak. Bir gün West End + bir gün sanat/çay + fotoğraf molaları.</p>
       <div class="litem"><span class="lname alt">Liberty + Carnaby</span><span class="ldesc">Tudor cepheli efsane mağaza + Carnaby sokakları. İçinde kahve molası şart.</span><span class="ltag">Gün A</span></div>
       <div class="litem"><span class="lname alt">Regent &amp; Bond Street</span><span class="ldesc">Vitrin gezisi + büyük mağazalar; Mayfair'in arka sokaklarında sakin butikler.</span><span class="ltag">Gün A</span></div>
-      <div class="litem"><span class="lname alt">Fortnum &amp; Mason çayı</span><span class="ldesc">Diamond Jubilee Tea Salon'da düzgün bir afternoon tea — eşine bu gezinin tacı.</span><span class="ltag">Gün A · ayırt</span></div>
+      <div class="litem"><span class="lname alt">Fortnum &amp; Mason çayı</span><span class="ldesc">Diamond Jubilee Tea Salon'da düzgün bir afternoon tea — bu rotanın tacı.</span><span class="ltag">Gün A · ayırt</span></div>
       <div class="litem"><span class="lname alt">Covent Garden + Neal's Yard</span><span class="ldesc">Çocuklarla hızlı geçtiyseniz, solo'da butikler + Neal's Yard'da oturmalı kahve.</span><span class="ltag">Gün A</span></div>
       <div class="litem"><span class="lname alt">V&amp;A Müzesi</span><span class="ldesc">Moda, mücevher, tasarım — dünyanın en güzel dekoratif sanat müzesi. Ücretsiz, kafesi bile görülmeye değer.</span><span class="ltag">Gün B</span></div>
       <div class="litem"><span class="lname alt">National Gallery</span><span class="ldesc">Trafalgar Sq'de başyapıtlar; yorulunca kafesinde mola. Ücretsiz.</span><span class="ltag">Gün B</span></div>
       <div class="litem"><span class="lname alt">Chelsea / King's Road</span><span class="ldesc">Sakin, şık yürüyüş: butikler, çiçekçiler, kafeler; Saatchi Gallery (ücretsiz) yol üstünde.</span><span class="ltag">Gün B</span></div>
       <div class="litem"><span class="lname alt">Sky Garden / kafe manzara</span><span class="ldesc">Rahat oturup şehre bakmak için ücretsiz teras; ya da bir nehir kenarı kafe.</span><span class="ltag off">İsteğe bağlı</span></div>
-      <p class="solointro" style="margin-top:12px;margin-bottom:6px"><b><i data-lucide="camera"></i> Instagram'lık şık &amp; "cicili bicili" mekânlar</b> — influencer'ların favorisi, fotoğraf için birebir:</p>
+      <p class="solointro" style="margin-top:12px;margin-bottom:6px"><b><i data-lucide="camera"></i> Fotojenik kafe &amp; mekânlar</b> — fotoğraf için birebir:</p>
       <div class="litem"><span class="lname pink"><a href="https://www.google.com/maps/search/?api=1&query=Peggy+Porschen+Belgravia" target="_blank" rel="noopener">Peggy Porschen</a></span><span class="ldesc">Londra'nın en meşhur pembe çiçekli cephesi; mevsimlik dekor, "yenir sanat" pastalar. Belgravia (orijinal) ya da Chelsea/King's Rd şubesi. Çay için 24 sa önce rezervasyon, kek için sıra usulü.</span><span class="ltag">Belgravia/Chelsea</span></div>
       <div class="litem"><span class="lname pink"><a href="https://www.google.com/maps/search/?api=1&query=Saint+Aymes+Cafe+Connaught+Street+London" target="_blank" rel="noopener">Saint Aymes</a></span><span class="ldesc">Altın + unicorn temalı, çiçek dolu rüya gibi mekân; 24 ayar altınlı içecekler, en şık afternoon tea. Hyde Park yakını (Connaught St).</span><span class="ltag">Hyde Park yanı</span></div>
       <div class="litem"><span class="lname pink"><a href="https://www.google.com/maps/search/?api=1&query=EL%26N+Cafe+Mayfair+London" target="_blank" rel="noopener">EL&amp;N Café</a></span><span class="ldesc">"Londra'nın en çok fotoğraflanan kafesi": pembe çiçek duvarları, kalpli dekor. Birden çok şube (Mayfair, South Ken, Soho).</span><span class="ltag">Çok şube</span></div>
@@ -1430,16 +1467,15 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
       <div class="litem"><span class="lname pink"><a href="https://www.google.com/maps/search/?api=1&query=Dalloway+Terrace+London" target="_blank" rel="noopener">Dalloway Terrace</a></span><span class="ldesc">Mevsime göre değişen çiçekli terası olan ünlü mekân (Bloomsbury). Çiçek kemerleri altında fotoğraf + brunch.</span><span class="ltag">Bloomsbury</span></div>
       <div class="litem"><span class="lname pink">Chelsea/Belgravia sokakları</span><span class="ldesc">Mekânın kendisi gerekmez: Elizabeth Street, Bywater St'in renkli evleri, Kynance Mews, Notting Hill'in pastel kapıları — açık hava "çiçekli Londra" çekimleri için en şık noktalar.</span><span class="ltag">Açık hava</span></div>
       <p class="solonote"><b>Tempo:</b> Bu liste bilerek gevşek — günde 3-4 durak, aralarda uzun kahve molaları. Acele yok.</p>
-    </div>
+    </details>
 
-    <div class="tip" style="margin-top:16px"><b>Özet:</b> İkiniz de tüm listeyi yapmak isterse toplam <b>~3,5-4 gün</b> solo zaman gerekir. Bu geziye sığmaz; ya nöbetleşe (biri çocuklarla, diğeri yarım gün dışarı) parça parça, ya da ileride 6 aylık vizeyle kısa bir dönüş turunda rahatça yapılır.</div>
+    <div class="tip" style="margin-top:16px"><b>Özet:</b> İki rota birden toplam <b>~3,5-4 gün</b> ister; bu geziye sığmaz. Nöbetleşe yarım günler hâlinde ya da ileride ayrı bir gezide rahatça yapılır.</div>
   </section>
 
 </div>
 
 <footer>
-  Londra Aile Gezisi · 23–30 Temmuz 2026 — Ahmet, eşi, Zeynep &amp; Nil için <span class="heart"><i data-lucide="heart" class="hl-heart"></i></span><br>
-  Saatler yaklaşık; rezervasyon saatlerini biletlere göre ufak ayarla.
+  Londra Gezi Rehberi · 23–30 Temmuz 2026
 </footer>
 
 <!-- MOBILE APP BAR + GUIDE SHEET -->
@@ -1448,16 +1484,21 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
   <div class="grip"></div>
   <h3>Rehber &amp; ekler</h3>
   <p class="sheet-sub">Gün programı dışındaki tüm bölümler</p>
-  <a class="sheet-link" href="#oncelik"><span class="sl-ico"><i data-lucide="pin"></i></span><span class="sl-tx"><b>Biletler cebimizde</b><span>Alınan biletler + kalan işler</span></span><span class="sl-arrow">→</span></a>
-  <a class="sheet-link" href="#mahalle"><span class="sl-ico"><i data-lucide="bed-double"></i></span><span class="sl-tx"><b>Otel &amp; mahalle</b><span>Üssümüz, ulaşım bağlantıları</span></span><span class="sl-arrow">→</span></a>
-  <a class="sheet-link" href="#ulasim"><span class="sl-ico"><i data-lucide="train"></i></span><span class="sl-tx"><b>Ulaşım rehberi</b><span>Oyster, otobüs, akşam dönüşleri</span></span><span class="sl-arrow">→</span></a>
+  <a class="sheet-link" href="#mahalle"><span class="sl-ico"><i data-lucide="bed-double"></i></span><span class="sl-tx"><b>Konaklama</b><span>Adres ve metro bağlantıları</span></span><span class="sl-arrow">→</span></a>
   <a class="sheet-link" href="#lezzet"><span class="sl-ico"><i data-lucide="utensils"></i></span><span class="sl-tx"><b>Lezzet rehberi</b><span>Fish&amp;chips, roast, çay, tatlılar</span></span><span class="sl-arrow">→</span></a>
-  <a class="sheet-link" href="#biletler"><span class="sl-ico"><i data-lucide="ticket"></i></span><span class="sl-tx"><b>Biletler &amp; fiyatlar</b><span>HP, Tower, Zoo, Eye, fiyat tablosu</span></span><span class="sl-arrow">→</span></a>
   <a class="sheet-link" href="#alisveris"><span class="sl-ico"><i data-lucide="shopping-bag"></i></span><span class="sl-tx"><b>Alışveriş rehberi</b><span>Hediyelik, mağaza, hangi gün ne</span></span><span class="sl-arrow">→</span></a>
 </div>
 
+<div class="idrawer-backdrop" id="idB"></div>
+<aside class="idrawer" id="idD" role="dialog" aria-modal="true" aria-label="Mekân bilgisi">
+  <button class="id-close" id="idX" aria-label="Kapat" type="button">✕</button>
+  <div class="id-kicker" id="idK"></div>
+  <h3 id="idT"></h3>
+  <div id="idC"></div>
+</aside>
+
 <nav class="appbar">
-  <button data-target="#oncelik"><span class="abi"><i data-lucide="clipboard"></i></span>Plan</button>
+  <button data-target="#mahalle"><span class="abi"><i data-lucide="clipboard"></i></span>Plan</button>
   <button data-target="#g1"><span class="abi"><i data-lucide="calendar"></i></span>Günler</button>
   <button id="guideBtn"><span class="abi"><i data-lucide="compass"></i></span>Rehber</button>
   <button data-target="#solo"><span class="abi"><i data-lucide="user"></i></span>Solo</button>
@@ -1500,13 +1541,14 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
 
   // highlight active appbar tab + day-strip pill on scroll
   var spy = [
-    {id:'oncelik', btn:0},{id:'mahalle',btn:0},
+    {id:'mahalle',btn:0},{id:'lezzet',btn:2},{id:'alisveris',btn:2},
     {id:'g1',btn:1},{id:'g2',btn:1},{id:'g3',btn:1},{id:'g4',btn:1},
     {id:'g5',btn:1},{id:'g6',btn:1},{id:'g7',btn:1},{id:'g8',btn:1},
     {id:'solo',btn:3}
   ];
   var abtns = document.querySelectorAll('.appbar button');
   var stripLinks = document.querySelectorAll('.daystrip a');
+  var navLinks = document.querySelectorAll('nav.daynav a');
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(en){
       if(en.isIntersecting){
@@ -1516,10 +1558,79 @@ import '@fontsource-variable/fraunces/opsz-italic.css';
         stripLinks.forEach(function(a){
           a.classList.toggle('on', a.getAttribute('href')==='#'+en.target.id);
         });
+        // masaüstü gün nav vurgusu + aktif sekmenin görünür kalması
+        navLinks.forEach(function(a){
+          var on = a.getAttribute('href')==='#'+en.target.id;
+          if(on && !a.classList.contains('on') && a.scrollIntoView){
+            try{ a.scrollIntoView({block:'nearest', inline:'center', behavior:'smooth'}); }catch(e){}
+          }
+          a.classList.toggle('on', on);
+        });
       }
     });
   }, {rootMargin:'-45% 0px -50% 0px'});
   spy.forEach(function(s){ var el=document.getElementById(s.id); if(el) io.observe(el); });
+
+  // bilgi çekmecesi — mekân adlarına tıklayınca tarihçe/önem
+  var INFO = {
+    tower: {k:'Kale · 1078', t:'Tower of London', d:"<p>Fatih William'ın 1078'de yaptırdığı kale; 950 yıl boyunca saray, hazine, darphane ve ünlü bir hapishane olarak kullanıldı. Anne Boleyn burada idam edildi.</p><p><b>Bugün:</b> Kraliyet Mücevherleri (İmparatorluk Tacı dahil), kule kuzgunları ve Tudor üniformalı Beefeater rehberler. Efsaneye göre kuzgunlar kaleyi terk ederse krallık yıkılır.</p>"},
+    towerbridge: {k:'Köprü · 1894', t:'Tower Bridge', d:"<p>1894'te açılan, buhar gücüyle çalışan açılır köprü — Viktorya mühendisliğinin şaheseri. Hâlâ yılda ~800 kez gemiler için açılıyor.</p><p><b>Bugün:</b> Üst geçitte cam zeminden 42 m aşağıdaki trafiği izlersiniz; bilete dahil Viktorya dönemi motor odalarında orijinal buhar makineleri duruyor. (London Bridge ile karıştırılır — o, bir sonraki sade köprü.)</p>"},
+    borough: {k:'Pazar · ~1014', t:'Borough Market', d:"<p>Londra'nın en eski yiyecek pazarı — kayıtları 1014'e kadar iziliyor; bin yıldır aynı bölgede kurulur. Yeşil demir çatıları Viktorya döneminden.</p><p><b>Bugün:</b> Şehrin gurme kalbi: yüzü aşkın tezgâhta peynirden istiridyeye her şey. Bridget Jones ve Harry Potter sahneleri burada çekildi.</p>"},
+    cuttysark: {k:'Yelkenli · 1869', t:'Cutty Sark', d:"<p>1869'da inşa edilen çay kliperi — Çin'den Londra'ya çay taşıyan gemilerin en hızlısıydı; yelkenli çağının son ve en görkemli temsilcisi.</p><p><b>Bugün:</b> Greenwich iskelesinin dibinde kuru havuzda sergileniyor; dışından tüm gövde ve direkleri görülür, içi ve altına girmek biletli.</p>"},
+    observatory: {k:'Gözlemevi · 1675', t:'Royal Observatory & Meridyen', d:"<p>II. Charles'ın 1675'te denizcilik için kurdurduğu gözlemevi. Dünyanın boylam sıfır noktası — <b>Başlangıç Meridyeni (0°)</b> — 1884'te burada kabul edildi; küresel saat (GMT) buradan ayarlanır.</p><p><b>Bugün:</b> Avludaki çizgide bir ayağınız doğu, bir ayağınız batı yarım kürede fotoğraf çektirirsiniz. Tepeden Londra silüeti manzarası ücretsizdir; müze kısmı biletli.</p>"},
+    greenwichmarket: {k:'Çarşı · 1737', t:'Greenwich Market', d:"<p>1737'den beri kurulan, üstü kapalı zanaat ve yemek pazarı — Londra'nın UNESCO Dünya Mirası alanı içindeki tek tarihî pazarı.</p><p><b>Bugün:</b> El yapımı takı, baskı ve antika tezgâhları + dünya mutfağı büfeleri; yağmurda bile keyifli.</p>"},
+    globe: {k:'Tiyatro · 1599/1997', t:"Shakespeare's Globe", d:"<p>Shakespeare'in oyunlarının ilk kez sahnelendiği 1599 tarihli açık havalı tiyatronun, orijinal yerinin 200 m yakınında dönem teknikleriyle (meşe + saz çatı) yapılmış birebir kopyası (1997).</p><p><b>Bugün:</b> Yazın hâlâ gündüz ışığında, mikrofonsuz oyun sahneleniyor. Beyaz sıvalı yuvarlak binası nehirden kolayca seçilir.</p>"},
+    stpauls: {k:'Katedral · 1710', t:"St Paul's Katedrali", d:"<p>1666 Büyük Yangını'ndan sonra Christopher Wren'in yeniden yaptığı başyapıt (1710). Kubbesi 250 yıl boyunca Londra'nın en yüksek yapısıydı; Churchill'in cenazesi ve Kral Charles–Diana düğünü burada yapıldı.</p><p><b>Bugün:</b> II. Dünya Savaşı bombardımanında ayakta kalışının fotoğrafı direnişin simgesidir. Nehirden ve Millennium Köprüsü aksından en güzel görünümünü verir.</p>"},
+    hmsbelfast: {k:'Savaş gemisi · 1938', t:'HMS Belfast', d:"<p>II. Dünya Savaşı'nın en önemli İngiliz kruvazörlerinden; Normandiya Çıkarması'nda ilk top atışlarını yapan gemilerdendir.</p><p><b>Bugün:</b> 1971'den beri Thames üzerinde yüzen müze; dokuz güvertesi gezilebiliyor (biletli), nehirden silüeti etkileyici.</p>"},
+    goldenhinde: {k:'Kalyon kopyası', t:'Golden Hinde', d:"<p>Francis Drake'in 1577-80'de dünyanın çevresini dolaştığı kalyonun tam boy kopyası — orijinali, bu turu tamamlayan ikinci gemiydi.</p><p><b>Bugün:</b> Borough Market'in yanındaki küçük havuzda; dışından 2 dakikalık bakış yeterli, içi biletli.</p>"},
+    leadenhall: {k:'Pasaj · 1881', t:'Leadenhall Market', d:"<p>Roma forumunun üzerine kurulmuş, 14. yüzyıldan beri pazar olan alandaki 1881 tarihli görkemli Viktorya pasajı — kırmızı-altın demir işçiliği ve cam çatısıyla.</p><p><b>Bugün:</b> Harry Potter'da <b>Diagon Yolu</b> olarak çekildi; Çatlak Kazan'ın kapısı da buradadır (mavi kapı, Bull's Head Passage).</p>"},
+    buckingham: {k:'Saray · 1837\'den beri resmî konut', t:'Buckingham · Changing of the Guard', d:"<p>1703'te konak olarak yapıldı; Kraliçe Victoria'dan (1837) beri hükümdarın resmî Londra konutu. 775 odası var; bayrak direğinde kraliyet sancağı varsa Kral içeridedir.</p><p><b>Nöbet Değişimi:</b> Ayı postu şapkalı muhafızların bando eşliğinde tören devri — 24 Temmuz'da görev 1st Battalion Grenadier Guards'ta, bando Band of the Welsh Guards (11:00, ~45 dk, ücretsiz).</p>"},
+    bigben: {k:'Saat kulesi · 1859', t:'Big Ben', d:"<p>Asıl adı Elizabeth Kulesi; Big Ben aslında içindeki 13,7 tonluk büyük çanın adıdır. 1859'dan beri Londra'nın sesi — BBC radyosu saat başlarını hâlâ bu çanla verir.</p><p><b>Bugün:</b> 2017-2022 restorasyonuyla kadranların mavi-altın orijinal renkleri geri döndü. En iyi kare Westminster Köprüsü ve Parliament Square köşesinden.</p>"},
+    abbey: {k:'Kilise · 1066\'dan beri taç giyme', t:'Westminster Abbey', d:"<p>1066'dan bu yana tüm İngiliz hükümdarları burada taç giydi; Newton, Darwin, Dickens ve Hawking burada gömülü. Kraliçe Elizabeth'in cenazesi ve William-Kate düğünü de burada yapıldı.</p><p><b>Bugün:</b> Gotik cephesi dışarıdan bile etkileyici; iç gezi biletli ve uzun sürer — bu rotada dıştan bakış yeterli.</p>"},
+    eye: {k:'Dönme dolap · 2000', t:'London Eye', d:"<p>Milenyum için yapılan 135 m'lik dev gözlem çarkı — açıldığında dünyanın en yükseğiydi ve 'geçici' olması planlanmıştı; şehrin vazgeçilmez simgesine dönüştü.</p><p><b>Bugün:</b> 32 kapalı kapsülün her biri bir Londra ilçesini temsil eder; tur 30 dk sürer, açık günlerde ~40 km görüş sağlar.</p>"},
+    portobello: {k:'Pazar · 1860\'lar', t:'Portobello Road Market', d:"<p>1860'lardan beri kurulan sokak pazarı — dünyanın en büyük antika pazarı olarak bilinir; 2 km boyunca bin kadar tezgâh.</p><p><b>Bugün:</b> Cumartesi ana gündür: antikalar güneyde, yemek ortada, vintage kuzeyde. Pastel evleriyle Notting Hill filminin de sahnesi.</p>"},
+    kpalace: {k:'Saray · 1689', t:'Kensington Palace', d:"<p>1689'dan beri kraliyet konutu; Kraliçe Victoria burada doğdu, Prenses Diana 15 yıl burada yaşadı. Bugün Galler Prensi William'ın ailesinin resmî Londra evi.</p><p><b>Bugün:</b> Bahçeleri ve dış cephesi serbest; State Apartments biletli. Önündeki Diana heykeli ve batık bahçe görülmeye değer.</p>"},
+    playground: {k:'Oyun alanı · 2000', t:'Diana Memorial Playground', d:"<p>Prenses Diana'nın anısına 2000'de açılan, Peter Pan temalı oyun alanı — yazarı J.M. Barrie bu parkın hemen yanında oturur, hikâyeyi buradaki çocuklara anlatırmış.</p><p><b>Bugün:</b> Dev ahşap korsan gemisi, kumsal ve duyu bahçesiyle Londra'nın en iyi ücretsiz çocuk alanı; yalnızca çocuklu aileler girebilir.</p>"},
+    nhm: {k:'Müze · 1881', t:'Doğa Tarihi Müzesi · Natural History Museum', d:"<p>1881 tarihli, katedrali andıran Romanesk binasıyla 'doğanın sarayı'. 80 milyon örneklik koleksiyonun temeli Darwin dönemine uzanır.</p><p><b>Bugün:</b> Girişteki Hintze Hall'da tavandan sarkan 25 m'lik mavi balina iskeleti 'Hope' karşılar; dinozor galerisindeki hareketli T. rex çocukların klasiğidir. Giriş ücretsiz.</p>"},
+    science: {k:'Müze · 1857', t:'Science Museum', d:"<p>1857'de Büyük Sergi'nin mirasıyla kuruldu; Stephenson'ın Rocket lokomotifi ve Apollo 10 kapsülü gibi orijinaller burada.</p><p><b>Bugün:</b> Giriş ücretsiz; Wonderlab interaktif galerisi (biletli) büyük çocuklar, bodrumdaki The Garden minikler içindir.</p>"},
+    rah: {k:'Konser salonu · 1871', t:'Royal Albert Hall', d:"<p>Kraliçe Victoria'nın eşi Prens Albert'in anısına 1871'de açılan, kırmızı tuğlalı yuvarlak konser salonu — dünyanın en ünlü sahnelerinden.</p><p><b>Bugün:</b> Her yaz BBC Proms festivaline ev sahipliği yapar. Karşısındaki altın kaplama Albert Memorial ile birlikte parkın güney kapısının süsüdür.</p>"},
+    fountain: {k:'Anıt çeşme · 2004', t:'Diana Memorial Fountain', d:"<p>Prenses Diana anısına 2004'te açılan, halka biçiminde akan granit çeşme — 'kapsayıcılık' fikriyle çitsiz tasarlandı.</p><p><b>Bugün:</b> Yazın çocukların ayaklarını suya sokması serbesttir; Serpentine gölünün hemen yanında, çimlerde mola için ideal.</p>"},
+    hpstudio: {k:'Film stüdyosu', t:'Warner Bros. Studio Tour', d:"<p>Sekiz Harry Potter filminin 10 yıl boyunca çekildiği gerçek Leavesden stüdyoları — setler yıkılmak yerine 2012'de müzeye dönüştürüldü.</p><p><b>Bugün:</b> Gerçek Büyük Salon, Diagon Yolu ve 9¾ Peronu setleri, orijinal kostüm ve aksesuarlarla. Butterbeer yalnızca burada ve parklarda satılır.</p>"},
+    cathedral: {k:'Katedral · 1903', t:'Westminster Cathedral', d:"<p>İngiltere'nin ana Katolik katedrali (1903) — kırmızı-beyaz çizgili Neo-Bizans mimarisi Londra'da başka hiçbir şeye benzemez; Westminster Abbey ile karıştırılmasın.</p><p><b>Bugün:</b> İçi yarı bitmiş mozaikleriyle loş ve çarpıcıdır; giriş ücretsiz. Victoria İstasyonu'na 5 dk.</p>"},
+    kx: {k:'İstasyon · 1852', t:"King's Cross — 9¾ Peronu", d:"<p>J.K. Rowling, Hogwarts Ekspresi'ni gerçek King's Cross'tan (1852) kaldırdı; istasyon içinde duvara yarı gömülü bagaj arabasıyla resmî fotoğraf noktası kuruldu.</p><p><b>Bugün:</b> Kendi telefonunuzla çekim ücretsizdir (atkı ödünç verilir, kuyruk olabilir); yanında HP Shop. Bitişikteki masalsı kızıl bina ise St Pancras'tır — filmdeki dış çekimler onundur.</p>"},
+    zoo: {k:'Hayvanat bahçesi · 1828', t:'ZSL London Zoo', d:"<p>1828'de kurulan dünyanın en eski bilimsel hayvanat bahçesi — 'zoo' kelimesi buradan türedi. İlk akvaryum, ilk sürüngen evi ve ilk çocuk hayvanat bahçesi de burada açıldı.</p><p><b>Bugün:</b> Sürüngen Evi, ilk Harry Potter filmindeki piton sahnesinin çekildiği yerdir. 2026, kuruluşun 200. yılı.</p>"},
+    camden: {k:'Pazar · 1974', t:'Camden Market', d:"<p>1974'te kanal kenarında 16 tezgâhla başladı; bugün haftada 100.000'i aşkın ziyaretçisiyle Londra alternatif kültürünün merkezi. Amy Winehouse'un mahallesiydi — heykeli Stables Market'te.</p><p><b>Bugün:</b> Kanal havzası, at ahırlarından dönüşme çarşılar ve dünya mutfağı tezgâhları; hafta içi çok daha sakin.</p>"},
+    primrose: {k:'Tepe · panorama', t:'Primrose Hill', d:"<p>Regent's Park'ın kuzeyindeki 63 m'lik çim tepe — Londra siluetinin korunmuş altı manzara aksından biri; zirve taşında Blake'ten bir dize yazar.</p><p><b>Bugün:</b> Shard'dan Eye'a tüm silüet tek karede; piknik ve gün batımı klasiği.</p>"},
+    coventgarden: {k:'Meydan · 1630\'lar', t:'Covent Garden', d:"<p>1630'larda Londra'nın ilk planlı meydanı olarak kuruldu; 300 yıl şehrin sebze-çiçek hali olarak çalıştı (My Fair Lady'nin Eliza'sı burada çiçek satar). 1980'de zarif bir çarşıya dönüştü.</p><p><b>Bugün:</b> Cam çatılı Apple Market, lisanslı sokak sanatçıları ve Kraliyet Operası; Avrupa'nın en iyi sokak gösterisi sahnesi sayılır.</p>"},
+    trafalgar: {k:'Meydan · 1844', t:'Trafalgar Square', d:"<p>Nelson'ın 1805 Trafalgar deniz zaferinin anıtı: 52 m'lik sütun ve dört bronz aslan (topların eritilmesiyle döküldü). Londra'nın resmî 'kilometre sıfır' noktasıdır.</p><p><b>Bugün:</b> Dördüncü Kaide'de dönüşümlü çağdaş sanat sergilenir; arkadaki National Gallery ücretsizdir.</p>"},
+    shadthames: {k:'Sokak · 19. yy', t:'Shad Thames', d:"<p>Viktorya döneminde 'Londra'nın kileri' denen dev depo sırası — baharat ve çay depoları arasındaki havada asılı demir yük geçitleri olduğu gibi duruyor.</p><p><b>Bugün:</b> Depolar şık dairelere dönüştü ama sokak film seti atmosferini korur; Oliver Twist uyarlamaları burada çekildi.</p>"},
+    hamleys: {k:'Oyuncakçı · 1760', t:'Hamleys', d:"<p>1760'ta kurulan, dünyanın en eski ve en ünlü oyuncak mağazası — kraliyet beratlı. II. Dünya Savaşı'nda beş kez bombalandı, beşinde de yeniden açıldı.</p><p><b>Bugün:</b> Regent Street'teki 7 katında canlı oyuncak gösterileri yapılır; alt katta Harry Potter bölümü vardır.</p>"}
+  };
+  var idB = document.getElementById('idB'), idD = document.getElementById('idD');
+  var idT = document.getElementById('idT'), idK = document.getElementById('idK'), idC = document.getElementById('idC');
+  function openInfo(key){
+    var e = INFO[key]; if(!e) return;
+    idK.textContent = e.k; idT.innerHTML = e.t; idC.innerHTML = e.d;
+    idB.classList.add('open'); idD.classList.add('open'); idD.scrollTop = 0;
+  }
+  function closeInfo(){ idB.classList.remove('open'); idD.classList.remove('open'); }
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('.il');
+    if(b){ e.preventDefault(); openInfo(b.getAttribute('data-info')); }
+  });
+  document.getElementById('idX').addEventListener('click', closeInfo);
+  idB.addEventListener('click', closeInfo);
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeInfo(); });
+
+  // kalkışa geri sayım (mobil marka satırı)
+  var bbc = document.getElementById('bbCount');
+  if (bbc) {
+    var tripStart = new Date(2026, 6, 23), tripEnd = new Date(2026, 6, 30);
+    var now = new Date(); var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var diff = Math.round((tripStart - today) / 86400000);
+    if (diff > 0) bbc.textContent = 'Kalkışa ' + diff + ' gün';
+    else if (today <= tripEnd) bbc.textContent = 'Gezinin ' + (Math.round((today - tripStart) / 86400000) + 1) + '. günü';
+  }
 
   // render Lucide icons (fallback for any missing name)
   if(window.lucide && lucide.createIcons){
