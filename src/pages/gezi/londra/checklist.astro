@@ -1,0 +1,265 @@
+---
+// Kişisel seyahat kontrol listesi; arama motorlarına kapalı (noindex + robots.txt + sitemap dışı).
+import '@fontsource-variable/fraunces/opsz.css';
+import '@fontsource-variable/fraunces/opsz-italic.css';
+---
+
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Londra Checklist · 23–30 Temmuz 2026</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#10069f">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style is:global>
+  :root{
+    --ink:#181a25; --ink-soft:#4a4f63; --paper:#f3efe6; --paper-2:#e8e2d4; --card:#fbf9f3;
+    --line:#d6cfbe; --green:#10069f; --green-deep:#0a0470; --red:#dc241f; --gold:#b07b1e;
+    --shadow:0 14px 40px -22px rgba(16,6,40,.5);
+    --serif:'Fraunces Variable','Iowan Old Style',Charter,Georgia,ui-serif,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;font-size:113%}
+  body{font-family:var(--serif);font-optical-sizing:auto;color:var(--ink);background:var(--paper);
+    line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+
+  header.hero{background:linear-gradient(155deg,var(--green) 0%,var(--green-deep) 100%);color:#f5f2ea;
+    padding:clamp(30px,6vw,48px) 0;position:relative;overflow:hidden}
+  header.hero::after{content:"";position:absolute;right:-46px;top:-56px;width:190px;height:190px;border-radius:50%;
+    border:28px solid rgba(220,36,31,.5)}
+  .kicker{font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;color:#f0d9a7;font-weight:700}
+  .hero h1{font-weight:600;font-size:clamp(1.9rem,6.5vw,3rem);line-height:1.06;margin:10px 0 8px;position:relative;z-index:1}
+  .hero h1 em{font-style:italic;color:#f0d9a7;font-weight:500}
+  .hero .sub{font-size:.98rem;color:rgba(245,242,234,.85)}
+  .backlink{display:inline-flex;align-items:center;gap:6px;margin-top:16px;color:#f0d9a7;font-weight:700;
+    font-size:.85rem;text-decoration:none;border:1px solid rgba(240,217,167,.45);border-radius:999px;padding:7px 14px}
+  .backlink:hover{background:rgba(240,217,167,.15)}
+
+  .progress{position:sticky;top:0;z-index:30;background:rgba(243,239,230,.96);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:10px 0}
+  .progress .row{display:flex;align-items:center;gap:12px}
+  .pbar{flex:1;height:10px;background:var(--paper-2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+  .pbar i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--green),#0098d4);
+    border-radius:99px;transition:width .3s ease}
+  .pcount{font-weight:800;font-size:.85rem;color:var(--green-deep);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .preset{border:0;background:none;cursor:pointer;font-family:inherit;font-size:.72rem;font-weight:700;
+    color:var(--ink-soft);text-decoration:underline dotted}
+
+  section{padding:26px 0 6px}
+  h2.sec{font-weight:600;font-size:1.5rem;letter-spacing:-.01em;margin-bottom:4px;display:flex;align-items:center;gap:10px}
+  h2.sec .cnt{font-size:.72rem;font-weight:800;background:var(--paper-2);border:1px solid var(--line);
+    border-radius:999px;padding:3px 10px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+  .sec-lead{color:var(--ink-soft);font-size:.9rem;margin-bottom:14px}
+
+  .clcard{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);
+    margin-bottom:16px;overflow:hidden}
+  .clcard h3{font-size:1.02rem;font-weight:700;padding:12px 16px;background:var(--paper-2);
+    border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px}
+  .clcard h3 .em{font-size:1.1rem}
+  ul.cl{list-style:none}
+  .cl li{border-bottom:1px dashed var(--line)}
+  .cl li:last-child{border-bottom:0}
+  .cl label{display:flex;gap:12px;align-items:flex-start;padding:11px 16px;cursor:pointer;transition:background .15s}
+  .cl label:hover{background:rgba(20,18,14,.03)}
+  .cl input{appearance:none;-webkit-appearance:none;flex:0 0 auto;width:22px;height:22px;margin-top:2px;
+    border:2px solid var(--line);border-radius:7px;background:#fff;cursor:pointer;position:relative;transition:.15s}
+  .cl input:checked{background:var(--green);border-color:var(--green)}
+  .cl input:checked::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:.85rem;font-weight:800}
+  .cl .tx{font-size:.94rem;color:var(--ink-soft);line-height:1.5}
+  .cl .tx b{color:var(--ink)}
+  .cl input:checked ~ .tx{opacity:.5;text-decoration:line-through;text-decoration-color:rgba(20,18,14,.4)}
+  .cl .note{display:block;font-size:.8rem;color:#8a8371;margin-top:1px}
+  .warn{background:#fbf1e8;border-left:4px solid #c4632b}
+  .warn .tx b{color:#a3461b}
+
+  footer{background:var(--green-deep);color:rgba(244,239,228,.7);text-align:center;padding:26px 20px;
+    font-size:.85rem;margin-top:34px}
+  footer a{color:#f0d9a7}
+  @media (max-width:600px){
+    html{font-size:106%}
+    .wrap{padding:0 16px}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Aile Seyahat Planı</div>
+    <h1>Londra <em>Checklist</em></h1>
+    <p class="sub">23 – 30 Temmuz 2026 · İşaretledikleriniz bu telefonda kayıtlı kalır.</p>
+    <a class="backlink" href="/gezi/londra/rehber">← Gezi rehberine dön</a>
+  </div>
+</header>
+
+<div class="progress"><div class="wrap row">
+  <div class="pbar"><i id="pfill"></i></div>
+  <span class="pcount" id="pcount">0/0</span>
+  <button class="preset" id="preset" type="button">sıfırla</button>
+</div></div>
+
+<div class="wrap">
+
+  <section>
+    <h2 class="sec">🧳 Yanımızda götürülecekler <span class="cnt" data-cnt="s1"></span></h2>
+    <p class="sec-lead">Kabin bagajıyla seyahat: az ama isabetli. Eksikler Londra'da tamamlanır (Boots + Waitrose kapıda).</p>
+
+    <div class="clcard">
+      <h3><span class="em">📄</span> Belgeler &amp; para</h3>
+      <ul class="cl" data-sec="s1">
+        <li><label><input type="checkbox" data-k="d1"><span class="tx"><b>Pasaportlar (4)</b> ve UK vize sayfaları; son geçerlilik tarihlerini kontrol edin<span class="note">Fotoğraflarını telefona da kaydedin</span></span></label></li>
+        <li><label><input type="checkbox" data-k="d2"><span class="tx"><b>Uçuş biletleri</b> (VF5179 gidiş-dönüş) ve online check-in</span></label></li>
+        <li><label><input type="checkbox" data-k="d3"><span class="tx"><b>Konaklama yazışması</b>: 40 Queensway, Flat 1, W2 3RS; giriş talimatları e-postada</span></label></li>
+        <li><label><input type="checkbox" data-k="d4"><span class="tx"><b>Tüm bilet QR/PDF'leri telefonda</b>: HP stüdyo, Eye+SEA LIFE, NHM, Science, Tower Bridge, River Roamer, Zoo<span class="note">Web alımları uygulamada görünmeyebilir; galeriye/cüzdana kaydedin</span></span></label></li>
+        <li><label><input type="checkbox" data-k="d5"><span class="tx"><b>Seyahat sağlık sigortası</b> poliçesi (PDF telefonda)</span></label></li>
+        <li><label><input type="checkbox" data-k="d6"><span class="tx"><b>Temassız kartlar</b>: her yetişkinin kendi kartı (metroda kart başına bir kişi) + yedek kart ayrı çantada + az miktar nakit £</span></label></li>
+      </ul>
+    </div>
+
+    <div class="clcard">
+      <h3><span class="em">🔌</span> Elektronik</h3>
+      <ul class="cl" data-sec="s1">
+        <li><label><input type="checkbox" data-k="e1"><span class="tx"><b>UK priz adaptörü (G tipi, 3 pin) ×2</b>; adaptörsüz hiçbir fiş uymaz</span></label></li>
+        <li><label><input type="checkbox" data-k="e2"><span class="tx"><b>Powerbank</b> (gün boyu QR biletler telefonda; şarj bitmemeli) + kablolar</span></label></li>
+        <li><label><input type="checkbox" data-k="e3"><span class="tx"><b>eSIM / yurt dışı paketi</b> aktif; çevrimdışı Google Maps Londra haritası indirilmiş</span></label></li>
+        <li><label><input type="checkbox" data-k="e4"><span class="tx">Uçuş için <b>tablet + kulaklık</b> (10 yaş) ve indirilmiş çizgi film/dizi</span></label></li>
+      </ul>
+    </div>
+
+    <div class="clcard">
+      <h3><span class="em">🍼</span> Bebek (1 yaş)</h3>
+      <ul class="cl" data-sec="s1">
+        <li><label><input type="checkbox" data-k="b1"><span class="tx"><b>Bez + mama, ilk 2 güne yetecek kadar</b>; gerisi Queensway'deki Boots'tan</span></label></li>
+        <li><label><input type="checkbox" data-k="b2"><span class="tx"><b>Kanguru / önde taşıma</b>; metroda asansörsüz istasyonlarda hayat kurtarır</span></label></li>
+        <li><label><input type="checkbox" data-k="b3"><span class="tx"><b>Bebek arabası + yağmurluk örtüsü</b>; araba kabine alınmaz, uçak kapısında teslim edilir</span></label></li>
+        <li><label><input type="checkbox" data-k="b4"><span class="tx">Yedek kıyafet ×2 (gün çantasında), ıslak mendil, önlük, yedek emzik</span></label></li>
+        <li><label><input type="checkbox" data-k="b5"><span class="tx"><b>Ateş düşürücü şurup + burun damlası</b> ve alışık olduğu atıştırmalıklar<span class="note">Bebek maması/sütü kabin sıvı kuralından muaf; güvenlikte ayrı gösterin</span></span></label></li>
+      </ul>
+    </div>
+
+    <div class="clcard">
+      <h3><span class="em">🧥</span> Giyim &amp; diğer</h3>
+      <ul class="cl" data-sec="s1">
+        <li><label><input type="checkbox" data-k="g1"><span class="tx"><b>Herkese ince yağmurluk/rüzgârlık</b>; Temmuz 18-25°C ama gün içinde değişken</span></label></li>
+        <li><label><input type="checkbox" data-k="g2"><span class="tx"><b>Rahat yürüyüş ayakkabısı</b> (günde 8-10 km yürünüyor) + akşamlar için ince hırka</span></label></li>
+        <li><label><input type="checkbox" data-k="g3"><span class="tx">Şapka, güneş kremi, güneş gözlüğü, küçük şemsiye</span></label></li>
+        <li><label><input type="checkbox" data-k="g4"><span class="tx"><b>Küçük ilaç çantası</b>: ağrı kesici, band-aid, mide ilacı, çocuk termometresi</span></label></li>
+        <li><label><input type="checkbox" data-k="g5"><span class="tx"><b>Katlanır ek çanta</b>: dönüşte hediyelikler için; kabin hakkını aşmayın</span></label></li>
+        <li><label><input type="checkbox" data-k="g6"><span class="tx">Dairede çamaşır makinesi varsa küçük deterjan; 8 gün kabin bagajını rahatlatır</span></label></li>
+        <li><label><input type="checkbox" data-k="g7"><span class="tx">Su mataraları; müzelerde ve parklarda doldurma çeşmeleri var</span></label></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec">🇬🇧 UK'de dikkat <span class="cnt" data-cnt="s2"></span></h2>
+    <p class="sec-lead">Okuyup içselleştirin, sonra işaretleyin; çoğu ilk gün refleks hâline geliyor.</p>
+
+    <div class="clcard">
+      <h3><span class="em">🚦</span> Güvenlik &amp; günlük hayat</h3>
+      <ul class="cl" data-sec="s2">
+        <li class="warn"><label><input type="checkbox" data-k="u1"><span class="tx"><b>Trafik soldan akar: yola önce SAĞA bakarak inin.</b> Yerdeki "LOOK RIGHT" yazılarını çocuklara da gösterin; en kritik alışkanlık bu</span></label></li>
+        <li><label><input type="checkbox" data-k="u2"><span class="tx"><b>Yürüyen merdivende sağda durulur</b>, sol şerit yürüyenlerindir; Londra'nın katı kuralı</span></label></li>
+        <li><label><input type="checkbox" data-k="u3"><span class="tx">Musluk suyu içilir; acil durumda <b>999</b>, acil olmayan sağlık için <b>111</b>, eczane = Boots</span></label></li>
+        <li><label><input type="checkbox" data-k="u4"><span class="tx">Kalabalık turistik noktalarda (Chinatown, Camden) çanta ve telefon önde dursun</span></label></li>
+        <li><label><input type="checkbox" data-k="u5"><span class="tx">Saat farkı: Türkiye'nin 2 saat gerisi; ilk akşam uykuları ona göre planlayın</span></label></li>
+      </ul>
+    </div>
+
+    <div class="clcard">
+      <h3><span class="em">💳</span> Ödeme &amp; ulaşım</h3>
+      <ul class="cl" data-sec="s2">
+        <li><label><input type="checkbox" data-k="u6"><span class="tx"><b>Metro/otobüs temassız kartla</b>; hep aynı kartı kullanın (günlük tavan otomatik işler). <b>11 yaş altı ücretsiz</b>; turnikeden birlikte geçin</span></label></li>
+        <li><label><input type="checkbox" data-k="u7"><span class="tx">Otobüste nakit geçmez; yalnızca kart</span></label></li>
+        <li><label><input type="checkbox" data-k="u8"><span class="tx">Restoran hesaplarına çoğunlukla <b>%12,5 servis ücreti</b> eklidir; ayrıca bahşiş gerekmez</span></label></li>
+        <li><label><input type="checkbox" data-k="u9"><span class="tx">Pazar günü mağazalar geç açılır, erken kapanır (tipik 12:00-18:00); Pazar planını ona göre kurun</span></label></li>
+      </ul>
+    </div>
+
+    <div class="clcard">
+      <h3><span class="em">🛃</span> Bagaj &amp; gümrük</h3>
+      <ul class="cl" data-sec="s2">
+        <li class="warn"><label><input type="checkbox" data-k="u10"><span class="tx"><b>Dönüş de kabin bagajı: 100 ml sıvı kuralı geçerli.</b> Reçel, cin, krem gibi hediyelikleri ya küçük boy alın ya havalimanı duty-free'sinden (poşeti açmayın)</span></label></li>
+        <li><label><input type="checkbox" data-k="u11"><span class="tx">Turistlere KDV iadesi yok; TR gümrük muafiyeti kişi başı ~430€, fişleri saklayın</span></label></li>
+        <li><label><input type="checkbox" data-k="u12"><span class="tx">Çakmak, makas, çakı gibi şeyler kabinde sorun çıkarır; hiç almayın</span></label></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec">👨‍👩‍👧‍👦 Ailecek yapılacaklar <span class="cnt" data-cnt="s3"></span></h2>
+    <p class="sec-lead">Gitmeden bitecekler + orada unutulmayacaklar.</p>
+
+    <div class="clcard">
+      <h3><span class="em">✈️</span> Gitmeden önce</h3>
+      <ul class="cl" data-sec="s3">
+        <li class="warn"><label><input type="checkbox" data-k="a1"><span class="tx"><b>Stansted Express advance biletleri</b> (30 Tem dönüş); programdaki tek kalan bilet<span class="note">stanstedexpress.com; £9,90'dan başlar</span></span></label></li>
+        <li><label><input type="checkbox" data-k="a2"><span class="tx"><b>Restoran rezervasyonları</b>: The Orangery kutlama çayı (25 Tem) · Sunday roast, Hunter's Moon ya da Hereford Arms (26 Tem) · istenirse Thomas Cubitt (27 Tem)</span></label></li>
+        <li><label><input type="checkbox" data-k="a3"><span class="tx"><b>Booking shuttle teyidi</b>: uçuş numarası (VF5179) ve varış saati firmaya iletildi mi?</span></label></li>
+        <li><label><input type="checkbox" data-k="a4"><span class="tx">Bankalara yurt dışı kullanım bildirimi; kart limitleri kontrol</span></label></li>
+        <li><label><input type="checkbox" data-k="a5"><span class="tx">Rehber sayfasını telefonların ana ekranına ekleyin; herkeste açılıyor mu?</span></label></li>
+        <li><label><input type="checkbox" data-k="a6"><span class="tx">Doğum günü hazırlığı: mum + küçük süs çantada; 25 Tem sabahı Hummingbird cupcake planı ailede konuşuldu</span></label></li>
+        <li><label><input type="checkbox" data-k="a7"><span class="tx">Ev işleri: bitki/posta/komşu ayarları, buzdolabı boşaltma, vana-priz kontrolü</span></label></li>
+      </ul>
+    </div>
+
+    <div class="clcard">
+      <h3><span class="em">📍</span> Oradayken</h3>
+      <ul class="cl" data-sec="s3">
+        <li><label><input type="checkbox" data-k="o1"><span class="tx"><b>İlk akşam Waitrose alışverişi</b> (Porchester Rd): kahvaltılık, su, bebek ihtiyaçları</span></label></li>
+        <li><label><input type="checkbox" data-k="o2"><span class="tx">23 Tem akşamı <b>tören teyidi</b>: householddivision.org.uk'tan 24 Tem programına son bakış</span></label></li>
+        <li><label><input type="checkbox" data-k="o3"><span class="tx">Her sabah çıkmadan: günün QR biletleri açılıyor mu + powerbank dolu mu + mataralar dolu mu</span></label></li>
+        <li><label><input type="checkbox" data-k="o4"><span class="tx">27 Tem akşamı: 28 Tem köprü girişi 12:30; sabah planını rehberden hatırlayın</span></label></li>
+        <li><label><input type="checkbox" data-k="o5"><span class="tx">29 Tem gecesi: bavulları toplayın; 30 Tem 08:45 metro, 09:40 Stansted Express</span></label></li>
+        <li><label><input type="checkbox" data-k="o6"><span class="tx">Aile fotoğrafı görevleri: Blue Bridge, mavi kapı, meridyen çizgisi, 🎂 Orangery karesi; listedeki 📸 durakları bölüşün</span></label></li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  Londra Gezi Rehberi · 23–30 Temmuz 2026 · <a href="/gezi/londra/rehber">Gün gün program →</a>
+</footer>
+
+<script is:inline>
+  // işaretler bu tarayıcıda saklanır
+  var KEY = 'ldn-checklist-2026';
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.cl input[type="checkbox"]'));
+
+  function persist() {
+    var out = {};
+    boxes.forEach(function (b) { if (b.checked) out[b.getAttribute('data-k')] = 1; });
+    try { localStorage.setItem(KEY, JSON.stringify(out)); } catch (e) {}
+  }
+  function refresh() {
+    var done = boxes.filter(function (b) { return b.checked; }).length;
+    document.getElementById('pcount').textContent = done + '/' + boxes.length;
+    document.getElementById('pfill').style.width = (boxes.length ? (done / boxes.length) * 100 : 0) + '%';
+    ['s1', 's2', 's3'].forEach(function (sec) {
+      var list = boxes.filter(function (b) { return b.closest('[data-sec]').getAttribute('data-sec') === sec; });
+      var d = list.filter(function (b) { return b.checked; }).length;
+      var el = document.querySelector('[data-cnt="' + sec + '"]');
+      if (el) el.textContent = d + '/' + list.length;
+    });
+  }
+  boxes.forEach(function (b) {
+    if (saved[b.getAttribute('data-k')]) b.checked = true;
+    b.addEventListener('change', function () { persist(); refresh(); });
+  });
+  document.getElementById('preset').addEventListener('click', function () {
+    if (!confirm('Tüm işaretler silinsin mi?')) return;
+    boxes.forEach(function (b) { b.checked = false; });
+    persist(); refresh();
+  });
+  refresh();
+</script>
+</body>
+</html>
